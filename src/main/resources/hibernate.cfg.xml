@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!-- Configuración de Hibernate -->
+<hibernate-configuration>
+
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.connection.datasource">java:comp/env/jdbc/SanchezMAFinalHib</property> 
+        <mapping class="es.albarregas.beans.Usuario"/>
+        <mapping class="es.albarregas.beans.Administrador"/>
+        <mapping class="es.albarregas.beans.Tutor"/>
+        <mapping class="es.albarregas.beans.Alumno"/>
+        <mapping class="es.albarregas.beans.Familia"/>
+        <mapping class="es.albarregas.beans.Ciclo"/>
+        <mapping class="es.albarregas.beans.Modulo"/>
+        <mapping class="es.albarregas.beans.Nota"/>
+    </session-factory>
+</hibernate-configuration>
