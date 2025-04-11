@@ -8,14 +8,10 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <property name="hibernate.connection.datasource">java:comp/env/jdbc/SanchezMAFinalHib</property> 
-        <mapping class="es.albarregas.beans.Usuario"/>
-        <mapping class="es.albarregas.beans.Administrador"/>
-        <mapping class="es.albarregas.beans.Tutor"/>
-        <mapping class="es.albarregas.beans.Alumno"/>
-        <mapping class="es.albarregas.beans.Familia"/>
-        <mapping class="es.albarregas.beans.Ciclo"/>
-        <mapping class="es.albarregas.beans.Modulo"/>
-        <mapping class="es.albarregas.beans.Nota"/>
+       <!-- <property name="hibernate.hbm2ddl.auto">create</property>  CAMBIAR UNA VEZ CREADA LA BBDD -->
+        <property name="hibernate.connection.datasource">java:comp/env/jdbc/EntreHobbies</property>
+        <mapping class="es.entrehobbies.beans.Usuario"/>
+        <mapping class="es.entrehobbies.beans.Evento"/>
+        <mapping class="es.entrehobbies.beans.Categoria"/>
     </session-factory>
 </hibernate-configuration>

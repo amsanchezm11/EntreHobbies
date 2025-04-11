@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/EntreHobbies"/>
+<Context path="/EntreHobbies">
+    <Resource auth="Container"
+              driverClassName="com.mysql.jdbc.Driver"
+              maxActive="100"
+              maxIdle="30"
+              maxWait="10000"
+              name="jdbc/EntreHobbies"
+              password="AdminHobbies*2025"
+              type="javax.sql.DataSource"
+              url="jdbc:mysql://localhost:3306/entrehobbies" username="sanchezadminhobbies"/>
+</Context>
