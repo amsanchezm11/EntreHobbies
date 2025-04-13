@@ -11,21 +11,21 @@ import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 public class GenericoDAO<T> implements IGenericoDAO<T> {
 
-    private Session sesion;
+    protected Session sesion;
 
-    private void startTransaction() {
+    protected void startTransaction() {
         sesion = HibernateUtil.getSessionFactory().openSession();
         sesion.getTransaction().begin();
     }
 
-    private void endTransaction() {
+    protected void endTransaction() {
         if (sesion.getTransaction().getStatus().equals(TransactionStatus.ACTIVE)) {
             sesion.getTransaction().commit();
         }
         sesion.close();
     }
 
-    private void handleExcepcion(HibernateException he) throws HibernateException {
+    protected void handleExcepcion(HibernateException he) throws HibernateException {
         sesion.getTransaction().rollback();
         throw he;
     }

@@ -1,5 +1,65 @@
 
 
-body{
-    background-color: #333 !important;
+/*body{*/
+/*    background-color: #333 !important;*/
+/*}*/
+
+/*----- [ TEMA ] -----*/
+
+[data-bs-theme="light"] {
+    --bs-body-bg: #fff;
+    --bs-body-color: #000;
+}
+
+[data-bs-theme="dark"] {
+    --bs-body-bg: #121212;
+    --bs-body-color: #f8f9fa;
+}
+
+#themeIcon {
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s ease;
+}
+
+#themeIcon:hover {
+    transform: scale(1.2);
+}
+
+.theme-transition {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+/*-----[ BOTON RE REFRESCO ]------*/
+.btn-custom{
+    background-color: transparent;
+    border: none;
+}
+
+/*-------[ VISTA - LOGIN ]-------*/
+
+.bg-gradient-morado-blanco {
+    background: linear-gradient(120deg, #6f42c1 50%, white 50%);
+}
+
+.text-login{
+    font-size: 8rem !important;
+}
+
+.animacion-aparicion {
+    animation: fadeInSlide 0.4s ease forwards;
+}
+
+/*------[ ANIMACIONES ]-------*/
+
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

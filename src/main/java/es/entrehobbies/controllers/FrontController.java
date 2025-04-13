@@ -30,6 +30,9 @@ public class FrontController extends HttpServlet {
         String accion = request.getParameter("accion");
 
         switch (accion) {
+            case "Refresh":
+                url = ".";
+                break;
             case "Login":
                 url = "/JSP/LOGIN/login.jsp";
                 break;

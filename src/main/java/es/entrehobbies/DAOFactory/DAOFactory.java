@@ -1,5 +1,7 @@
 package es.entrehobbies.DAOFactory;
 
+import es.entrehobbies.DAO.IUsuarioDAO;
+
 public abstract class DAOFactory {
 
     /**
@@ -7,6 +9,8 @@ public abstract class DAOFactory {
      *
      * @return Inteface de las operaciones a realizar con la tabla
      */
+    public abstract IUsuarioDAO getUsuarioDAO();
+
 
     /**
      * Fábrica abstracta
