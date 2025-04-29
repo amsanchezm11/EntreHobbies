@@ -1,187 +1,245 @@
 /*
-* En este documento se aplicarán las distintas regex al formulario de registro de nuevo usuario
-* */
+ * En este documento se aplicarán las distintas regex al formulario de registro de nuevo usuario
+ */
 
 // Función comprobar regex
-function comprobarRegex(element, regex) {
-
-    if (regex.test(element.value)) {
-        element.classList.remove("rojo");
-        element.classList.add("verde");
+function comprobarRegex(element, regex, length) {
+    if (regex.test(element.value) && element.value.length <= length) {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
         return true;
     } else {
-        element.classList.remove("verde");
-        element.classList.add("rojo");
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
         return false;
     }
 }
 
-/**
- *  Regex Nombre --> Genera la regex y llama a la función comprobarRegex.
- *  Nombre Admite --> Texto y números con un máximo de 30 caracteres (con espacios entre palabras).
- *  @param {string} element El input a comprobar
- *  @returns {boolean} True si cumple la regex o False si no la cumple.
- */
+// Regex para nombre (letras y espacios, máx. 30 caracteres)
 function checkNombre(element) {
     let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñüÜ]+(?: [A-Za-zÁÉÍÓÚáéíóúÑñüÜ]+){0,29}$/;
-    return comprobarRegex(element, regex);
+    return comprobarRegex(element, regex, 30);
 }
 
-/**
- *  Regex Apellidos --> Genera la regex y llama a la función comprobarRegex.
- *  Apellidos Admite --> Texto y números con un máximo de 40 caracteres (con espacios entre palabras).
- *  @param {string} element El input a comprobar
- *  @returns {boolean} True si cumple la regex o False si no la cumple.
- */
+// Regex para apellidos (letras y espacios, máx. 40 caracteres)
 function checkApellidos(element) {
     let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñüÜ]+(?: [A-Za-zÁÉÍÓÚáéíóúÑñüÜ]+){0,39}$/;
-    return comprobarRegex(element, regex);
+    return comprobarRegex(element, regex, 40);
 }
 
-/**
- *  Regex Username --> Genera la regex y llama a la función comprobarRegex.
- *  Apellidos Admite --> Texto y números con una longitud entre 3 y 20 caracteres.
- *  No admite --> Espacios en blanco y símbolos.
- *  @param {string} element El input a comprobar
- *  @returns {boolean} True si cumple la regex o False si no la cumple.
- */
+// Regex para username (letras/números, sin espacios, entre 3 y 20 caracteres)
 function checkUsername(element) {
     let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñüÜ0-9]{3,20}$/;
-    return comprobarRegex(element, regex);
+    return comprobarRegex(element, regex, 20);
 }
 
-/**
- *  Regex Email --> Genera la regex y llama a la función comprobarRegex.
- *  E-mail Admite --> Correos electrónicos válidos que contengan '@' terminen en '.com' o '.es'.
- *  @param {string} element El valor del input a comprobar.
- *  @returns {boolean} True si cumple la regex o False si no la cumple.
- */
+// Regex para email (formato válido + .com o .es, sin dominios duplicados)
 function checkEmail(element) {
     let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|es)$/;
-    return element.length <=60 && comprobarRegex(element, regex);
+    let valor = element.value;
+    if (regex.test(valor)) {
+        // Comprobamos que no haya más de un ".com" o ".es" en la dirección
+        if (valor.indexOf(".com.com") !== -1 || valor.indexOf(".es.es") !== -1) {
+            element.classList.remove("is-valid");
+            element.classList.add("is-invalid");
+            return false;
+        }
+        return comprobarRegex(element, regex, 60);
+    } else {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
+    }
 }
 
-/**
- *  Regex Contraseña --> Genera la regex y llama a la función comprobarRegex.
- *  Contraseña Admite --> Cualquier carácter excepto espacios, con una longitud entre 1 y 100 caracteres.
- *  @param {string} element El input a comprobar
- *  @returns {boolean} True si cumple la regex o False si no la cumple.
- */
+
+// Regex para contraseña (cualquier carácter sin espacios, entre 6 y 100 caracteres)
 function checkPassword(element) {
-    let regex = /^[^\s]{1,100}$/;
-    console.log("Pass1:",element.value);
-    return comprobarRegex(element, regex);
+    let regex = /^[^\s]{6,100}$/;
+    return comprobarRegex(element, regex, 100);
 }
 
-/**
- *  Regex Confirmar Contraseña --> Comprueba que la contraseña que obtiene por parámetro(element) sea igual que la contraseña original.
- *  @param {*} element El input a comprobar
- *  @returns {boolean} True si cumple la regex o False si no la cumple.
- */
+// Confirmar que las contraseñas coincidan
 function confirmPassword(element) {
     let password = document.getElementById("password");
 
-    if (element.value === password.value) {
-        //element.classList.remove("rojo");
-        //element.classList.add("verde");
+    if (element.value === password.value && element.value.length > 0) {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
         return true;
     } else {
-        //element.classList.remove("verde");
-        //element.classList.add("rojo");
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
         return false;
     }
 }
 
-/**
- *  Regex Teléfono --> Genera la regex y llama a la función comprobarRegex.
- *  Teléfono Admite --> Números que empiecen por 6, 7, 9 con una longitud 9 dígitos.
- *  @param {string} element El input a comprobar
- *  @returns {boolean} True si cumple la regex o False si no la cumple.
- */
+// Teléfono válido (empieza por 6, 7 o 9, 9 dígitos)
 function checkTelefono(element) {
     let regex = /^[679]\d{8}$/;
-    return comprobarRegex(element, regex);
+    if (regex.test(element.value)) {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
+        return true;
+    } else {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
+    }
 }
 
-/**
- * Regex Localidad --> Genera la regex y llama a la función comprobarRegex.
- * Localidad admite:
- * - Solo letras (mayúsculas y minúsculas), incluyendo acentos y ñ.
- * - Espacios solo entre palabras (no al principio, no al final, no dobles).
- * - Longitud total máxima: 50 caracteres (contando letras y espacios).
- *
- * @param {string} element - El valor del input a comprobar.
- * @returns {boolean} True si cumple la regex, False si no la cumple.
- */
+// Regex para localidad
 function checkLocalidad(element) {
     let regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?: [A-Za-záéíóúÁÉÍÓÚñÑ]+)*$/;
-    return element.length <= 50 && comprobarRegex(element, regex);
+    return comprobarRegex(element, regex, 50);
 }
 
-
-/**
- *  Regex Provincia --> Genera la regex y llama a la función comprobarRegex.
- *  Provincia admite:
- * - Solo letras (mayúsculas y minúsculas), incluyendo acentos y ñ.
- * - Espacios solo entre palabras (no al principio, no al final, no dobles).
- * - Longitud total máxima: 50 caracteres (contando letras y espacios).
- *  @param {string} element El input a comprobar
- *  @returns {boolean} True si cumple la regex o False si no la cumple.
- */
+// Regex para provincia
 function checkProvincia(element) {
     let regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?: [A-Za-záéíóúÁÉÍÓÚñÑ]+)*$/;
-    return element.length <= 50 && comprobarRegex(element, regex);
+    return comprobarRegex(element, regex, 50);
 }
 
+// Validación de fecha de nacimiento (mayores de edad y no en futuro)
 function checkFechaNacimiento(element) {
     const fechaNacimiento = element.value;
-
-    // Comprobamos que el si input está vacío
     if (!fechaNacimiento) {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
         return false;
     }
 
-    // Convertimos la fecha de nacimiento a un objeto Date
     const fechaNacimientoDate = new Date(fechaNacimiento);
-    // Fecha actual
     const fechaActual = new Date();
-    // Comprobamos la diferencia de años entre la fecha actual y la fecha de nacimiento
-    const edad = fechaActual.getFullYear() - fechaNacimientoDate.getFullYear();
+    fechaActual.setHours(0, 0, 0, 0);
+
+    if (fechaNacimientoDate > fechaActual) {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
+    }
+
+    let edad = fechaActual.getFullYear() - fechaNacimientoDate.getFullYear();
     const mesActual = fechaActual.getMonth();
     const diaActual = fechaActual.getDate();
 
-    // Si la fecha de nacimiento aún no cumplió los 18 años en este año
     if (mesActual < fechaNacimientoDate.getMonth() ||
         (mesActual === fechaNacimientoDate.getMonth() && diaActual < fechaNacimientoDate.getDate())) {
-        return edad - 1 >= 18;
+        edad--;
     }
 
-    return edad >= 18;
-}
-
-
-/**
- *  Regex Avatar --> Genera la regex y llama a la función comprobarRegex.
- *  Avatar Admite --> Texto, números, espacios, símbolos y hasta 30 caracteres en total(Extensión incluida).
- *  @param {string} element El input a comprobar.
- *  @returns {boolean} True si cumple la regex o False si no la cumple.
- */
-function checkAvatar(element) {
-    const avatar = element.files[0];
-    const nombreFichero = avatar.name;
-    const sizeImagen = avatar.size;
-
-    // Expresión regular para validar el nombre del archivo (1-30 caracteres, incluyendo la extensión)
-    let regexNombre = /^.{1,30}$/;
-
-    // Expresión regular para validar la extensión de imagen (jpg, jpeg, png)
-    let regexExtension = /\.(jpg|jpeg|png)$/;
-
-    // Comprobamos que el nombre y la extensión sean correctos, y que el tamaño sea menor a 100 KB
-    if (regexNombre.test(nombreFichero) && regexExtension.test(nombreFichero) && sizeImagen < 102400) {
+    if (edad >= 18) {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
         return true;
     } else {
-        // Si hay algún error, devolvemos false
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
         return false;
     }
 }
+
+// Validación del archivo de avatar
+function checkAvatar(element) {
+    const avatar = element.files[0];
+    if (!avatar) {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
+    }
+
+    const nombreFichero = avatar.name;
+    const sizeImagen = avatar.size;
+    let regexNombre = /^.{1,30}$/;
+    let regexExtension = /\.(jpg|jpeg|png)$/;
+
+    if (regexNombre.test(nombreFichero) && regexExtension.test(nombreFichero) && sizeImagen < 102400) {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
+        return true;
+    } else {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
+    }
+}
+
+
+
+//-----------------------------------------
+// Añadimos los eventos de comprobación de regex a los inputs del formulario
+//-----------------------------------------
+// document.getElementById("nombre").addEventListener("input", e => checkNombre(e.target));
+// document.getElementById("apellidos").addEventListener("input", e => checkApellidos(e.target));
+// document.getElementById("username").addEventListener("input", e => checkUsername(e.target));
+// document.getElementById("email").addEventListener("input", e => checkEmail(e.target));
+// document.getElementById("fechaNacimiento").addEventListener("input", e => checkFechaNacimiento(e.target));
+// document.getElementById("telefono").addEventListener("input", e => checkTelefono(e.target));
+// document.getElementById("localidad").addEventListener("input", e => checkLocalidad(e.target));
+// document.getElementById("provincia").addEventListener("input", e => checkProvincia(e.target));
+// document.getElementById("password").addEventListener("input", e => checkPassword(e.target));
+// document.getElementById("passwordRepe").addEventListener("input", e => confirmPassword(e.target));
+// document.getElementById("avatar").addEventListener("change", e => checkAvatar(e.target));
+
+// Método para comprobar si todos los inputs son válidos
+function validarFormulario() {
+    const inputs = document.querySelectorAll('input');
+    const boton = document.getElementById('enviar'); // Cambia el ID por el del botón
+
+    // Recorremos todos los inputs para verificar si tienen la clase "is-valid"
+    for (let input of inputs) {
+        if (!input.classList.contains('is-valid')) {
+            boton.disabled = true; // Si algún input no es válido, deshabilitamos el botón
+            return;
+        }
+    }
+
+    // Si todos los inputs son válidos, habilitamos el botón
+    boton.disabled = false;
+}
+
+// Añadir el evento 'input' a cada campo para verificar la validez en tiempo real
+document.getElementById("nombre").addEventListener("input", e => {
+    checkNombre(e.target);
+    validarFormulario(); // Comprobar si el formulario está completo
+});
+document.getElementById("apellidos").addEventListener("input", e => {
+    checkApellidos(e.target);
+    validarFormulario();
+});
+document.getElementById("username").addEventListener("input", e => {
+    checkUsername(e.target);
+    validarFormulario();
+});
+document.getElementById("email").addEventListener("input", e => {
+    checkEmail(e.target);
+    validarFormulario();
+});
+document.getElementById("fechaNacimiento").addEventListener("input", e => {
+    checkFechaNacimiento(e.target);
+    validarFormulario();
+});
+document.getElementById("telefono").addEventListener("input", e => {
+    checkTelefono(e.target);
+    validarFormulario();
+});
+document.getElementById("localidad").addEventListener("input", e => {
+    checkLocalidad(e.target);
+    validarFormulario();
+});
+document.getElementById("provincia").addEventListener("input", e => {
+    checkProvincia(e.target);
+    validarFormulario();
+});
+document.getElementById("password").addEventListener("input", e => {
+    checkPassword(e.target);
+    validarFormulario();
+});
+document.getElementById("passwordRepe").addEventListener("input", e => {
+    confirmPassword(e.target);
+    validarFormulario();
+});
+document.getElementById("avatar").addEventListener("change", e => {
+    checkAvatar(e.target);
+    validarFormulario();
+});

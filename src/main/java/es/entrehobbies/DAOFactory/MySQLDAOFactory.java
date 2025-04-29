@@ -1,5 +1,7 @@
 package es.entrehobbies.DAOFactory;
 
+import es.entrehobbies.DAO.GenericoDAO;
+import es.entrehobbies.DAO.IGenericoDAO;
 import es.entrehobbies.DAO.IUsuarioDAO;
 import es.entrehobbies.DAO.UsuarioDAO;
 
@@ -9,8 +11,15 @@ import es.entrehobbies.DAO.UsuarioDAO;
  */
 public class MySQLDAOFactory extends DAOFactory{
 
+
+
     @Override
     public IUsuarioDAO getUsuarioDAO() {
         return new UsuarioDAO();
+    }
+
+    @Override
+    public IGenericoDAO getGenericoDAO() {
+        return new GenericoDAO();
     }
 }

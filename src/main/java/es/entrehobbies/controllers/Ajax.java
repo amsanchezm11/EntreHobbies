@@ -29,68 +29,48 @@ public class Ajax extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Variables
         String accion = request.getParameter("accion");
         Usuario usuario = null;
-
+        String credencial = null;
+        // Variables DAO
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IUsuarioDAO daoU = daoF.getUsuarioDAO();
-
+        // Variables Ajax
         JSONObject jsonResponse = null;
         String jsonRespuesta = null;
+        boolean existe = false;
 
         switch (accion){
 
-            case "comprobar-username":
+            case "comprobar-credencial":
 
-                  /* Configuramos el tipo de contenido y la codificación de la respuesta
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
                 para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
-                // Recibimos el username que queremos comprobar
-                String username = request.getParameter("usernameComprobar");
+                // Recibimos la credencial que queremos comprobar
+                credencial = request.getParameter("credencial");
 
-                // En caso de que la respuesta sea true es que existe ya un username en la Base de datos
-                if (daoU.comprobarUsername(username)) {
-                    jsonRespuesta = "Si";
-                } else {
-                    jsonRespuesta = "No";
+                // Comprobamos si la credencial es un username o un email y comprobamos si existe
+                if (credencial.contains("@")){
+                    // Realizamos la comprobación por email
+                    existe = daoU.comprobarEmail(credencial);
+                }else{
+                    // Realizamos la comprobación por username
+                    existe = daoU.comprobarUsername(credencial);
                 }
 
-                // Creamos la respuesta JSON
+                // Creamos la respuesta JSON con el resultado obtenido
                 jsonResponse = new JSONObject();
-                jsonResponse.put("disponible", jsonRespuesta);
+                jsonResponse.put("disponible", existe);
 
                 // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(jsonResponse.toString());
 
                 break;
 
-            case "comprobar-email":
-
-                  /* Configuramos el tipo de contenido y la codificación de la respuesta
-                para que admita caracteres especiales */
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-
-                // Recibimos el correo que queremos comprobar
-                String email = request.getParameter("emailComprobar");
-
-                // En caso de que la respuesta sea true es que existe ya un username en la Base de datos
-                if (daoU.comprobarEmail(email)) {
-                    jsonRespuesta = "Si";
-                } else {
-                    jsonRespuesta = "No";
-                }
-
-                // Creamos la respuesta JSON
-                jsonResponse = new JSONObject();
-                jsonResponse.put("disponible", jsonRespuesta);
-
-                // Escribimos la respuesta JSON al cliente
-                response.getWriter().write(jsonResponse.toString());
-
-                break;
         }
 
     }

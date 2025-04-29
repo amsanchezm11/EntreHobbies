@@ -47,7 +47,7 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
 
-    @Column(name = "Rol", length = 6, nullable = false)
+    @Column(name = "Rol", length = 11, nullable = false)
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
    // private Date ultimoAcceso;
 
     @Column(name = "Avatar", length = 30, nullable = false)
-    private String avatar = "avatar.png";
+    private String avatar = "avatar.svg";
 
     // ***Este atributo queda pendiente de revisión
     @ManyToMany(fetch = FetchType.EAGER)

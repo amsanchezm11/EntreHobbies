@@ -31,39 +31,44 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Variables
         String url = ".";
         String accion = request.getParameter("accion");
-        String usernameMail = request.getParameter("username");
+        String usernameMail = request.getParameter("credencial");
         String password = request.getParameter("password");
         Usuario usuario = null;
-
-
+        // Variables DAO
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IUsuarioDAO daoU = daoF.getUsuarioDAO();
 
         switch (accion) {
             case "Login":
+
                 // Comprobamos si el usuario ha introducido username o email
-                if (usernameMail.contains("@")){
+                if (usernameMail.contains("@")) {
                     usuario = daoU.getUsuarioPorEmail(usernameMail, Utilities.md5(password));
-                }else{
+                } else {
                     usuario = daoU.getUsuarioPorUsername(usernameMail, Utilities.md5(password));
                 }
 
                 // En caso de encontrar el usuario lo añadimos a la sesión
-                if (usuario != null){
+                if (usuario != null) {
                     request.getSession().setAttribute("usuario", usuario);
-                }else{
-                    request.setAttribute("error", "Contraseña incorrecta");
+                    // Controlamos si ha sido el administrador el que ha realizado el login
+                    if (usuario.getRol() == Usuario.Rol.Admin) {
+                        url = "JSP/ADMIN/menuAdministrador.jsp";
+                    }
+                } else {
+                    request.setAttribute("error", "Credenciales incorrectas");
                     url = "/JSP/LOGIN/login.jsp";
                 }
                 break;
 
-                case "Logout":
-                    // Eliminamos al usuario de la sesión en caso de que exista
-                    if (request.getSession().getAttribute("usuario") != null){
-                        request.getSession().removeAttribute("usuario");
-                    }
+            case "Logout":
+                // Eliminamos al usuario de la sesión en caso de que exista
+                if (request.getSession().getAttribute("usuario") != null) {
+                    request.getSession().removeAttribute("usuario");
+                }
                 break;
         }
 

@@ -101,5 +101,43 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
         return existe;
     }
 
+    @Override
+    public Boolean insertarUsuario(Usuario usuario) {
+        boolean insertado = false;
+
+        try {
+            startTransaction();
+
+            Query query = sesion.createQuery("INSERT INTO Usuario (nombre, apellidos, username, email, password ,telefono, fechaNacimiento, rol, localidad, provincia) " +
+                    "VALUES (:nombre, :apellidos, :username, :email, :password, :telefono, :fechaNacimiento, :rol, :localidad, :provincia)");
+
+            query.setParameter("nombre", usuario.getNombre());
+            query.setParameter("apellidos", usuario.getApellidos());
+            query.setParameter("username", usuario.getUsername());
+            query.setParameter("email", usuario.getEmail());
+            query.setParameter("password", usuario.getPassword());
+            query.setParameter("telefono", usuario.getTelefono());
+            query.setParameter("fechaNacimiento", usuario.getFechaNacimiento());
+            query.setParameter("rol", usuario.getRol());
+            query.setParameter("localidad", usuario.getLocalidad());
+            query.setParameter("provincia", usuario.getProvincia());
+            query.executeUpdate();
+
+            Query idQuery = sesion.createQuery("SELECT idUsuario FROM Usuario u WHERE u.username = :username");
+            int userId = (int) idQuery.uniqueResult();
+
+            // Seteamos el id al usuario
+            usuario.setIdUsuario(userId);
+
+            endTransaction();
+            insertado = true;
+
+        } catch (HibernateException he){
+            handleExcepcion(he);
+        }
+
+        return insertado;
+    }
+
 
 }

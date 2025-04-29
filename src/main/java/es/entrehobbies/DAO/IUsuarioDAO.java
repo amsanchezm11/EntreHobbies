@@ -24,4 +24,7 @@ public interface IUsuarioDAO {
     public Boolean comprobarEmail(String email);
 
     public Boolean comprobarUsername(String username);
+
+    public Boolean insertarUsuario(Usuario usuario);
+
 }

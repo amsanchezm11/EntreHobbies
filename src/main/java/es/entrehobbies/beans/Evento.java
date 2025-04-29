@@ -50,6 +50,9 @@ public class Evento implements Serializable {
     @JoinColumn(name = "Categoria", nullable = false)
     private Categoria categoria;
 
+    @Column(name = "NumParticipantes", nullable = false)
+    private int numParticipantes;
+
     @Column(name = "Direccion", length = 50, nullable = false)
     private String direccion;
 
@@ -140,6 +143,14 @@ public class Evento implements Serializable {
         this.categoria = categoria;
     }
 
+    public int getNumParticipantes() {
+        return numParticipantes;
+    }
+
+    public void setNumParticipantes(int numParticipantes) {
+        this.numParticipantes = numParticipantes;
+    }
+
     public String getDireccion() {
         return direccion;
     }
@@ -187,4 +198,6 @@ public class Evento implements Serializable {
     public void setParticipantes(List<Usuario> participantes) {
         this.participantes = participantes;
     }
+
+
 }

@@ -1,8 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-
-/*body{*/
-/*    background-color: #333 !important;*/
-/*}*/
+html, body{
+    height: 100%;
+}
 
 /*----- [ TEMA ] -----*/
 
@@ -31,8 +35,8 @@
 }
 
 
-/*-----[ BOTON RE REFRESCO ]------*/
-.btn-custom{
+/*-----[ BOTON DE REFRESCO ]------*/
+.btn-custom {
     background-color: transparent;
     border: none;
 }
@@ -40,15 +44,85 @@
 /*-------[ VISTA - LOGIN ]-------*/
 
 .bg-gradient-morado-blanco {
-    background: linear-gradient(120deg, #6f42c1 50%, white 50%);
+    background: #6F42C1;
+    background: linear-gradient(308deg, rgba(111, 66, 193, 1) 0%, rgba(75, 30, 138, 1) 50%);
 }
 
-.text-login{
+.text-login {
     font-size: 8rem !important;
 }
 
 .animacion-aparicion {
     animation: fadeInSlide 0.4s ease forwards;
+}
+
+.card-link {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 1rem;
+    padding: 10px;
+    backdrop-filter: blur(8px);
+}
+
+.card-body-link {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-login {
+    background-color: white;
+    color: #6f42c1;
+    border-color: #6f42c1;
+}
+
+.btn-login:hover {
+    background-color: #6f42c1;
+    border-color: white;
+    color: white;
+}
+
+.btn-login:disabled {
+    background-color: #cccccc;
+    border-color: #cccccc;
+    color: #999999;
+}
+
+
+/*------[ BOTONES ]-------*/
+
+.btn-main {
+    background-color: #6f42c1;
+    color: white;
+    border-color: white;
+}
+
+.btn-main:hover {
+    background-color: white;
+    border-color: #6f42c1;
+    color: #6f42c1;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    text-decoration: none;
+    color: #6f42c1;
+    cursor: pointer;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.btn-regex {
+    border: none;
+    border-radius: 50% !important;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /*------[ ANIMACIONES ]-------*/

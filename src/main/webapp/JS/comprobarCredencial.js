@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const esEmail = valor.includes("@");
         const data = new URLSearchParams();
-        data.append("accion", esEmail ? "comprobar-email" : "comprobar-username");
-        data.append(esEmail ? "emailComprobar" : "usernameComprobar", valor);
+        data.append("accion", "comprobar-credencial");
+        data.append("credencial", valor);
 
         try {
             const response = await fetch("Ajax", {
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const res = await response.json();
 
-            if (res.disponible === "Si") {
+            if (res.disponible) {
                 aviso.classList.add("invisible");
                 passwordContainer.classList.remove("d-none");
                 btnEnviar.classList.remove("d-none");
