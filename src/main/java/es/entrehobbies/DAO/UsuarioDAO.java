@@ -102,42 +102,25 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
     }
 
     @Override
-    public Boolean insertarUsuario(Usuario usuario) {
-        boolean insertado = false;
-
+    public Boolean comprobarTelefono(String telefono) {
+        boolean existe = false;
         try {
             startTransaction();
 
-            Query query = sesion.createQuery("INSERT INTO Usuario (nombre, apellidos, username, email, password ,telefono, fechaNacimiento, rol, localidad, provincia) " +
-                    "VALUES (:nombre, :apellidos, :username, :email, :password, :telefono, :fechaNacimiento, :rol, :localidad, :provincia)");
+            Query<Long> query = sesion.createQuery(
+                    "SELECT COUNT(u) FROM Usuario u WHERE u.telefono = :telefono", Long.class);
+            query.setParameter("telefono", telefono);
 
-            query.setParameter("nombre", usuario.getNombre());
-            query.setParameter("apellidos", usuario.getApellidos());
-            query.setParameter("username", usuario.getUsername());
-            query.setParameter("email", usuario.getEmail());
-            query.setParameter("password", usuario.getPassword());
-            query.setParameter("telefono", usuario.getTelefono());
-            query.setParameter("fechaNacimiento", usuario.getFechaNacimiento());
-            query.setParameter("rol", usuario.getRol());
-            query.setParameter("localidad", usuario.getLocalidad());
-            query.setParameter("provincia", usuario.getProvincia());
-            query.executeUpdate();
-
-            Query idQuery = sesion.createQuery("SELECT idUsuario FROM Usuario u WHERE u.username = :username");
-            int userId = (int) idQuery.uniqueResult();
-
-            // Seteamos el id al usuario
-            usuario.setIdUsuario(userId);
+            Long count = query.uniqueResult();
+            if (count != null && count > 0) {
+                existe = true;
+            }
 
             endTransaction();
-            insertado = true;
-
-        } catch (HibernateException he){
+        }  catch (HibernateException he) {
             handleExcepcion(he);
         }
-
-        return insertado;
+        return existe;
     }
-
 
 }

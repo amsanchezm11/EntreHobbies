@@ -3,7 +3,7 @@
  */
 
 // Función comprobar regex
-function comprobarRegex(element, regex, length) {
+export function comprobarRegex(element, regex, length) {
     if (regex.test(element.value) && element.value.length <= length) {
         element.classList.remove("is-invalid");
         element.classList.add("is-valid");
@@ -28,13 +28,13 @@ function checkApellidos(element) {
 }
 
 // Regex para username (letras/números, sin espacios, entre 3 y 20 caracteres)
-function checkUsername(element) {
+export function checkUsername(element) {
     let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñüÜ0-9]{3,20}$/;
     return comprobarRegex(element, regex, 20);
 }
 
 // Regex para email (formato válido + .com o .es, sin dominios duplicados)
-function checkEmail(element) {
+export function checkEmail(element) {
     let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|es)$/;
     let valor = element.value;
     if (regex.test(valor)) {
@@ -75,7 +75,7 @@ function confirmPassword(element) {
 }
 
 // Teléfono válido (empieza por 6, 7 o 9, 9 dígitos)
-function checkTelefono(element) {
+export function checkTelefono(element) {
     let regex = /^[679]\d{8}$/;
     if (regex.test(element.value)) {
         element.classList.remove("is-invalid");
@@ -182,14 +182,14 @@ function checkAvatar(element) {
 // document.getElementById("avatar").addEventListener("change", e => checkAvatar(e.target));
 
 // Método para comprobar si todos los inputs son válidos
-function validarFormulario() {
+export function validarFormulario() {
     const inputs = document.querySelectorAll('input');
-    const boton = document.getElementById('enviar'); // Cambia el ID por el del botón
+    const boton = document.getElementById('enviar');
 
-    // Recorremos todos los inputs para verificar si tienen la clase "is-valid"
+    // Recorremos todos los inputs para verificamos si tienen la clase "is-valid"
     for (let input of inputs) {
         if (!input.classList.contains('is-valid')) {
-            boton.disabled = true; // Si algún input no es válido, deshabilitamos el botón
+            boton.disabled = true;
             return;
         }
     }
@@ -207,22 +207,22 @@ document.getElementById("apellidos").addEventListener("input", e => {
     checkApellidos(e.target);
     validarFormulario();
 });
-document.getElementById("username").addEventListener("input", e => {
+/*document.getElementById("username").addEventListener("change", e => {
     checkUsername(e.target);
     validarFormulario();
-});
-document.getElementById("email").addEventListener("input", e => {
+});*/
+/*document.getElementById("email").addEventListener("input", e => {
     checkEmail(e.target);
     validarFormulario();
-});
+});*/
 document.getElementById("fechaNacimiento").addEventListener("input", e => {
     checkFechaNacimiento(e.target);
     validarFormulario();
 });
-document.getElementById("telefono").addEventListener("input", e => {
+/*document.getElementById("telefono").addEventListener("input", e => {
     checkTelefono(e.target);
     validarFormulario();
-});
+});*/
 document.getElementById("localidad").addEventListener("input", e => {
     checkLocalidad(e.target);
     validarFormulario();
