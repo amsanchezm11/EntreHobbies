@@ -1,5 +1,5 @@
 /*
- * En este documento se aplicarán las distintas regex al formulario de registro de nuevo usuario
+ * En este documento se aplicarán las distintas regex que se van a utilizar en la aplicación junto con la función de comprobar regex
  */
 
 // Función comprobar regex
@@ -15,14 +15,18 @@ export function comprobarRegex(element, regex, length) {
     }
 }
 
+//-------------------------------------------------------------------------------------------
+//-----------------------------------[ USUARIO ]---------------------------------------------
+//-------------------------------------------------------------------------------------------
+
 // Regex para nombre (letras y espacios, máx. 30 caracteres)
-function checkNombre(element) {
+export function checkNombre(element) {
     let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñüÜ]+(?: [A-Za-zÁÉÍÓÚáéíóúÑñüÜ]+){0,29}$/;
     return comprobarRegex(element, regex, 30);
 }
 
 // Regex para apellidos (letras y espacios, máx. 40 caracteres)
-function checkApellidos(element) {
+export function checkApellidos(element) {
     let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñüÜ]+(?: [A-Za-zÁÉÍÓÚáéíóúÑñüÜ]+){0,39}$/;
     return comprobarRegex(element, regex, 40);
 }
@@ -54,13 +58,13 @@ export function checkEmail(element) {
 
 
 // Regex para contraseña (cualquier carácter sin espacios, entre 6 y 100 caracteres)
-function checkPassword(element) {
+export function checkPassword(element) {
     let regex = /^[^\s]{6,100}$/;
     return comprobarRegex(element, regex, 100);
 }
 
 // Confirmar que las contraseñas coincidan
-function confirmPassword(element) {
+export function confirmPassword(element) {
     let password = document.getElementById("password");
 
     if (element.value === password.value && element.value.length > 0) {
@@ -89,19 +93,19 @@ export function checkTelefono(element) {
 }
 
 // Regex para localidad
-function checkLocalidad(element) {
+export function checkLocalidad(element) {
     let regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?: [A-Za-záéíóúÁÉÍÓÚñÑ]+)*$/;
     return comprobarRegex(element, regex, 50);
 }
 
 // Regex para provincia
-function checkProvincia(element) {
+export function checkProvincia(element) {
     let regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?: [A-Za-záéíóúÁÉÍÓÚñÑ]+)*$/;
     return comprobarRegex(element, regex, 50);
 }
 
 // Validación de fecha de nacimiento (mayores de edad y no en futuro)
-function checkFechaNacimiento(element) {
+export function checkFechaNacimiento(element) {
     const fechaNacimiento = element.value;
     if (!fechaNacimiento) {
         element.classList.remove("is-valid");
@@ -140,7 +144,7 @@ function checkFechaNacimiento(element) {
 }
 
 // Validación del archivo de avatar
-function checkAvatar(element) {
+export function checkAvatar(element) {
     const avatar = element.files[0];
     if (!avatar) {
         element.classList.remove("is-valid");
@@ -164,23 +168,6 @@ function checkAvatar(element) {
     }
 }
 
-
-
-//-----------------------------------------
-// Añadimos los eventos de comprobación de regex a los inputs del formulario
-//-----------------------------------------
-// document.getElementById("nombre").addEventListener("input", e => checkNombre(e.target));
-// document.getElementById("apellidos").addEventListener("input", e => checkApellidos(e.target));
-// document.getElementById("username").addEventListener("input", e => checkUsername(e.target));
-// document.getElementById("email").addEventListener("input", e => checkEmail(e.target));
-// document.getElementById("fechaNacimiento").addEventListener("input", e => checkFechaNacimiento(e.target));
-// document.getElementById("telefono").addEventListener("input", e => checkTelefono(e.target));
-// document.getElementById("localidad").addEventListener("input", e => checkLocalidad(e.target));
-// document.getElementById("provincia").addEventListener("input", e => checkProvincia(e.target));
-// document.getElementById("password").addEventListener("input", e => checkPassword(e.target));
-// document.getElementById("passwordRepe").addEventListener("input", e => confirmPassword(e.target));
-// document.getElementById("avatar").addEventListener("change", e => checkAvatar(e.target));
-
 // Método para comprobar si todos los inputs son válidos
 export function validarFormulario() {
     const inputs = document.querySelectorAll('input');
@@ -197,49 +184,3 @@ export function validarFormulario() {
     // Si todos los inputs son válidos, habilitamos el botón
     boton.disabled = false;
 }
-
-// Añadir el evento 'input' a cada campo para verificar la validez en tiempo real
-document.getElementById("nombre").addEventListener("input", e => {
-    checkNombre(e.target);
-    validarFormulario(); // Comprobar si el formulario está completo
-});
-document.getElementById("apellidos").addEventListener("input", e => {
-    checkApellidos(e.target);
-    validarFormulario();
-});
-/*document.getElementById("username").addEventListener("change", e => {
-    checkUsername(e.target);
-    validarFormulario();
-});*/
-/*document.getElementById("email").addEventListener("input", e => {
-    checkEmail(e.target);
-    validarFormulario();
-});*/
-document.getElementById("fechaNacimiento").addEventListener("input", e => {
-    checkFechaNacimiento(e.target);
-    validarFormulario();
-});
-/*document.getElementById("telefono").addEventListener("input", e => {
-    checkTelefono(e.target);
-    validarFormulario();
-});*/
-document.getElementById("localidad").addEventListener("input", e => {
-    checkLocalidad(e.target);
-    validarFormulario();
-});
-document.getElementById("provincia").addEventListener("input", e => {
-    checkProvincia(e.target);
-    validarFormulario();
-});
-document.getElementById("password").addEventListener("input", e => {
-    checkPassword(e.target);
-    validarFormulario();
-});
-document.getElementById("passwordRepe").addEventListener("input", e => {
-    confirmPassword(e.target);
-    validarFormulario();
-});
-document.getElementById("avatar").addEventListener("change", e => {
-    checkAvatar(e.target);
-    validarFormulario();
-});

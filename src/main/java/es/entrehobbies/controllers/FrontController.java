@@ -51,6 +51,9 @@ public class FrontController extends HttpServlet {
             case "Registro-usuario":
                 url = "/JSP/USUARIO/registroUsuario.jsp";
                 break;
+            case "MiCuenta":
+                url = "/JSP/USUARIO/perfilUsuario.jsp";
+                break;
         }
         
         // Redirigimos al usuario a la url correspondiente

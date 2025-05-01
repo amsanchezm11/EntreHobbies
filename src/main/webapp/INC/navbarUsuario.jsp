@@ -5,14 +5,28 @@
         </form>
         <c:if test="${sessionScope.usuario != null}">
             <div class="dropdown">
-                <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 text-warning" href="#" role="button" data-bs-toggle="dropdown"
+                <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 color-pm pe-2" href="#" role="button" data-bs-toggle="dropdown"
                    aria-expanded="false">
-                    <img src="${contexto}/IMG/AVATARES/${sessionScope.usuario.avatar}" alt="Avatar" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                    <img src="${contexto}/IMG/AVATARES/${empty sessionScope.usuario.avatar ? 'avatar.svg' : sessionScope.usuario.avatar}"
+                         alt="Avatar"
+                         class="rounded-circle"
+                         style="width: 30px; height: 30px; object-fit: cover;"
+                         onerror="this.onerror=null; this.src='${contexto}/IMG/AVATARES/avatar.svg';">
                         ${sessionScope.usuario.username}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <form action="Login" method="post">
+                        <form action="${contexto}/FrontController" method="post">
+                            <button class="dropdown-item" name="accion" value="MiCuenta">Mi Cuenta</button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="${contexto}/FrontController" method="post">
+                            <button class="dropdown-item" name="accion" value="MisEventos">Mis Eventos</button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="${contexto}/Login" method="post">
                             <button class="dropdown-item" name="accion" value="Logout">Logout</button>
                         </form>
                     </li>
@@ -21,3 +35,4 @@
         </c:if>
     </div>
 </nav>
+

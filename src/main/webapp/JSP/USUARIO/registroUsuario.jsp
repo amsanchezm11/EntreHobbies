@@ -7,12 +7,13 @@
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
-    <script type="module" src="${contexto}/JS/regexUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/regex.js" defer></script>
+    <script type="module" src="${contexto}/JS/validarUsuario.js" defer></script>
     <script type="module" src="${contexto}/JS/comprobarEmail.js" defer></script>
     <script type="module" src="${contexto}/JS/comprobarUsername.js" defer></script>
     <script type="module" src="${contexto}/JS/comprobarTelefono.js" defer></script>
 </head>
-<body class="bg-body text-body min-vh-100">
+<body class="bg-body text-body min-vh-100 d-flex flex-column">
 <nav class="navbar bg-body-tertiary border-bottom">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <form action="${contexto}/FrontController" method="post">
@@ -20,10 +21,10 @@
         </form>
     </div>
 </nav>
-<main class="position-relative bg-gradient-morado-blanco w-100 vh-100 d-flex justify-content-center align-items-center flex-column">
+<main class="position-relative bg-gradient-morado-blanco w-100 vh-100 d-flex justify-content-center align-items-center flex-column flex-grow-1 pt-5">
     <h1 class="position-absolute top-0 start-0 text-light m-4 text-login">Registro</h1>
 
-    <form id="formRegistro" action="${contexto}/UsuarioController" method="post" class="container w-75 mb-4" enctype="multipart/form-data">
+    <form id="formRegistro" action="${contexto}/UsuarioController" method="post" class="container w-75 mb-4 pt-5" enctype="multipart/form-data">
         <div class="row g-3">
             <div class="col-md-6">
                 <div class="d-flex gap-2 w-100 justify-content-between">
