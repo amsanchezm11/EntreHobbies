@@ -14,6 +14,38 @@ html, body {
     color: #6F42C1;
 }
 
+.nav-link.link-activo{
+    background-color: #f8f9fa !important;
+    border-left: 4px solid #6F42C1 !important;
+    color: #6F42C1 !important;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: #6F42C1;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: rgba(75, 30, 138, 1) !important;
+}
+
+.border-img {
+    border: 3px solid #6F42C1;
+    transition: box-shadow 0.4s ease, border 0.4s ease;
+}
+
+.border-img:hover {
+    box-shadow:
+            0 0 5px #6F42C1,
+            0 0 10px #6F42C1,
+            0 0 20px #6F42C1,
+            0 0 40px #6F42C1;
+}
+
 /*----- [ TEMA ] -----*/
 
 [data-bs-theme="light"] {

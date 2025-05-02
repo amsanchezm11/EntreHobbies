@@ -44,7 +44,13 @@ public class UsuarioController extends HttpServlet {
         // Variables
         String url = ".";
         String accion = request.getParameter("accion");
+        String passwordActual = null;
+        String passwordNueva = null;
+        String confirmPassword = null;
         Usuario usuario = null;
+        Usuario usuarioModificado = null;
+        DateConverter converter = null;
+
 
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
@@ -55,13 +61,14 @@ public class UsuarioController extends HttpServlet {
         String dirImagen = request.getServletContext().getRealPath("/IMG/AVATARES/");
         StringBuilder nombreFichero = new StringBuilder();
         String filePath = null;
+        Part filePart = null;
 
 
         switch (accion) {
             case "Registrar":
 
                 // Convertimos la fecha y el enum antes de utilizar BeansUtils
-                DateConverter converter = new DateConverter();
+                converter = new DateConverter();
                 converter.setPattern("yyyy-MM-dd");
                 ConvertUtils.register(converter, java.util.Date.class);
                 ConvertUtils.register(new EnumConverter(), Usuario.Rol.class);
@@ -80,7 +87,7 @@ public class UsuarioController extends HttpServlet {
                     daoG.insertOrUpdate(usuario);
                     // Gestionamos el avatar del usuario
                     // Obtenemos la imagen de avatar del input type file
-                    Part filePart = request.getPart("avatar");
+                    filePart = request.getPart("avatar");
                     // Comprobamos que la imagen cumpla con el formato correcto
                     if (filePart.getContentType().equals("image/png") || filePart.getContentType().equals("image/jpg") || filePart.getContentType().equals("image/jpeg")) {
                         // Comprobamos que la imagen no sea mayor de 100KB(Tamaño permitido en la aplicación)
@@ -119,6 +126,109 @@ public class UsuarioController extends HttpServlet {
                     Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, e);
                 }
 
+                break;
+            case "Actualizar-datos":
+
+                // Recuperamos el usuario de la sesión
+                usuario = (Usuario) request.getSession().getAttribute("usuario");
+                // Convertimos la fecha y el enum antes de utilizar BeansUtils
+                converter = new DateConverter();
+                converter.setPattern("yyyy-MM-dd");
+                ConvertUtils.register(converter, java.util.Date.class);
+                //ConvertUtils.register(new EnumConverter(), Usuario.Rol.class);
+
+                try {
+                    usuarioModificado = new Usuario();
+                    // Rellenamos los datos de usuario que vienen del formulario con BeansUtils
+                    BeanUtils.populate(usuarioModificado, request.getParameterMap());
+                    // Añadimos el id al usuario modificado
+                    usuarioModificado.setIdUsuario(usuario.getIdUsuario());
+                    // Añadimos la contraseña al usuario modificado
+                    usuarioModificado.setPassword(usuario.getPassword());
+                    // Le añadimos su rol correspondiente
+                    usuarioModificado.setRol(usuario.getRol());
+                    // Aplicamos el avatar que ya tenía el usuario
+                    usuarioModificado.setAvatar(usuario.getAvatar());
+                    // Actualizamos su ultimo acceso
+                    //usuario.setUltimoAcceso(Date.valueOf(LocalDate.now()));
+                    // Lo añadimos a la base de datos
+                    daoG.insertOrUpdate(usuarioModificado);
+                    // Añadimos el usuario a la sesión
+                    request.getSession().setAttribute("usuario", usuarioModificado);
+                    // Notificamos que se ha hecho el registro correctamente
+                    request.setAttribute("aviso", "Datos modificados correctamente");
+                    // Actualizamos la url para redirigir al usuario a su perfil
+                    url = "/JSP/USUARIO/perfilUsuario.jsp";
+
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, e);
+                }
+                break;
+
+            case "Actualizar-password":
+
+                // Recuperamos el usuario de la sesión
+                usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+                passwordActual = request.getParameter("passwordActual");
+                passwordNueva = request.getParameter("nuevaPassword");
+                confirmPassword = request.getParameter("confirmPassword");
+
+                // Comprobamos que la contraseña actual proporcionada sea la misma que la de la base de datos
+                if (usuario.getPassword().equals(Utilities.md5(passwordActual))) {
+                    // Comprobamos que la nueva contraseña sea distinta a la contraseña actual
+                    if (!passwordNueva.equals(passwordActual)) {
+                        // Comprobamos que el confirmar contraseña sea igual a la contraseña nueva
+                        if (confirmPassword.equals(passwordNueva)) {
+                            // Aplicamos la nueva contraseña cifrada con md5 al usuario
+                            usuario.setPassword(Utilities.md5(passwordNueva));
+                            // Modificamos el usuario en la base de datos
+                            daoG.insertOrUpdate(usuario);
+                        } else {
+                            request.setAttribute("error", "Confirmar contraseña no coincide con la contraseña nueva");
+                        }
+
+                    } else {
+                        request.setAttribute("error", "La contraseña nueva debe ser distinta a la actual");
+                    }
+                } else {
+                    request.setAttribute("error", "La contraseña actual no es correcta");
+                }
+
+                url = "/JSP/USUARIO/perfilUsuario.jsp";
+                break;
+
+            case "Actualizar-avatar":
+
+
+                // Recuperamos el usuario de la sesión
+                usuario = (Usuario) request.getSession().getAttribute("usuario");
+                // Obtenemos el nuevo avatar
+                filePart = request.getPart("avatar");
+                // Comprobamos que la imagen cumpla con el formato correcto
+                if (filePart.getContentType().equals("image/png") || filePart.getContentType().equals("image/jpg") || filePart.getContentType().equals("image/jpeg")) {
+                    // Comprobamos que la imagen no sea mayor de 100KB(Tamaño permitido en la aplicación)
+                    if (filePart.getSize() < 102400) {
+                        // Obtenemos la extensión de la imagen
+                        String extension = ".jpeg";
+                        if (filePart.getContentType().equals("image/jpg")) {
+                            extension = ".jpg";
+                        }
+                        if (filePart.getContentType().equals("image/png")) {
+                            extension = ".png";
+                        }
+                        // Obtenemos el nombre del fichero
+                        nombreFichero.append("AvatarN").append(String.valueOf(usuario.getIdUsuario())).append(extension);
+                        filePath = dirImagen + nombreFichero.toString();
+                        // Escribimos el fichero en el servidor
+                        filePart.write(filePath);
+                        // Modificamos el avatar en el usuario de sesión
+                        usuario.setAvatar(nombreFichero.toString());
+                        // Modificamos el avatar en la base de datos
+                        daoG.insertOrUpdate(usuario);
+                    }
+                }
+                url = "/JSP/USUARIO/perfilUsuario.jsp";
                 break;
         }
 

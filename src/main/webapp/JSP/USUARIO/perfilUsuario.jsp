@@ -5,6 +5,8 @@
         <jsp:param name="titulo" value="Mi cuenta"/>
         <jsp:param name="estilo" value="perfil.css"/>
     </jsp:include>
+    <script type="module" src="${contexto}/JS/perfilUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/vistaPreviaIMG.js" defer></script>
 </head>
 <body class="bg-light h-100">
 <div class="container-fluid">
@@ -13,43 +15,62 @@
             <div class="w-100 px-3">
                 <h5 class="text-center mt-4 mb-4 fw-semibold">Mi cuenta</h5>
                 <nav class="nav flex-column fs-5">
-                    <a href="FrontController" class="nav-link py-2 text-dark border-bottom">
-                        <i class="bi bi-house-fill me-2"></i>Home
-                    </a>
-                    <a href="CuentaController" class="nav-link py-2 text-dark border-bottom">
-                        <i class="bi bi-person-circle me-2"></i>Informaci&oacute;n de cuenta
-                    </a>
-                    <a href="MisEventosController" class="nav-link py-2 text-dark border-bottom">
-                        <i class="bi bi-calendar-event me-2"></i>Mis eventos
-                    </a>
-                    <a href="CambiarPassword.jsp" class="nav-link py-2 text-dark border-bottom">
-                        <i class="bi bi-eye me-2"></i>Cambiar contrase&ntilde;a
-                    </a>
-                    <a href="CambiarPassword.jsp" class="nav-link py-2 text-dark border-bottom">
+                    <form action="${contexto}/FrontController" method="post">
+                        <button type="submit" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
+                                name="accion"
+                                value="Refresh">
+                            <i class="bi bi-house-fill me-2"></i>Home
+                        </button>
+                    </form>
+
+                    <button type="button" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
+                            data-target="info">
+                        <i class="bi bi-person-circle me-2"></i>Información de cuenta
+                    </button>
+
+                    <form action="${contexto}/EventoController" method="post">
+                        <button type="submit" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100">
+                            <i class="bi bi-calendar-event me-2"></i>Mis eventos
+                        </button>
+                    </form>
+
+                    <button type="button" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
+                            data-target="password">
+                        <i class="bi bi-eye me-2"></i>Cambiar contraseña
+                    </button>
+
+                    <button type="button" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
+                            data-target="avatar">
                         <i class="bi bi-image me-2"></i>Cambiar avatar
-                    </a>
-                    <a href="FrontController" class="nav-link py-2 text-danger fw-semibold">
-                        <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesi&oacute;n
-                    </a>
+                    </button>
+
+                    <form action="${contexto}/Login" method="post">
+                        <button type="submit"
+                                class="nav-link py-2 text-danger fw-semibold bg-transparent border-0 text-start w-100"
+                                name="accion"
+                                value="Logout">
+                            <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+                        </button>
+                    </form>
                 </nav>
             </div>
         </div>
 
         <div class="col-md-9 py-5 align-self-center">
-            <div class="card align-self-center shadow-sm">
+            <div id="card-info" class="card align-self-center shadow-sm">
                 <div class="card-body">
                     <div class="d-flex justify-content-center mb-4">
                         <div class="text-center d-flex gap-3">
                             <img src="${contexto}/IMG/AVATARES/${empty sessionScope.usuario.avatar ? 'avatar.svg' : sessionScope.usuario.avatar}"
                                  alt="Avatar"
-                                 class="rounded-circle"
+                                 class="rounded-circle ${sessionScope.usuario.avatar eq 'avatar.svg' ? '' : 'border-img'}"
                                  style="width: 150px; height: 150px; object-fit: cover;"
                                  onerror="this.onerror=null; this.src='${contexto}/IMG/AVATARES/avatar.svg';">
                             <h3 class="mt-3 align-self-center color-pm">${sessionScope.usuario.username}</h3>
                         </div>
                     </div>
 
-                    <form action="${contexto}/UsuarioController" method="post" enctype="multipart/form-data">
+                    <form action="${contexto}/UsuarioController" method="post">
                         <input type="hidden" name="idUsuario" value="${sessionScope.usuario.idUsuario}"/>
 
                         <div class="row">
@@ -67,7 +88,7 @@
                                            name="username"
                                            placeholder="Username"
                                            value="${sessionScope.usuario.username}"
-                                           required>
+                                           readonly>
                                     <label for="username">Username</label>
                                 </div>
 
@@ -114,6 +135,52 @@
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-main" name="accion" value="Actualizar-datos">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="card-password" class="card align-self-center shadow-sm seccion-perfil d-none">
+                <div class="card-body">
+                    <h5 class="text-center mb-4">Cambiar contraseña</h5>
+                    <form action="${contexto}/UsuarioController" method="post">
+                        <input type="hidden" name="idUsuario" value="${sessionScope.usuario.idUsuario}" />
+                        <div class="form-floating mb-3">
+                            <input type="password" name="passwordActual" class="form-control" id="password" required>
+                            <label for="password">Contraseña actual</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" name="nuevaPassword" class="form-control" id="nuevaPass" required>
+                            <label for="nuevaPass">Nueva contraseña</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" name="confirmPassword" class="form-control" id="confirmPass" required>
+                            <label for="confirmPass">Nueva contraseña</label>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-main" name="accion" value="Actualizar-password">Actualizar contraseña</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="card-avatar" class="card align-self-center shadow-sm seccion-perfil d-none">
+                <div class="card-body">
+                    <h5 class="text-center mb-4">Cambiar avatar</h5>
+                    <form action="${contexto}/UsuarioController" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="idUsuario" value="${sessionScope.usuario.idUsuario}" />
+                        <div class="mb-3 text-center">
+                            <img src="${contexto}/IMG/AVATARES/${empty sessionScope.usuario.avatar ? 'avatar.svg' : sessionScope.usuario.avatar}"
+                                 id="vista-previa-avatar"
+                                 alt="Avatar actual"
+                                 class="rounded-circle ${sessionScope.usuario.avatar eq 'avatar.svg' ? '' : 'border-img'}"
+                                 style="width: 150px; height: 150px; object-fit: cover;"
+                                 onerror="this.onerror=null; this.src='${contexto}/IMG/AVATARES/avatar.svg';">
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center">
+                            <input type="file" id="avatar" name="avatar" class="form-control w-50" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-main" name="accion" value="Actualizar-avatar">Actualizar avatar</button>
                         </div>
                     </form>
                 </div>

@@ -1,5 +1,6 @@
 /*
- * En este documento se aplicarán las distintas regex que se van a utilizar en la aplicación junto con la función de comprobar regex
+ * En este documento se aplicarán las distintas regex que se van a utilizar en la aplicación junto
+ * con la función de comprobar regex y validar formulario
  */
 
 // Función comprobar regex
@@ -13,6 +14,23 @@ export function comprobarRegex(element, regex, length) {
         element.classList.add("is-invalid");
         return false;
     }
+}
+
+// Método para comprobar si todos los inputs son válidos
+export function validarFormulario() {
+    const inputs = document.querySelectorAll('input');
+    const boton = document.getElementById('enviar');
+
+    // Recorremos todos los inputs para verificamos si tienen la clase "is-valid"
+    for (let input of inputs) {
+        if (!input.classList.contains('is-valid')) {
+            boton.disabled = true;
+            return;
+        }
+    }
+
+    // Si todos los inputs son válidos, habilitamos el botón
+    boton.disabled = false;
 }
 
 //-------------------------------------------------------------------------------------------
@@ -92,19 +110,19 @@ export function checkTelefono(element) {
     }
 }
 
-// Regex para localidad
+// Regex para localidad (letras y espacios, máx. 50 caracteres)
 export function checkLocalidad(element) {
     let regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?: [A-Za-záéíóúÁÉÍÓÚñÑ]+)*$/;
     return comprobarRegex(element, regex, 50);
 }
 
-// Regex para provincia
+// Regex para provincia (letras y espacios, máx. 50 caracteres)
 export function checkProvincia(element) {
     let regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?: [A-Za-záéíóúÁÉÍÓÚñÑ]+)*$/;
     return comprobarRegex(element, regex, 50);
 }
 
-// Validación de fecha de nacimiento (mayores de edad y no en futuro)
+// Validación de fecha de nacimiento (mayores de edad y no fechas futuras)
 export function checkFechaNacimiento(element) {
     const fechaNacimiento = element.value;
     if (!fechaNacimiento) {
@@ -168,19 +186,32 @@ export function checkAvatar(element) {
     }
 }
 
-// Método para comprobar si todos los inputs son válidos
-export function validarFormulario() {
-    const inputs = document.querySelectorAll('input');
-    const boton = document.getElementById('enviar');
+// Validación nueva contraseña (debe ser distinta a la contraseña actual)
+export function checkNuevaPassword(element) {
+    let password = document.getElementById("password");
 
-    // Recorremos todos los inputs para verificamos si tienen la clase "is-valid"
-    for (let input of inputs) {
-        if (!input.classList.contains('is-valid')) {
-            boton.disabled = true;
-            return;
-        }
+    if (element.value !== password.value){
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
+        return true;
+    }else{
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
     }
+}
 
-    // Si todos los inputs son válidos, habilitamos el botón
-    boton.disabled = false;
+// Confirmar que las contraseñas coincidan
+export function confirmPasswordNueva(element) {
+    let passwordNueva = document.getElementById("nuevaPass");
+
+    if (element.value === passwordNueva.value && element.value.length > 0) {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
+        return true;
+    } else {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
+    }
 }

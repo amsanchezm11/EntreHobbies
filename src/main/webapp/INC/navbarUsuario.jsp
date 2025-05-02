@@ -9,7 +9,7 @@
                    aria-expanded="false">
                     <img src="${contexto}/IMG/AVATARES/${empty sessionScope.usuario.avatar ? 'avatar.svg' : sessionScope.usuario.avatar}"
                          alt="Avatar"
-                         class="rounded-circle"
+                         class="rounded-circle ${sessionScope.usuario.avatar eq 'avatar.svg' ? '' : 'border-img'}"
                          style="width: 30px; height: 30px; object-fit: cover;"
                          onerror="this.onerror=null; this.src='${contexto}/IMG/AVATARES/avatar.svg';">
                         ${sessionScope.usuario.username}
