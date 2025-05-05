@@ -1,7 +1,6 @@
 package es.entrehobbies.DAOFactory;
 
-import es.entrehobbies.DAO.IGenericoDAO;
-import es.entrehobbies.DAO.IUsuarioDAO;
+import es.entrehobbies.DAO.*;
 
 public abstract class DAOFactory {
 
@@ -13,6 +12,12 @@ public abstract class DAOFactory {
     public abstract IUsuarioDAO getUsuarioDAO();
 
     public abstract IGenericoDAO getGenericoDAO();
+
+    public abstract IEventoDAO getEventoDAO();
+
+    public abstract ICategoriaDAO getCategoriaDAO();
+
+    public abstract ISubcategoriaDAO getSubcategoriaDAO();
 
     /**
      * Fábrica abstracta

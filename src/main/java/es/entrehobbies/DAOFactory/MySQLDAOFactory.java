@@ -1,9 +1,6 @@
 package es.entrehobbies.DAOFactory;
 
-import es.entrehobbies.DAO.GenericoDAO;
-import es.entrehobbies.DAO.IGenericoDAO;
-import es.entrehobbies.DAO.IUsuarioDAO;
-import es.entrehobbies.DAO.UsuarioDAO;
+import es.entrehobbies.DAO.*;
 
 /**
  * Fábrica concreta para la fuente de datos MySQL
@@ -21,5 +18,20 @@ public class MySQLDAOFactory extends DAOFactory{
     @Override
     public IGenericoDAO getGenericoDAO() {
         return new GenericoDAO();
+    }
+
+    @Override
+    public IEventoDAO getEventoDAO() {
+        return new EventoDAO();
+    }
+
+    @Override
+    public ICategoriaDAO getCategoriaDAO() {
+        return new CategoriaDAO();
+    }
+
+    @Override
+    public ISubcategoriaDAO getSubcategoriaDAO() {
+        return new SubcategoriaDAO();
     }
 }

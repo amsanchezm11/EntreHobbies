@@ -33,7 +33,6 @@ public class UsuarioController extends HttpServlet {
 
         // En caso de entrar por doGet redirigimos al usuario a la página principal
         request.getRequestDispatcher(".").forward(request, response);
-
     }
 
 

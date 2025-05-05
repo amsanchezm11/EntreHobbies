@@ -65,15 +65,14 @@ public class Usuario implements Serializable {
     @Column(name = "Avatar", length = 30, nullable = false)
     private String avatar = "avatar.svg";
 
-    // ***Este atributo queda pendiente de revisión
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JoinTable(
-            name = "usuarioeventos",
-            joinColumns = @JoinColumn(name = "IdUsuario", foreignKey = @ForeignKey(name = "FK_usuarioeventos_eventos")),
-            inverseJoinColumns = @JoinColumn(name = "IdEvento")
-    )
-    private List<Evento> eventos;
+    @OneToMany(mappedBy = "creador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Evento> eventosCreados;
+
+    @ManyToMany
+    @JoinTable(name = "usuario_eventos",
+            joinColumns = @JoinColumn(name = "IdUsuario"),
+            inverseJoinColumns = @JoinColumn(name = "IdEvento"))
+    private List<Evento> eventosParticipados;
 
     // GETTERS AND SETTERS
 
@@ -174,11 +173,19 @@ public class Usuario implements Serializable {
         this.avatar = avatar;
     }
 
-    public List<Evento> getEventos() {
-        return eventos;
+    public List<Evento> getEventosCreados() {
+        return eventosCreados;
     }
 
-    public void setEventos(List<Evento> eventos) {
-        this.eventos = eventos;
+    public void setEventosCreados(List<Evento> eventosCreados) {
+        this.eventosCreados = eventosCreados;
+    }
+
+    public List<Evento> getEventosParticipados() {
+        return eventosParticipados;
+    }
+
+    public void setEventosParticipados(List<Evento> eventosParticipados) {
+        this.eventosParticipados = eventosParticipados;
     }
 }

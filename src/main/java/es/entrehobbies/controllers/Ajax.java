@@ -1,5 +1,7 @@
 package es.entrehobbies.controllers;
 
+import com.google.gson.Gson;
+import es.entrehobbies.DAO.ISubcategoriaDAO;
 import es.entrehobbies.DAO.IUsuarioDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
 import es.entrehobbies.beans.Usuario;
@@ -11,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "Ajax", value = "/Ajax")
 public class Ajax extends HttpServlet {
@@ -35,6 +41,7 @@ public class Ajax extends HttpServlet {
         // Variables DAO
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IUsuarioDAO daoU = daoF.getUsuarioDAO();
+        ISubcategoriaDAO daoS = daoF.getSubcategoriaDAO();
         // Variables Ajax
         JSONObject jsonResponse = null;
         String jsonRespuesta = null;
@@ -131,6 +138,28 @@ public class Ajax extends HttpServlet {
                 response.getWriter().write(jsonResponse.toString());
 
                 break;
+
+            case "obtenerSubcategorias":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+                List<Object[]> subcategorias = daoS.getAllSubcategoriasOrdenadas(idCategoria);
+
+                List<Map<String, Object>> jsonSubcategorias = new ArrayList<>();
+                for (Object[] sub : subcategorias) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("id", sub[0]);
+                    map.put("nombre", sub[1]);
+                    jsonSubcategorias.add(map);
+                }
+
+                response.setContentType("application/json");
+                response.getWriter().write(new Gson().toJson(jsonSubcategorias));
+                break;
+
         }
 
     }

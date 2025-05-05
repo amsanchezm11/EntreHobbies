@@ -2,10 +2,12 @@ package es.entrehobbies.beans;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "categorias", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "Nombre", name = "UK_categorias_nombre"),})
+        @UniqueConstraint(columnNames = "Nombre", name = "UK_categorias_nombre")
+})
 public class Categoria implements Serializable {
 
     @Id
@@ -16,8 +18,14 @@ public class Categoria implements Serializable {
     @Column(name = "Nombre", length = 40, nullable = false)
     private String nombre;
 
+    @Column(name = "Imagen", length = 40, nullable = true)
+    private String imagen = "categoria.svg";
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subcategoria> subcategorias;
+
     // GETTERS AND SETTERS
-    
+
     public Integer getIdCategoria() {
         return idCategoria;
     }
@@ -33,4 +41,21 @@ public class Categoria implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public List<Subcategoria> getSubcategorias() {
+        return subcategorias;
+    }
+
+    public void setSubcategorias(List<Subcategoria> subcategorias) {
+        this.subcategorias = subcategorias;
+    }
 }
+

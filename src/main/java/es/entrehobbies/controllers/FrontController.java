@@ -1,8 +1,14 @@
 package es.entrehobbies.controllers;
 
+import es.entrehobbies.DAO.ICategoriaDAO;
+import es.entrehobbies.DAO.IEventoDAO;
+import es.entrehobbies.DAO.IGenericoDAO;
+import es.entrehobbies.DAOFactory.DAOFactory;
+import es.entrehobbies.beans.Categoria;
 import es.entrehobbies.beans.Usuario;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +37,12 @@ public class FrontController extends HttpServlet {
         String url = ".";
         String accion = request.getParameter("accion");
         Usuario user = null;
+        List<Object[]> categorias = null;
+
+        // DAOs
+        DAOFactory daoF = DAOFactory.getDAOFactory();
+        //IGenericoDAO daoG = daoF.getGenericoDAO();
+        ICategoriaDAO daoC = daoF.getCategoriaDAO();
 
         switch (accion) {
             case "Refresh":
@@ -53,6 +65,19 @@ public class FrontController extends HttpServlet {
                 break;
             case "MiCuenta":
                 url = "/JSP/USUARIO/perfilUsuario.jsp";
+                break;
+            case "Crear-Evento":
+                // Obtenemos las categorias para los eventos
+                categorias = daoC.getAllCategoriasOrdenadas();
+                // Comprobamos que la lista venga can datos y redireccionamos según el resultado obtenido
+                if (categorias != null) {
+                    request.setAttribute("categorias", categorias);
+                    url = "/JSP/EVENTO/crearEvento.jsp";
+                } else {
+                  request.setAttribute("error", "No se han encontrado categorías");
+                  url = "/JSP/ERRORES/error500.jsp";
+                }
+
                 break;
         }
         

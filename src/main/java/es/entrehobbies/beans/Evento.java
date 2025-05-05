@@ -25,7 +25,7 @@ public class Evento implements Serializable {
     private Integer idEvento;
 
     @Column(name = "Titulo", length = 40, nullable = false)
-    private String nombre;
+    private String titulo;
 
     @Column(name = "Descripcion", length = 100, nullable = false)
     private String descripcion;
@@ -42,13 +42,14 @@ public class Evento implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Creador", nullable = false)
     private Usuario creador;
 
     @ManyToOne
-    @JoinColumn(name = "Categoria", nullable = false)
-    private Categoria categoria;
+    @JoinColumn(name = "Subcategoria", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_evento_subcategoria"))
+    private Subcategoria subcategoria;
 
     @Column(name = "NumParticipantes", nullable = false)
     private int numParticipantes;
@@ -72,8 +73,7 @@ public class Evento implements Serializable {
     @Enumerated(EnumType.STRING)
     private Estado estado;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "eventos")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToMany(mappedBy = "eventosParticipados")
     private List<Usuario> participantes;
 
     // GETTERS AND SETTERS
@@ -87,12 +87,12 @@ public class Evento implements Serializable {
         this.idEvento = idEvento;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getDescripcion() {
@@ -135,12 +135,12 @@ public class Evento implements Serializable {
         this.creador = creador;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public Subcategoria getSubcategoria() {
+        return subcategoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setSubcategoria(Subcategoria subcategoria) {
+        this.subcategoria = subcategoria;
     }
 
     public int getNumParticipantes() {

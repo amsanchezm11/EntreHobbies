@@ -16,11 +16,6 @@
         <form action="${contexto}/FrontController" method="post">
             <button class="navbar-brand btn btn-custom" name="accion" value="Refresh">EntreHobbies</button>
         </form>
-        <%--<div class="d-flex align-items-center gap-3">
-                <div class="form-check form-switch">
-                    <img id="themeIcon" src="${contexto}/IMG/TEMA/Sol.png" alt="Icono de tema" width="24" height="24" style="cursor: pointer;" title="Cambiar Tema">
-                </div>
-            </div> --%>
     </div>
 </nav>
 <main class="position-relative bg-gradient-morado-blanco w-100 vh-100 d-flex justify-content-center align-items-center flex-column">

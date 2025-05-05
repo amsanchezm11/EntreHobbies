@@ -188,6 +188,16 @@
         </div>
     </div>
 </div>
+<form action="${contexto}/FrontController" method="post">
+    <button type="submit"
+            name="accion"
+            value="Crear-Evento"
+            class="btn btn-main rounded-circle shadow-lg d-flex justify-content-center align-items-center"
+            id="botonCrearEvento" title="Crear evento">
+        <i class="bi bi-plus-lg fs-3"></i>
+    </button>
+</form>
+
 </body>
 </html>
 

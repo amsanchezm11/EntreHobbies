@@ -3,6 +3,25 @@
         <form action="${contexto}/FrontController" method="post" class="mb-0">
             <button class="navbar-brand btn btn-custom" name="accion" value="Refresh">EntreHobbies</button>
         </form>
+        <div class="container-fluid w-25 d-flex gap-2">
+            <button class="btn btn-main"
+                    type="button"
+                    title="Ver filtros"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasScrolling"
+                    aria-controls="offcanvasScrolling">Filtros
+            </button>
+            <form class="d-flex" role="search" action="${contexto}/Ajax" method="post">
+                <div class="position-relative w-100">
+                    <input class="form-control pe-5"
+                           type="search"
+                           title="Buscar eventos"
+                           placeholder="Buscar"
+                           aria-label="Buscar">
+                    <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 text-secondary"></i>
+                </div>
+            </form>
+        </div>
         <c:if test="${sessionScope.usuario != null}">
             <div class="dropdown">
                 <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 color-pm pe-2" href="#" role="button" data-bs-toggle="dropdown"
