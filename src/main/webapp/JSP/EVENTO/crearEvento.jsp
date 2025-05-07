@@ -14,16 +14,15 @@
 
 <h1 class="text-white mb-3 position-relative" style="z-index: -10;">Nuevo Evento</h1>
 
-<div class="container p-4 bg-white rounded shadow" style="max-width: 600px;">
+<div class="container p-4 bg-white rounded shadow" style="max-width: 600px; min-height: 400px;">
     <form id="multiStepForm" action="${contexto}/EventoController" method="post">
 
         <div class="step active">
             <div class="form-floating mb-3">
-                <h3>Información general del evento</h3>
+                <h3>Informaci&oacute;n general del evento</h3>
             </div>
 
             <div class="row">
-                <!-- Columna 1 -->
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="titulo" name="titulo" placeholder="T&iacute;tulo" required>
@@ -36,10 +35,9 @@
                     </div>
                 </div>
 
-                <!-- Columna 2 -->
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <select class="form-control" id="categoria" name="categoria" required>
+                        <select class="form-control" id="categoria" name="idCategoria" required>
                             <option value="" disabled selected>Selecciona una categor&iacute;a</option>
                             <c:forEach var="categoria" items="${requestScope.categorias}">
                                 <option value="${categoria[0]}">${categoria[1]}</option>
@@ -49,7 +47,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-control" id="subcategoria" name="subcategoria" required>
+                        <select class="form-control" id="subcategoria" name="idSubcategoria" required>
                             <option value="" disabled selected>Selecciona una subcategor&iacute;a</option>
                         </select>
                         <label for="subcategoria">Subcategor&iacute;a</label>
@@ -58,9 +56,9 @@
             </div>
 
             <div class="form-floating mb-3">
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripci&oacute;n" maxlength="100"></textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripci&oacute;n" maxlength="255"></textarea>
                 <label for="descripcion">Descripci&oacute;n</label>
-                <small id="charCount" class="form-text text-muted d-block text-end">0/100 caracteres</small>
+                <small id="charCount" class="form-text text-muted d-block text-end">0/255 caracteres</small>
             </div>
 
             <button type="button" class="btn btn-main" onclick="nextStep()">Siguiente</button>

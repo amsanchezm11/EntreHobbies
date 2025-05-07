@@ -1,15 +1,12 @@
 <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:url var="estilo" value="/CSS/style.css" scope="application" />
-<c:set var="contexto" value="${pageContext.request.contextPath}" scope="application" />
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <jsp:include page="/INC/cabecera.jsp">
-        <jsp:param name="titulo" value="EntreHobbies" />
+        <jsp:param name="titulo" value="Categorías" />
         <jsp:param name="estilo" value="${estilo}" />
     </jsp:include>
-    <script type="module" src="${contexto}/JS/alertas.js" defer></script>
     <script type="module" src="${contexto}/JS/index.js" defer></script>
 </head>
 <body class="bg-body text-body position-relative w-100 bg-gradient-morado-blanco">
@@ -45,7 +42,7 @@
                     <select class="form-select" id="provincia" name="provincia">
                         <option value="" disabled selected>Selecciona una provincia</option>
                         <option value="badajoz">Badajoz</option>
-                        <option value="caceres">C&aacute;ceres</option>
+                        <option value="caceres">Cáceres</option>
                         <option value="sevilla">Sevilla</option>
                     </select>
                 </div>
@@ -75,89 +72,40 @@
     </div>
 </div>
 
-<div class="container py-5">
-    <h1 class="text-center text-light fw-bold">Explora, comparte y vive tu hobby</h1>
+<div class="mb-5 ps-3 my-3">
+    <h1 class="text-light text-login">Categor&iacute;as</h1>
 </div>
 
-
-<div class="container my-4">
-    <h2 class="text-center mb-4 text-light fw-bold">Haz amigos haciendo lo que te apasiona</h2>
-    <div class="row justify-content-center">
-
+<div class="row justify-content-center m-5">
+    <c:forEach var="categoria" items="${requestScope.categorias}">
         <div class="col-md-4 mb-4">
-            <div class="card h-100 rounded-3 p-3">
-                <img src="${contexto}/IMG/GENERAL/conoce.svg" class="card-img-top img-fluid mx-auto d-block" alt="Conoce a gente" style="max-width: 65%; object-fit: contain; height: 200px;">
-                <div class="card-body">
-                    <h5 class="card-title text-center fw-bold">Conoce</h5>
-                    <p class="card-text">Descubre personas con tus mismos intereses.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 rounded-3 p-3">
-                <img src="${contexto}/IMG/GENERAL/comparte.svg" class="card-img-top img-fluid mx-auto d-block" alt="Comparte tu afición" style="max-width: 65%; object-fit: contain; height: 200px;">
-                <div class="card-body">
-                    <h5 class="card-title text-center fw-bold">Comparte</h5>
-                    <p class="card-text">Haz que tus aficiones lleguen a m&aacute;s personas.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 rounded-3 p-3">
-                <img src="${contexto}/IMG/GENERAL/calendario.svg" class="card-img-top img-fluid mx-auto d-block" alt="Crea tus planes" style="max-width: 65%; object-fit: contain; height: 200px;">
-                <div class="card-body">
-                    <h5 class="card-title text-center fw-bold">Crea</h5>
-                    <p class="card-text">Organiza planes &uacute;nicos para disfrutar en grupo.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-12 mb-4 mt-5">
-            <div class="card h-100 rounded-3 p-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">¿Eres nuevo?</h5>
-                    <p class="card-text">¡Bienvenido! Reg&iacute;strate y empieza a disfrutar de la comunidad.</p>
-                    <form action="${contexto}/FrontController" method="post">
-                        <button type="submit" class="btn btn-main btn-lg" name="accion" value="Registro-usuario">Reg&iacute;strate</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 mx-auto my-5">
-            <div class="card h-100 rounded-3 p-4">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start">
-                        <h5 class="card-title fw-bold fs-5">Explora nuestras categor&iacute;as</h5>
-                        <p class="card-text fs-6">Encuentra eventos seg&uacute;n tus intereses y &uacute;nete a ellos f&aacute;cilmente.</p>
-                        <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-main mt-2 btn-lg" name="accion" value="Ver-Categorias">Categor&iacute;as</button>
-                        </form>
+            <form action="${contexto}/FrontController" method="post" class="h-100">
+                <input type="hidden" name="idCategoria" value="${categoria[0]}">
+                <button type="submit" name="accion"
+                        class="card h-100 rounded-3 p-3 border-0 text-decoration-none bg-white text-dark w-100 carta"
+                        style="cursor: pointer;">
+                    <c:choose>
+                        <c:when test="${not empty categoria[2]}">
+                            <img src="${contexto}/IMG/CATEGORIAS/${categoria[2]}"
+                                 class="card-img-top img-fluid mx-auto d-block"
+                                 alt="${categoria[1]}"
+                                 style="max-width: 65%; object-fit: contain; height: 200px;">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${contexto}/IMG/CATEGORIAS/default.jpg"
+                                 class="card-img-top img-fluid mx-auto d-block"
+                                 alt="${categoria[1]}"
+                                 style="max-width: 65%; object-fit: contain; height: 200px;">
+                        </c:otherwise>
+                    </c:choose>
+                    <div class="card-body">
+                        <h5 class="card-title text-center fw-bold">${categoria[1]}</h5>
                     </div>
-                    <div class="col-md-6 text-center">
-                        <img src="${contexto}/IMG/GENERAL/categorias.svg"
-                             class="img-fluid mx-auto d-block p-2"
-                             alt="Categor&iacute;as"
-                             style="max-width: 80%; object-fit: contain;">
-                    </div>
-                </div>
-            </div>
+                </button>
+            </form>
         </div>
-    </div>
+    </c:forEach>
 </div>
-
-
-
 
 <c:if test="${sessionScope.usuario != null}">
     <form action="${contexto}/FrontController" method="post">
@@ -181,7 +129,5 @@
     </div>
 </c:if>
 
-
-<c:import url="/INC/pie.inc"/>
 </body>
 </html>

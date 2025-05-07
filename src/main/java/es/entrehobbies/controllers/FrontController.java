@@ -37,12 +37,13 @@ public class FrontController extends HttpServlet {
         String url = ".";
         String accion = request.getParameter("accion");
         Usuario user = null;
-        List<Object[]> categorias = null;
+        List<Object[]> listaObjetos = null;
 
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
         //IGenericoDAO daoG = daoF.getGenericoDAO();
         ICategoriaDAO daoC = daoF.getCategoriaDAO();
+        IEventoDAO daoE = daoF.getEventoDAO();
 
         switch (accion) {
             case "Refresh":
@@ -55,7 +56,6 @@ public class FrontController extends HttpServlet {
                         url = ".";
                     }
                 }
-
                 break;
             case "Login":
                 url = "/JSP/LOGIN/login.jsp";
@@ -68,16 +68,40 @@ public class FrontController extends HttpServlet {
                 break;
             case "Crear-Evento":
                 // Obtenemos las categorias para los eventos
-                categorias = daoC.getAllCategoriasOrdenadas();
+                listaObjetos = daoC.getAllCategoriasOrdenadas();
                 // Comprobamos que la lista venga can datos y redireccionamos según el resultado obtenido
-                if (categorias != null) {
-                    request.setAttribute("categorias", categorias);
+                if (listaObjetos != null) {
+                    request.setAttribute("categorias", listaObjetos);
                     url = "/JSP/EVENTO/crearEvento.jsp";
                 } else {
                   request.setAttribute("error", "No se han encontrado categorías");
                   url = "/JSP/ERRORES/error500.jsp";
                 }
+                break;
+            case "Ver-Categorias":
 
+                listaObjetos = daoC.getAllCategoriasOrdenadasConImg();
+                // Comprobamos que la lista venga can datos y redireccionamos según el resultado obtenido
+                if (listaObjetos != null) {
+                    request.setAttribute("categorias", listaObjetos);
+                    url = "/JSP/EVENTO/categorias.jsp";
+                } else {
+                    request.setAttribute("error", "No se han encontrado categorías");
+                    url = "/JSP/ERRORES/error500.jsp";
+                }
+                break;
+            case "Ver-Eventos":
+                // Obtenemos el idCategoria que el usuario ha seleccionado
+                int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+                // Recogemos todos los eventos de dicha categoría
+                listaObjetos = daoE.getAllEventosPorCategoriaOrdenados(idCategoria);
+                if (listaObjetos != null) {
+                    request.setAttribute("eventos", listaObjetos);
+                    url = "/JSP/EVENTO/verEventos.jsp";
+                } else {
+                    request.setAttribute("error", "No se han encontrado eventos de esta categoría");
+                    url = "/JSP/ERRORES/error500.jsp";
+                }
                 break;
         }
         

@@ -11,7 +11,7 @@
 <nav class="navbar bg-body-tertiary border-bottom">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <form action="${contexto}/FrontController" method="post" class="mb-0">
-            <button class="navbar-brand btn btn-custom" name="accion" value="Refresh">EntreHobbies</button>
+            <button class="navbar-brand btn btn-refresh" name="accion" value="Refresh">EntreHobbies</button>
         </form>
         <c:if test="${sessionScope.usuario != null}">
             <div class="dropdown">

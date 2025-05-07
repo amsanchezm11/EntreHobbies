@@ -1,7 +1,7 @@
-<nav class="navbar bg-body-tertiary border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary border-bottom sticky-top">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <form action="${contexto}/FrontController" method="post" class="mb-0">
-            <button class="navbar-brand btn btn-custom" name="accion" value="Refresh">EntreHobbies</button>
+            <button class="navbar-brand btn btn-refresh" name="accion" value="Refresh">EntreHobbies</button>
         </form>
         <div class="container-fluid w-25 d-flex gap-2">
             <button class="btn btn-main"
@@ -54,4 +54,3 @@
         </c:if>
     </div>
 </nav>
-

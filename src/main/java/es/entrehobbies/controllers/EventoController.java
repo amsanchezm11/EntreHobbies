@@ -40,7 +40,7 @@ public class EventoController extends HttpServlet {
 
         // Variables
         String url = ".";
-        String accion = null;
+        String accion = request.getParameter("accion");
         Usuario creador = null;
         Evento evento = null;
         Categoria categoria = null;
@@ -86,24 +86,27 @@ public class EventoController extends HttpServlet {
                     evento.setSubcategoria(subcategoria);
 
                     // Comprobamos si es el primer evento que se va a insertar en la lista del creador
-                    if (creador.getEventosCreados() == null){
-                        creador.setEventosCreados(new ArrayList<Evento>());
-                    }
+//                    if (creador.getEventosCreados() == null){
+//                        creador.setEventosCreados(new ArrayList<Evento>());
+//                    }
                     // Añadimos el evento a la lista de eventos creados del usuario
-                    creador.getEventosCreados().add(evento);
+                    //creador.getEventosCreados().add(evento);
                     // Añadimos el evento a la base de datos
                     daoG.insertOrUpdate(evento);
+                    // Notificamos al usuario que ha creado el evento correctamente
+                    request.setAttribute("aviso", "Evento creado correctamente");
 
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     Logger.getLogger(Subcategoria.class.getName()).log(Level.SEVERE, null, e);
                     Logger.getLogger(Categoria.class.getName()).log(Level.SEVERE, null, e);
                     Logger.getLogger(Evento.class.getName()).log(Level.SEVERE, null, e);
                 }
-
-
                 break;
         }
 
+
+        // Redirigimos al usuario a la url correspondiente
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     @Override

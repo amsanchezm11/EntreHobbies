@@ -4,5 +4,7 @@ import java.util.List;
 
 public interface ICategoriaDAO {
 
-    public abstract List<Object[]> getAllCategoriasOrdenadas();
+    public List<Object[]> getAllCategoriasOrdenadas();
+
+    public List<Object[]> getAllCategoriasOrdenadasConImg();
 }

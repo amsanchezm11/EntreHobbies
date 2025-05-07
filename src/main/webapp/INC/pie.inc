@@ -2,7 +2,7 @@
   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start gap-3">
 
    <div>
-      <p class="mb-0 fw-bold">&copy; 2025 Alberto S&aacute;nchez Mac&iacute;as - EntreHobbies</p>
+      <p class="mb-0 fw-bold"> Copyright &copy; 2025 Alberto S&aacute;nchez Mac&iacute;as - EntreHobbies</p>
     </div>
 
     <ul class="list-unstyled d-flex flex-column flex-md-row gap-3 mb-0">
