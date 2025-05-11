@@ -1,6 +1,7 @@
 package es.entrehobbies.controllers;
 
 import com.google.gson.Gson;
+import es.entrehobbies.DAO.IEventoDAO;
 import es.entrehobbies.DAO.ISubcategoriaDAO;
 import es.entrehobbies.DAO.IUsuarioDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
@@ -13,10 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @WebServlet(name = "Ajax", value = "/Ajax")
 public class Ajax extends HttpServlet {
@@ -42,6 +40,7 @@ public class Ajax extends HttpServlet {
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IUsuarioDAO daoU = daoF.getUsuarioDAO();
         ISubcategoriaDAO daoS = daoF.getSubcategoriaDAO();
+        IEventoDAO daoE = daoF.getEventoDAO();
         // Variables Ajax
         JSONObject jsonResponse = null;
         String jsonRespuesta = null;
@@ -159,6 +158,46 @@ public class Ajax extends HttpServlet {
                 response.setContentType("application/json");
                 response.getWriter().write(new Gson().toJson(jsonSubcategorias));
                 break;
+
+            case "estadisticas-categorias":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                List<Object[]> resultados = daoE.getNumeroEventosPorCategoria();
+
+                Map<String, Long> mapaCategorias = new LinkedHashMap<>();
+                for (Object[] fila : resultados) {
+                    String categoria = (String) fila[0];
+                    Long total = (Long) fila[1];
+                    mapaCategorias.put(categoria, total);
+                }
+
+                response.getWriter().write(new Gson().toJson(mapaCategorias));
+                break;
+
+            case "Eventos-mes":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                // Obtener el año actual del sistema
+                int anioActual = Calendar.getInstance().get(Calendar.YEAR);
+
+                // Llamar al DAO para obtener el mapa con los 12 meses
+                Map<String, Long> mapaMeses = daoE.getNumeroEventosPorMes(anioActual);
+
+                // Devolver el JSON
+                response.getWriter().write(new Gson().toJson(mapaMeses));
+                break;
+
+            case "Usuarios-sexo":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                Map<String, Long> usuariosPorSexo = daoU.getNumeroUsuariosPorSexo();
+
+                response.getWriter().write(new Gson().toJson(usuariosPorSexo));
+                break;
+
 
         }
 

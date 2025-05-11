@@ -71,6 +71,7 @@ public class UsuarioController extends HttpServlet {
                 converter.setPattern("yyyy-MM-dd");
                 ConvertUtils.register(converter, java.util.Date.class);
                 ConvertUtils.register(new EnumConverter(), Usuario.Rol.class);
+                ConvertUtils.register(new EnumConverter(), Usuario.Sexo.class);
 
                 try {
                     usuario = new Usuario();
@@ -146,6 +147,8 @@ public class UsuarioController extends HttpServlet {
                     usuarioModificado.setPassword(usuario.getPassword());
                     // Le añadimos su rol correspondiente
                     usuarioModificado.setRol(usuario.getRol());
+                    // Le añadimos su sexo
+                    usuarioModificado.setSexo(usuario.getSexo());
                     // Aplicamos el avatar que ya tenía el usuario
                     usuarioModificado.setAvatar(usuario.getAvatar());
                     // Actualizamos su ultimo acceso

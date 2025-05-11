@@ -18,20 +18,19 @@ export function comprobarRegex(element, regex, length) {
 
 // Método para comprobar si todos los inputs son válidos
 export function validarFormulario() {
-    const inputs = document.querySelectorAll('input');
+    const campos = document.querySelectorAll('input, select, textarea');
     const boton = document.getElementById('enviar');
 
-    // Recorremos todos los inputs para verificamos si tienen la clase "is-valid"
-    for (let input of inputs) {
-        if (!input.classList.contains('is-valid')) {
+    for (let campo of campos) {
+        if (!campo.classList.contains('is-valid')) {
             boton.disabled = true;
             return;
         }
     }
 
-    // Si todos los inputs son válidos, habilitamos el botón
     boton.disabled = false;
 }
+
 
 //-------------------------------------------------------------------------------------------
 //-----------------------------------[ USUARIO ]---------------------------------------------
@@ -57,7 +56,9 @@ export function checkUsername(element) {
 
 // Regex para email (formato válido + .com o .es, sin dominios duplicados)
 export function checkEmail(element) {
-    let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|es)$/;
+    //let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|es)$/;
+    let regex = /^[a-zA-Z0-9ñÑ._%+-]+@[a-zA-Z0-9ñÑ.-]+\.(com|es)$/;
+
     let valor = element.value;
     if (regex.test(valor)) {
         // Comprobamos que no haya más de un ".com" o ".es" en la dirección
@@ -210,6 +211,19 @@ export function confirmPasswordNueva(element) {
         element.classList.add("is-valid");
         return true;
     } else {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
+    }
+}
+
+export function checkSexo(element){
+    console.log(element);
+    if (element.value !== null){
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
+        return true;
+    }else{
         element.classList.remove("is-valid");
         element.classList.add("is-invalid");
         return false;

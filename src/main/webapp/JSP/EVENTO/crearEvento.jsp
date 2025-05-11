@@ -8,6 +8,7 @@
     </jsp:include>
     <script type="module" src="${contexto}/JS/formularioEvento.js" defer></script>
     <script type="module" src="${contexto}/JS/obtenerSubcategorias.js" defer></script>
+    <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
 </head>
 <body class="bg-gradient-morado-blanco p-4" style="margin-top: 70px;">
 <c:import url="/INC/navbarCreate.jsp"/>
@@ -24,10 +25,32 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="T&iacute;tulo" required>
-                        <label for="titulo">T&iacute;tulo</label>
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="text"
+                                   class="form-control"
+                                   id="titulo"
+                                   name="titulo"
+                                   placeholder="Título"
+                                   required>
+                            <label for="titulo">Título</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Título"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                  <li>A&ntilde;adele un t&iacute;tulo descriptivo a tu evento para que el resto de usuarios puedan encontrarlo f&aacute;cilmente</li>
+                  <li>Debe empezar con may&uacute;scula.</li>
+                  <li>Solo letras, n&uacute;meros y espacios.</li>
+                  <li>Longitud m&aacute;xima 40 caracteres.</li>
+              </ul>">
+        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+    </span>
                     </div>
+
 
                     <div class="form-floating mb-3">
                         <input type="number" class="form-control" id="numParticipantes" step="1" min="1" name="numParticipantes" placeholder="N&uacute;mero de participantes" required>

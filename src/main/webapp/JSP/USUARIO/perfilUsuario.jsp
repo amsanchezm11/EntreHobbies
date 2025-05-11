@@ -28,9 +28,21 @@
                         <i class="bi bi-person-circle me-2"></i>Información de cuenta
                     </button>
 
-                    <form action="${contexto}/EventoController" method="post">
-                        <button type="submit" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100">
+                    <form action="${contexto}/FrontController" method="post">
+                        <button type="submit"
+                                class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
+                                name="accion"
+                                value="Mis-Eventos">
                             <i class="bi bi-calendar-event me-2"></i>Mis eventos
+                        </button>
+                    </form>
+
+                    <form action="${contexto}/FrontController" method="post">
+                        <button type="submit"
+                                class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
+                                name="accion"
+                                value="Crear-Evento">
+                            <i class="bi bi-calendar-event me-2"></i>Crear evento
                         </button>
                     </form>
 

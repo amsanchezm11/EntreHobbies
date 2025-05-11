@@ -22,59 +22,6 @@
     </c:otherwise>
 </c:choose>
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title color-pm" id="offcanvasScrollingLabel">Filtros</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <form id="formFiltros" class="h-100 d-flex flex-column justify-content-between" method="post" action="#">
-
-            <div>
-                <div class="mb-3">
-                    <label for="categoria" class="form-label fw-bold mb-2">Categor&iacute;a</label>
-                    <select class="form-select" id="categoria" name="categoria">
-                        <option value="" disabled selected>Selecciona una categor&iacute;a</option>
-                        <option value="deportes">Deportes</option>
-                        <option value="videojuegos">Videojuegos</option>
-                        <option value="lectura">Lectura y Literatura</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="provincia" class="form-label fw-bold mb-2">Provincia</label>
-                    <select class="form-select" id="provincia" name="provincia">
-                        <option value="" disabled selected>Selecciona una provincia</option>
-                        <option value="badajoz">Badajoz</option>
-                        <option value="caceres">C&aacute;ceres</option>
-                        <option value="sevilla">Sevilla</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-bold mb-2">Rango de fechas</label>
-                    <div class="d-flex flex-column flex-md-row gap-2">
-                        <div class="flex-fill">
-                            <label for="fechaInicio" class="form-label">Desde</label>
-                            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
-                        </div>
-                        <div class="flex-fill">
-                            <label for="fechaLimite" class="form-label">Hasta</label>
-                            <input type="date" class="form-control" id="fechaLimite" name="fechaLimite">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="mt-4 align-self-bottom">
-                <button type="submit" class="btn btn-main w-100">Aplicar filtros</button>
-                <button type="reset" class="btn btn-main w-100">Limpiar filtros</button>
-            </div>
-
-        </form>
-    </div>
-</div>
-
 <div class="container py-5">
     <h1 class="text-center text-light fw-bold">Explora, comparte y vive tu hobby</h1>
 </div>
@@ -82,7 +29,7 @@
 
 <div class="container my-4">
     <h2 class="text-center mb-4 text-light fw-bold">Haz amigos haciendo lo que te apasiona</h2>
-    <div class="row justify-content-center">
+    <section class="row justify-content-center">
 
         <div class="col-md-4 mb-4">
             <div class="card h-100 rounded-3 p-3">
@@ -113,26 +60,57 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </div>
 
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-12 mb-4 mt-5">
-            <div class="card h-100 rounded-3 p-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">¿Eres nuevo?</h5>
-                    <p class="card-text">¡Bienvenido! Reg&iacute;strate y empieza a disfrutar de la comunidad.</p>
-                    <form action="${contexto}/FrontController" method="post">
-                        <button type="submit" class="btn btn-main btn-lg" name="accion" value="Registro-usuario">Reg&iacute;strate</button>
-                    </form>
+<c:choose>
+    <c:when test="${sessionScope.usuario == null}">
+        <section class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-12 mb-4 mt-5">
+                    <div class="card h-100 rounded-3 p-3">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">¿Eres nuevo?</h5>
+                            <p class="card-text">¡Bienvenido! Reg&iacute;strate y empieza a disfrutar de la comunidad.</p>
+                            <form action="${contexto}/FrontController" method="post">
+                                <button type="submit" class="btn btn-main btn-lg" name="accion" value="Registro-usuario">Reg&iacute;strate</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+        </section>
+    </c:when>
+    <c:otherwise>
+        <section class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 mx-auto my-5">
+                    <div class="card h-100 rounded-3 p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 text-center text-md-start">
+                                <img src="${contexto}/IMG/GENERAL/perfil.svg"
+                                     class="img-fluid mx-auto d-block p-2"
+                                     alt="Imagen de perfil"
+                                     style="max-width: 80%; object-fit: contain;">
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="card-title fw-bold">¡Bienvenido de nuevo!</h5>
+                                <p class="card-text">Nos alegra verte nuevamente. Aprovecha tu cuenta para disfrutar de todas las funcionalidades.</p>
+                                <form action="${contexto}/FrontController" method="post">
+                                    <button type="submit" class="btn btn-main btn-lg" name="accion" value="Mi-Cuenta">Ir a mi perfil</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<div class="container my-5">
+    </c:otherwise>
+</c:choose>
+
+
+<section class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-6 mx-auto my-5">
             <div class="card h-100 rounded-3 p-4">
@@ -154,9 +132,31 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
+<section class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 mb-4">
+            <div class="card h-100 rounded-3 p-3">
+                <img src="${contexto}/IMG/GENERAL/buscar.svg" class="card-img-top img-fluid mx-auto d-block" alt="Buscar eventos" style="max-width: 65%; object-fit: contain; height: 200px;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Busca eventos</h5>
+                    <p class="card-text">Filtra por subcategor&iacute;as, provincia y descripci&oacute;n para encontrar tu plan ideal.</p>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-md-5 mb-4">
+            <div class="card h-100 rounded-3 p-3">
+                <img src="${contexto}/IMG/GENERAL/unirse.svg" class="card-img-top img-fluid mx-auto d-block" alt="Ap&uacute;ntate" style="max-width: 65%; object-fit: contain; height: 200px;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Ap&uacute;ntate</h5>
+                    <p class="card-text">Haz clic y empieza a disfrutar con otros usuarios de tus mismos hobbies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <c:if test="${sessionScope.usuario != null}">
@@ -164,20 +164,46 @@
         <button type="submit"
                 name="accion"
                 value="Crear-Evento"
-                class="btn btn-main rounded-circle shadow-lg d-flex justify-content-center align-items-center"
+                class="btn btn-main rounded-circle shadow-lg d-flex justify-content-center align-items-center btn-shadow"
                 id="botonCrearEvento" title="Crear evento">
             <i class="bi bi-plus-lg fs-3"></i>
         </button>
     </form>
 </c:if>
 
+<%--<c:if test="${requestScope.aviso != null}">--%>
+<%--    <div id="aviso"--%>
+<%--         class="alert alert-success fade show position-fixed bottom-0 start-50 translate-middle-x mb-4 z-3 px-4 py-2"--%>
+<%--         role="alert"--%>
+<%--         style="width: auto; pointer-events: none;">--%>
+<%--        <i class="bi bi-check-circle-fill me-2"></i>--%>
+<%--            ${requestScope.aviso}--%>
+<%--    </div>--%>
+<%--</c:if>--%>
+
 <c:if test="${requestScope.aviso != null}">
     <div id="aviso"
-         class="alert alert-success fade show position-fixed bottom-0 start-50 translate-middle-x mb-4 z-3 px-4 py-2"
+         class="notification"
          role="alert"
-         style="width: auto; pointer-events: none;">
-        <i class="bi bi-check-circle-fill me-2"></i>
-            ${requestScope.aviso}
+         style="pointer-events: none;">
+        <div class="notification-body">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span>${requestScope.aviso}</span>
+            <div class="notification-progress"></div>
+        </div>
+    </div>
+</c:if>
+
+<c:if test="${requestScope.error != null}">
+    <div id="aviso"
+         class="notification-danger"
+         role="alert"
+         style="pointer-events: none;">
+        <div class="notification-body">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span>${requestScope.error}</span>
+            <div class="notification-danger-progress"></div>
+        </div>
     </div>
 </c:if>
 

@@ -5,11 +5,26 @@
       <p class="mb-0 fw-bold"> Copyright &copy; 2025 Alberto S&aacute;nchez Mac&iacute;as - EntreHobbies</p>
     </div>
 
-    <ul class="list-unstyled d-flex flex-column flex-md-row gap-3 mb-0">
-      <li><a href="#" class="text-decoration-none text-body-emphasis">Sobre nosotros</a></li>
-      <li><a href="#" class="text-decoration-none text-body-emphasis">Contacto</a></li>
-      <li><a href="#" class="text-decoration-none text-body-emphasis">Privacidad</a></li>
-    </ul>
+   <form action="FrontController" method="post">
+     <ul class="list-unstyled d-flex flex-column flex-md-row gap-3 mb-0">
+       <li>
+         <button type="submit" name="accion" value="Sobre-Nosotros" class="btn btn-link text-decoration-none text-body-emphasis p-0">
+           Sobre nosotros
+         </button>
+       </li>
+       <li>
+         <button type="submit" name="accion" value="Contacto" class="btn btn-link text-decoration-none text-body-emphasis p-0">
+           Contacto
+         </button>
+       </li>
+       <li>
+         <button type="submit" name="accion" value="Privacidad" class="btn btn-link text-decoration-none text-body-emphasis p-0">
+           Privacidad
+         </button>
+       </li>
+     </ul>
+   </form>
+
 
     <div class="d-flex gap-3">
       <a href="https://www.instagram.com"

@@ -4,6 +4,10 @@ import es.entrehobbies.beans.Usuario;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
 
     @Override
@@ -122,5 +126,37 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
         }
         return existe;
     }
+
+    @Override
+    public Map<String, Long> getNumeroUsuariosPorSexo() {
+        Map<String, Long> resultados = new LinkedHashMap<>();
+
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT u.sexo, COUNT(u) FROM Usuario u GROUP BY u.sexo",
+                    Object[].class
+            );
+
+            List<Object[]> datos = query.getResultList();
+
+            for (Object[] fila : datos) {
+                Usuario.Sexo sexoEnum = (Usuario.Sexo) fila[0];
+                String sexo = (sexoEnum != null) ? sexoEnum.name() : "No especificado";
+                Long total = (Long) fila[1];
+                resultados.put(sexo, total);
+            }
+
+            endTransaction();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            handleExcepcion(he);
+        }
+
+        return resultados;
+    }
+
+
 
 }

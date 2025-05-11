@@ -4,10 +4,10 @@
 <html lang="es">
 <head>
     <jsp:include page="/INC/cabecera.jsp">
-        <jsp:param name="titulo" value="Categorías" />
+        <jsp:param name="titulo" value="Eventos" />
         <jsp:param name="estilo" value="${estilo}" />
     </jsp:include>
-<%--    <script type="module" src="${contexto}/JS/index.js" defer></script>--%>
+    <%--    <script type="module" src="${contexto}/JS/index.js" defer></script>--%>
 </head>
 <body class="bg-body text-body position-relative w-100 bg-gradient-morado-blanco">
 <c:choose>
@@ -73,41 +73,69 @@
 </div>
 
 <div class="mb-5 ps-3 my-3">
-    <h1 class="text-light text-login">Categor&iacute;as</h1>
+    <h1 class="text-light">Eventos de ${requestScope.eventos[10]}</h1>
 </div>
 
-<div class="row justify-content-center m-5 pb-5">
-    <c:forEach var="categoria" items="${requestScope.categorias}">
-        <div class="col-md-4 mb-4">
-            <form action="${contexto}/FrontController" method="post" class="h-100">
-                <input type="hidden" name="idCategoria" value="${categoria[0]}">
-                <button type="submit"
-                        name="accion"
-                        class="card h-100 rounded-3 p-3 border-0 text-decoration-none bg-white text-dark w-100 carta"
-                        style="cursor: pointer;"
-                        value="Ver-Eventos">
-                    <c:choose>
-                        <c:when test="${not empty categoria[2]}">
-                            <img src="${contexto}/IMG/CATEGORIAS/${categoria[2]}"
-                                 class="card-img-top img-fluid mx-auto d-block"
-                                 alt="${categoria[1]}"
-                                 style="max-width: 65%; object-fit: contain; height: 200px;">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="${contexto}/IMG/CATEGORIAS/default.jpg"
-                                 class="card-img-top img-fluid mx-auto d-block"
-                                 alt="${categoria[1]}"
-                                 style="max-width: 65%; object-fit: contain; height: 200px;">
-                        </c:otherwise>
-                    </c:choose>
-                    <div class="card-body">
-                        <h5 class="card-title text-center fw-bold">${categoria[1]}</h5>
+<div class="container my-5">
+    <c:forEach var="evento" items="${requestScope.eventos}" varStatus="status">
+        <c:if test="${status.index % 2 == 0}">
+            <div class="row justify-content-center mb-4">
+        </c:if>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow rounded-4 d-flex flex-column h-100" style="min-height: 500px;">
+                <!-- Imagen del evento (arriba) -->
+                <img src="${contexto}/IMG/CATEGORIAS/${evento[11]}"
+                     class="card-img-top img-fluid rounded-circle"
+                     alt="Imagen del evento"
+                     style="object-fit: contain; height: 200px; width: 200px; margin: 0 auto;">
+
+                <!-- Contenido de la tarjeta -->
+                <div class="card-body d-flex flex-column h-100">
+                    <h5 class="card-title fw-bold">${evento[1]}</h5>
+                    <p class="text-muted small mb-2">${evento[2]}</p>
+
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small><i class="bi bi-people-fill me-2"></i> Participantes</small>
+                            <small><strong>${evento[14]} / ${evento[6]}</strong></small>
+                        </div>
+                        <div class="progress rounded-pill" style="height: 6px;">
+                            <div class="progress-bar" role="progressbar"
+                                 style="width: ${(evento[14] / evento[6]) * 100}%;"
+                                 aria-valuenow="${evento[14]}" aria-valuemin="0" aria-valuemax="${evento[6]}">
+                            </div>
+                        </div>
                     </div>
-                </button>
-            </form>
+
+                    <div class="row text-center small text-muted">
+                        <div class="col"><i class="bi bi-calendar-event me-1"></i>Empieza: ${evento[4]}</div>
+                        <div class="col"><i class="bi bi-calendar-check me-1"></i>Acaba: ${evento[5]}</div>
+                    </div>
+
+                    <hr class="my-2">
+
+                    <p class="card-text small mb-1"><i class="bi bi-card-text me-2"></i><strong>Fecha creaci&oacute;n:</strong> ${evento[3]}</p>
+                    <p class="card-text small mb-1"><i class="bi bi-tags me-2"></i><strong>Subcategor&iacute;a:</strong> ${evento[12]}</p>
+                    <p class="card-text small mb-1"><i class="bi bi-geo me-2"></i><strong>Direcci&oacute;n:</strong> ${evento[7]}</p>
+                    <p class="card-text small mb-1"><i class="bi bi-globe me-2"></i><strong>Localidad:</strong> ${evento[8]}, ${evento[9]}</p>
+                    <p class="card-text small mb-3"><i class="bi bi-person me-2"></i><strong>Creador:</strong> ${evento[13]}</p>
+
+                    <div class="mt-auto">
+                        <button class="btn btn-main btn-sm rounded-pill w-100"><i class="bi bi-check2-circle me-2"></i>Apuntarse</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <c:if test="${status.index % 2 == 1 || status.last}">
+            </div>
+        </c:if>
     </c:forEach>
 </div>
+
+
+
 
 <c:if test="${sessionScope.usuario != null}">
     <form action="${contexto}/FrontController" method="post">
@@ -133,3 +161,4 @@
 
 </body>
 </html>
+

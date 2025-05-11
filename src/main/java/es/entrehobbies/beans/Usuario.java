@@ -20,6 +20,10 @@ public class Usuario implements Serializable {
         Admin, Organizador, Colaborador
     }
 
+    public enum Sexo {
+        Hombre, Mujer, Otro
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdUsuario")
@@ -50,6 +54,10 @@ public class Usuario implements Serializable {
     @Column(name = "Rol", length = 11, nullable = false)
     @Enumerated(EnumType.STRING)
     private Rol rol;
+
+    @Column(name = "Sexo", length = 6, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
 
     @Column(name = "Localidad", length = 50, nullable = false)
     private String localidad;
@@ -147,6 +155,14 @@ public class Usuario implements Serializable {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
 
     public String getLocalidad() {

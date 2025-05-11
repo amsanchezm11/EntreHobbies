@@ -36,7 +36,7 @@
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                         <form action="${contexto}/FrontController" method="post">
-                            <button class="dropdown-item" name="accion" value="MiCuenta">Mi Cuenta</button>
+                            <button class="dropdown-item" name="accion" value="Mi-Cuenta">Mi Cuenta</button>
                         </form>
                     </li>
                     <li>

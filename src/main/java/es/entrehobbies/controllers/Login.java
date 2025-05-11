@@ -56,7 +56,7 @@ public class Login extends HttpServlet {
                     request.getSession().setAttribute("usuario", usuario);
                     // Controlamos si ha sido el administrador el que ha realizado el login
                     if (usuario.getRol() == Usuario.Rol.Admin) {
-                        url = "JSP/ADMIN/menuAdministrador.jsp";
+                        url = "JSP/ADMIN/dashboard.jsp";
                     }
                 } else {
                     request.setAttribute("error", "Credenciales incorrectas");

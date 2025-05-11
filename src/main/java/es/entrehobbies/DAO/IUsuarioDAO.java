@@ -2,6 +2,8 @@ package es.entrehobbies.DAO;
 
 import es.entrehobbies.beans.Usuario;
 
+import java.util.Map;
+
 public interface IUsuarioDAO {
 
     /**
@@ -26,4 +28,6 @@ public interface IUsuarioDAO {
     public Boolean comprobarUsername(String username);
 
     public Boolean comprobarTelefono(String telefono);
+
+    public Map<String, Long> getNumeroUsuariosPorSexo();
 }

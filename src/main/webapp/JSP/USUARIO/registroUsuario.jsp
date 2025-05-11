@@ -21,7 +21,7 @@
         </form>
     </div>
 </nav>
-<main class="position-relative bg-gradient-morado-blanco w-100 vh-100 d-flex justify-content-center align-items-center flex-column flex-grow-1 pt-5">
+<main class="position-relative bg-gradient-morado-blanco w-100 d-flex justify-content-center align-items-center flex-column flex-grow-1 pt-5">
     <h1 class="position-absolute top-0 start-0 text-light m-4 text-login">Registro</h1>
 
     <form id="formRegistro" action="${contexto}/UsuarioController" method="post" class="container w-75 mb-4 pt-5"
@@ -302,7 +302,7 @@
                 </div>
             </div>
             
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="input-group mb-4 shadow">
                     <div class="form-floating flex-grow-1">
                         <input type="file"
@@ -330,6 +330,19 @@
                 </div>
             </div>
 
+            <div class="col-md-6">
+                <div class="input-group mb-4 shadow">
+                    <div class="form-floating flex-grow-1">
+                        <select class="form-select" id="sexo" name="sexo" required>
+                            <option value="" selected disabled>Selecciona una opci&oacute;n</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        <label for="sexo">Sexo</label>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-12 text-center">
                 <button type="submit" id="enviar" class="btn btn-login btn-lg" name="accion" value="Registrar" disabled>

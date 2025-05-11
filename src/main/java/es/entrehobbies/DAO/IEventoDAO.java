@@ -1,8 +1,17 @@
 package es.entrehobbies.DAO;
 
+import es.entrehobbies.beans.Evento;
+
 import java.util.List;
+import java.util.Map;
 
 public interface IEventoDAO {
 
     public List<Object[]> getAllEventosPorCategoriaOrdenados(int idCategoria);
+
+    public List<Object[]> getAllEventosUsuariosOrdenadosCrono(int idUsuario);
+
+    public List<Object[]> getNumeroEventosPorCategoria();
+
+    public Map<String, Long> getNumeroEventosPorMes(int anio);
 }

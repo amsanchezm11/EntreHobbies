@@ -2,21 +2,18 @@ package es.entrehobbies.controllers;
 
 import es.entrehobbies.DAO.ICategoriaDAO;
 import es.entrehobbies.DAO.IEventoDAO;
-import es.entrehobbies.DAO.IGenericoDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
-import es.entrehobbies.beans.Categoria;
 import es.entrehobbies.beans.Usuario;
 
-import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 /**
- *
  * @author alberto
  */
 @WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
@@ -33,7 +30,7 @@ public class FrontController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String url = ".";
         String accion = request.getParameter("accion");
         Usuario user = null;
@@ -50,9 +47,9 @@ public class FrontController extends HttpServlet {
                 user = (Usuario) request.getSession().getAttribute("usuario");
 
                 if (user != null) {
-                    if (user.getRol() == Usuario.Rol.Admin){
-                        url = "/JSP/ADMIN/menuAdministrador.jsp";
-                    }else {
+                    if (user.getRol() == Usuario.Rol.Admin) {
+                        url = "/JSP/ADMIN/dashboard.jsp";
+                    } else {
                         url = ".";
                     }
                 }
@@ -63,8 +60,27 @@ public class FrontController extends HttpServlet {
             case "Registro-usuario":
                 url = "/JSP/USUARIO/registroUsuario.jsp";
                 break;
-            case "MiCuenta":
+            case "Mi-Cuenta":
                 url = "/JSP/USUARIO/perfilUsuario.jsp";
+                break;
+            case "Ver-Estadisticas":
+                url = "/JSP/ADMIN/estadisticasAdministrador.jsp";
+                break;
+            case "Dashboard":
+                url = "/JSP/ADMIN/dashboard.jsp";
+                break;
+            case "Mis-Eventos":
+                user = (Usuario) request.getSession().getAttribute("usuario");
+                listaObjetos = daoE.getAllEventosUsuariosOrdenadosCrono(user.getIdUsuario());
+                if (listaObjetos != null) {
+                    request.setAttribute("eventos", listaObjetos);
+                    url = "/JSP/USUARIO/eventosUsuario.jsp";
+                } else {
+                    url = "/JSP/ERRORES/error500.jsp";
+                }
+                break;
+            case "Sobre-Nosotros":
+                url = "/JSP/INFO/sobreNosotros.jsp";
                 break;
             case "Crear-Evento":
                 // Obtenemos las categorias para los eventos
@@ -74,8 +90,8 @@ public class FrontController extends HttpServlet {
                     request.setAttribute("categorias", listaObjetos);
                     url = "/JSP/EVENTO/crearEvento.jsp";
                 } else {
-                  request.setAttribute("error", "No se han encontrado categorías");
-                  url = "/JSP/ERRORES/error500.jsp";
+                    request.setAttribute("error", "No se han encontrado categorías");
+                    url = "/JSP/ERRORES/error500.jsp";
                 }
                 break;
             case "Ver-Categorias":
@@ -104,7 +120,7 @@ public class FrontController extends HttpServlet {
                 }
                 break;
         }
-        
+
         // Redirigimos al usuario a la url correspondiente
         request.getRequestDispatcher(url).forward(request, response);
     }
