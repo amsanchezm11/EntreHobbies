@@ -13,7 +13,7 @@
         <button type="submit" name="accion" value="eventos" class="btn text-white text-start w-100">Gesti&oacute;n de Eventos</button>
     </form>
     <form action="${contexto}/FrontController" method="post">
-        <button type="submit" name="accion" value="configuracion" class="btn text-white text-start w-100">Categor&iacute;as</button>
+        <button type="submit" name="accion" value="configuracion" class="btn text-white text-start w-100">Gesti&oacute;n de Categor&iacute;as</button>
     </form>
     <form action="${contexto}/FrontController" method="post">
         <button type="submit" name="accion" value="Ver-Estadisticas" class="btn text-white text-start w-100">Estad&iacute;sticas</button>

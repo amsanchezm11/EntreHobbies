@@ -11,6 +11,10 @@
     <script type="module" src="${contexto}/JS/estadisticasEventos.js" defer></script>
     <script type="module" src="${contexto}/JS/estadisticasEventosMes.js" defer></script>
     <script type="module" src="${contexto}/JS/estadisticasUsuarios.js" defer></script>
+    <script type="module" src="${contexto}/JS/estadisticasTopProvincias.js" defer></script>
+    <script type="module" src="${contexto}/JS/estadisticasTopUsuarios.js" defer></script>
+    <script type="module" src="${contexto}/JS/estadisticasTopCategorias.js" defer></script>
+    <script type="module" src="${contexto}/JS/estadisticasTopSubcategorias.js" defer></script>
 </head>
 <body class="bg-body text-body min-vh-100">
 
@@ -49,10 +53,49 @@
                 </div>
             </div>
         </div>
+
+        <div class="row justify-content-center mb-4">
+            <div class="col-12 col-md-6 col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Top Provincias con Más Eventos</h5>
+                        <canvas id="barChartProvincias" style="width: 100%; height: 250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alineación de ambos canvas -->
+            <div class="col-12 col-md-6 col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Top Usuarios con Más Eventos</h5>
+                        <canvas id="usuariosEventosChart" style="width: 100%; height: 250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-4 g-4">
+            <div class="col-12 col-md-6 col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Top Categorías con Más Eventos</h5>
+                        <canvas id="barChartCategorias" style="width: 100%; height: 250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Top Subcategorías con Más Eventos</h5>
+                        <canvas id="barChartSubcategorias" style="width: 100%; height: 250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </main>
-
-
-
 </body>
 </html>

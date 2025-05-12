@@ -14,4 +14,12 @@ public interface IEventoDAO {
     public List<Object[]> getNumeroEventosPorCategoria();
 
     public Map<String, Long> getNumeroEventosPorMes(int anio);
+
+    public List<Object[]> getTop5ProvinciasConMasEventos();
+
+    public List<Object[]> getTop5UsuariosConMasEventos();
+
+    public List<Object[]> getTop5CategoriasConMasEventos();
+
+    public List<Object[]> getTop5SubcategoriasConMasEventos();
 }

@@ -197,6 +197,75 @@ public class Ajax extends HttpServlet {
 
                 response.getWriter().write(new Gson().toJson(usuariosPorSexo));
                 break;
+            case "Provincias-activas":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                // Obtenemos el top 5 de provincias con más eventos
+                List<Object[]> provinciasActivas = daoE.getTop5ProvinciasConMasEventos();
+
+                List<Map<String, Object>> listaProvincias = new ArrayList<>();
+                for (Object[] fila : provinciasActivas) {
+                    Map<String, Object> datos = new HashMap<>();
+                    datos.put("provincia", fila[0]);
+                    datos.put("totalEventos", fila[1]);
+                    listaProvincias.add(datos);
+                }
+
+                response.getWriter().write(new Gson().toJson(listaProvincias));
+                break;
+
+            case "Top-usuarios-eventos":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                // Obtenemos el top 5 de usuarios con más eventos
+                List<Object[]> topUsuarios = daoE.getTop5UsuariosConMasEventos();
+
+                List<Map<String, Object>> listaUsuarios = new ArrayList<>();
+                for (Object[] fila : topUsuarios) {
+                    Map<String, Object> datos = new HashMap<>();
+                    datos.put("username", fila[0]);
+                    datos.put("totalEventos", fila[1]);
+                    listaUsuarios.add(datos);
+                }
+
+                response.getWriter().write(new Gson().toJson(listaUsuarios));
+                break;
+
+            case "Categorias-activas":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                List<Object[]> categoriasActivas = daoE.getTop5CategoriasConMasEventos();
+
+                List<Map<String, Object>> listaCategorias = new ArrayList<>();
+                for (Object[] fila : categoriasActivas) {
+                    Map<String, Object> datos = new HashMap<>();
+                    datos.put("categoria", fila[0]);
+                    datos.put("totalEventos", fila[1]);
+                    listaCategorias.add(datos);
+                }
+
+                response.getWriter().write(new Gson().toJson(listaCategorias));
+                break;
+
+            case "Subcategorias-activas":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                List<Object[]> subcategoriasActivas = daoE.getTop5SubcategoriasConMasEventos();
+
+                List<Map<String, Object>> listaSubcategorias = new ArrayList<>();
+                for (Object[] fila : subcategoriasActivas) {
+                    Map<String, Object> datos = new HashMap<>();
+                    datos.put("subcategoria", fila[0]);
+                    datos.put("totalEventos", fila[1]);
+                    listaSubcategorias.add(datos);
+                }
+
+                response.getWriter().write(new Gson().toJson(listaSubcategorias));
+                break;
 
 
         }

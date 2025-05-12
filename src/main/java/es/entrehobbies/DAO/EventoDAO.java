@@ -135,6 +135,99 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         return mapaMeses;
     }
 
+    @Override
+    public List<Object[]> getTop5ProvinciasConMasEventos() {
+        List<Object[]> resultados = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.provincia, COUNT(e)\n" +
+                            "FROM Evento e\n" +
+                            "GROUP BY e.provincia\n" +
+                            "ORDER BY COUNT(e) DESC\n",
+                    Object[].class
+            ).setMaxResults(5); // LIMIT 5
+
+            resultados = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultados;
+    }
+
+    @Override
+    public List<Object[]> getTop5UsuariosConMasEventos() {
+        List<Object[]> resultados = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.creador.username, COUNT(e) " +
+                            "FROM Evento e " +
+                            "GROUP BY e.creador.username " +
+                            "ORDER BY COUNT(e) DESC",
+                    Object[].class
+            ).setMaxResults(5);
+
+            resultados = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultados;
+    }
+
+    @Override
+    public List<Object[]> getTop5CategoriasConMasEventos() {
+        List<Object[]> resultados = null;
+        try {
+            startTransaction();
+
+            // Consulta para obtener las 5 categorías con más eventos
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.subcategoria.categoria.nombre, COUNT(e) " +
+                            "FROM Evento e " +
+                            "GROUP BY e.subcategoria.categoria.nombre " +
+                            "ORDER BY COUNT(e) DESC",
+                    Object[].class
+            ).setMaxResults(5);
+
+            resultados = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultados;
+    }
+
+    @Override
+    public List<Object[]> getTop5SubcategoriasConMasEventos() {
+        List<Object[]> resultados = null;
+        try {
+            startTransaction();
+
+            // Consulta para obtener las 5 subcategorías con más eventos
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.subcategoria.nombre, COUNT(e) " +
+                            "FROM Evento e " +
+                            "GROUP BY e.subcategoria.nombre " +
+                            "ORDER BY COUNT(e) DESC",
+                    Object[].class
+            ).setMaxResults(5);
+
+            resultados = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultados;
+    }
 
 
 }

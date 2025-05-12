@@ -19,14 +19,14 @@ fetch('Ajax', {
                 datasets: [{
                     data: values,
                     backgroundColor: [
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(153, 102, 255, 0.6)'
+                        'rgba(167, 140, 222, 0.6)',
+                        'rgba(111, 66, 193, 0.6)',
+                        'rgba(75, 30, 138, 0.6)'
                     ],
                     borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(153, 102, 255, 1)'
+                        'rgba(167, 140, 222, 1)',
+                        'rgba(111, 66, 193, 1)',
+                        'rgba(75, 30, 138, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -39,7 +39,7 @@ fetch('Ajax', {
                     },
                     title: {
                         display: true,
-                        text: 'Usuarios por Sexo'
+                        text: 'Usuarios totales por Sexo'
                     }
                 }
             }

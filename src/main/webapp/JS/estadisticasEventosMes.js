@@ -35,7 +35,7 @@ fetch('Ajax', {
                             color: '#000'
                         },
                         title: {
-                            display: true,
+                            display: false,
                             text: 'Eventos creados por Mes'
                         }
                     }
