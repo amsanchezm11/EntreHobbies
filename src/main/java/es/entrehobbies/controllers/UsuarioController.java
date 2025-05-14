@@ -6,6 +6,7 @@ import es.entrehobbies.DAOFactory.DAOFactory;
 import es.entrehobbies.beans.Usuario;
 import es.entrehobbies.models.EnumConverter;
 import es.entrehobbies.models.Utilities;
+import es.entrehobbies.utils.EnviarCorreos;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static es.entrehobbies.models.Utilities.generarMensajeBienvenida;
 
 @MultipartConfig
 @WebServlet(name = "UsuarioController", value = "/UsuarioController")
@@ -62,6 +65,10 @@ public class UsuarioController extends HttpServlet {
         String filePath = null;
         Part filePart = null;
 
+        // Correos
+        String destinatario = null;
+        String asunto = null;
+        String cuerpo = null;
 
         switch (accion) {
             case "Registrar":
@@ -85,6 +92,14 @@ public class UsuarioController extends HttpServlet {
                     //usuario.setUltimoAcceso(Date.valueOf(LocalDate.now()));
                     // Lo añadimos a la base de datos
                     daoG.insertOrUpdate(usuario);
+                    // Gestionamos el enviar correo de bienvenida
+                    // Obtenemos el email del nuevo usuario
+                    destinatario = usuario.getEmail();
+                    // Configuramos el asunto del mensaje
+                    asunto = "Bienvenido a EntreHobbies";
+                    // Configuramos el cuerpo del mensaje
+                    cuerpo = cuerpo = generarMensajeBienvenida(usuario.getNombre(), usuario.getUsername(), usuario.getEmail(), usuario.getSexo());
+                    EnviarCorreos.enviar(destinatario, asunto, cuerpo);
                     // Gestionamos el avatar del usuario
                     // Obtenemos la imagen de avatar del input type file
                     filePart = request.getPart("avatar");
@@ -186,6 +201,7 @@ public class UsuarioController extends HttpServlet {
                             usuario.setPassword(Utilities.md5(passwordNueva));
                             // Modificamos el usuario en la base de datos
                             daoG.insertOrUpdate(usuario);
+                            request.setAttribute("aviso", "Contraseña modificada correctamente");
                         } else {
                             request.setAttribute("error", "Confirmar contraseña no coincide con la contraseña nueva");
                         }
@@ -201,7 +217,6 @@ public class UsuarioController extends HttpServlet {
                 break;
 
             case "Actualizar-avatar":
-
 
                 // Recuperamos el usuario de la sesión
                 usuario = (Usuario) request.getSession().getAttribute("usuario");
@@ -228,6 +243,7 @@ public class UsuarioController extends HttpServlet {
                         usuario.setAvatar(nombreFichero.toString());
                         // Modificamos el avatar en la base de datos
                         daoG.insertOrUpdate(usuario);
+                        request.setAttribute("aviso", "Avatar actualizado correctamente");
                     }
                 }
                 url = "/JSP/USUARIO/perfilUsuario.jsp";

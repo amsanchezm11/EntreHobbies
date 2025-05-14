@@ -44,4 +44,24 @@ public class CategoriaDAO extends GenericoDAO<Categoria>  implements ICategoriaD
         }
         return categorias;
     }
+
+    @Override
+    public String getNombreCategoriaPorId(int idCategoria) {
+        String nombre = null;
+        try {
+            startTransaction();
+
+            Query<String> query = sesion.createQuery(
+                    "SELECT c.nombre FROM Categoria c WHERE c.idCategoria = :idCategoria", String.class);
+            query.setParameter("idCategoria", idCategoria);
+
+            nombre = query.uniqueResult();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return nombre;
+    }
+
 }

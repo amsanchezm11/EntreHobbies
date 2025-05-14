@@ -1,51 +1,52 @@
-<footer class="bg-body-tertiary text-body-emphasis border-top py-4 mt-5">
-  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start gap-3">
+<footer class="bg-body-tertiary text-body-emphasis border-top pt-4 mt-5">
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-start text-center text-md-start gap-4">
 
-   <div>
-      <p class="mb-0 fw-bold"> Copyright &copy; 2025 Alberto S&aacute;nchez Mac&iacute;as - EntreHobbies</p>
+    <div>
+      <h5 class="fw-semibold mb-2">Contacto</h5>
+      <p class="mb-0"><strong>Email:</strong> <span>infoHobby@entrehobbies.com</span></p>
+      <p class="mb-0"><strong>Tel&eacute;fono:</strong> <span>+34 000 111 222<span class="info"></p>
     </div>
 
-   <form action="FrontController" method="post">
-     <ul class="list-unstyled d-flex flex-column flex-md-row gap-3 mb-0">
-       <li>
-         <button type="submit" name="accion" value="Sobre-Nosotros" class="btn btn-link text-decoration-none text-body-emphasis p-0">
-           Sobre nosotros
-         </button>
-       </li>
-       <li>
-         <button type="submit" name="accion" value="Contacto" class="btn btn-link text-decoration-none text-body-emphasis p-0">
-           Contacto
-         </button>
-       </li>
-       <li>
-         <button type="submit" name="accion" value="Privacidad" class="btn btn-link text-decoration-none text-body-emphasis p-0">
-           Privacidad
-         </button>
-       </li>
-     </ul>
-   </form>
-
-
-    <div class="d-flex gap-3">
-      <a href="https://www.instagram.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Instagram">
-        <i class="bi bi-instagram text-body-emphasis fs-5"></i>
-      </a>
-      <a href="https://www.twitter.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Twitter">
-        <i class="bi bi-twitter-x text-body-emphasis fs-5"></i>
-      </a>
-      <a href="https://www.linkedin.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn">
-        <i class="bi bi-linkedin text-body-emphasis fs-5"></i>
-      </a>
+    <div class="text-center text-md-start w-100">
+      <h5 class="fw-semibold mb-2 text-center">Enlaces</h5>
+      <form action="FrontController" method="post">
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+          <div>
+            <button type="submit" name="accion" value="Sobre-Nosotros" class="btn text-decoration-none text-body-emphasis p-0">
+              Sobre nosotros
+            </button>
+          </div>
+          <div>
+            <button type="submit" name="accion" value="Contacto" class="btn text-decoration-none text-body-emphasis p-0">
+              Contacto
+            </button>
+          </div>
+          <div>
+            <button type="submit" name="accion" value="Privacidad" class="btn text-decoration-none text-body-emphasis p-0">
+              Privacidad
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
 
+    <div>
+      <h5 class="fw-semibold mb-2">S&iacute;guenos</h5>
+      <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <i class="bi bi-instagram text-body-emphasis fs-5"></i>
+        </a>
+        <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+          <i class="bi bi-twitter-x text-body-emphasis fs-5"></i>
+        </a>
+        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="bi bi-linkedin text-body-emphasis fs-5"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4 py-3 border-top">
+    <p class="mb-0 fw-bold">&copy; 2025 EntreHobbies - Todos los derechos reservados.</p>
   </div>
 </footer>

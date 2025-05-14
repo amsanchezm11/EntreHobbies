@@ -1,12 +1,11 @@
 import {checkUsername, validarFormulario} from "./regex.js";
 
 document.getElementById("username").addEventListener("change", async () => {
-
     const inputUsername = document.getElementById("username");
 
     // Primero validamos el username con regex
     if (!checkUsername(inputUsername)) {
-        validarFormulario();
+        validarFormulario('enviar');
         console.log("No es valido el formato no se hace la sincronia");
         return;
     }
@@ -39,19 +38,19 @@ document.getElementById("username").addEventListener("change", async () => {
             // Indicamos al usuario que no es válido el username
             inputUsername.classList.remove("is-valid");
             inputUsername.classList.add("is-invalid");
-            validarFormulario();
+            validarFormulario('enviar');
         } else {
 
             // Indicamos al usuario que si es válido el username
             inputUsername.classList.remove("is-invalid");
             inputUsername.classList.add("is-valid");
-            validarFormulario();
+            validarFormulario('enviar');
         }
 
     } catch (error) {
         inputUsername.classList.remove("is-valid");
         inputUsername.classList.add("is-invalid");
-        validarFormulario();
+        validarFormulario('enviar');
         return false;
     }
 });

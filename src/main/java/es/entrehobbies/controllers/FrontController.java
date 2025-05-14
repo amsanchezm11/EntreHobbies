@@ -95,7 +95,7 @@ public class FrontController extends HttpServlet {
                 }
                 break;
             case "Ver-Categorias":
-
+                // Obtenemos todas las categorías ordenadas alfabéticamente y con imagen
                 listaObjetos = daoC.getAllCategoriasOrdenadasConImg();
                 // Comprobamos que la lista venga can datos y redireccionamos según el resultado obtenido
                 if (listaObjetos != null) {
@@ -109,9 +109,12 @@ public class FrontController extends HttpServlet {
             case "Ver-Eventos":
                 // Obtenemos el idCategoria que el usuario ha seleccionado
                 int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+                // Obtenemos el nombre de la categoria
+                String nombreCategoria = daoC.getNombreCategoriaPorId(idCategoria);
                 // Recogemos todos los eventos de dicha categoría
                 listaObjetos = daoE.getAllEventosPorCategoriaOrdenados(idCategoria);
                 if (listaObjetos != null) {
+                    request.setAttribute("categoria",nombreCategoria);
                     request.setAttribute("eventos", listaObjetos);
                     url = "/JSP/EVENTO/verEventos.jsp";
                 } else {

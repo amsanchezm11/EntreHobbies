@@ -3,7 +3,7 @@
  * con la función de comprobar regex y validar formulario
  */
 
-// Función comprobar regex
+// Método comprobar regex
 export function comprobarRegex(element, regex, length) {
     if (regex.test(element.value) && element.value.length <= length) {
         element.classList.remove("is-invalid");
@@ -17,9 +17,12 @@ export function comprobarRegex(element, regex, length) {
 }
 
 // Método para comprobar si todos los inputs son válidos
-export function validarFormulario() {
+export function validarFormulario(idBoton) {
     const campos = document.querySelectorAll('input, select, textarea');
-    const boton = document.getElementById('enviar');
+    const boton = document.getElementById(idBoton);
+
+    console.log(idBoton);
+    console.log(boton);
 
     for (let campo of campos) {
         if (!campo.classList.contains('is-valid')) {
@@ -31,6 +34,29 @@ export function validarFormulario() {
     boton.disabled = false;
 }
 
+// Método validar botón del formulario modificar(datos y avatar)
+export function validarBoton(idInput, idBoton) {
+
+    const input = document.getElementById(idInput);
+    const boton = document.getElementById(idBoton);
+
+    if (!input.classList.contains('is-valid')) {
+        boton.disabled = true;
+        return;
+    }
+
+    boton.disabled = false;
+}
+
+export function validarFormularioPassword(idBoton) {
+
+    const esNuevaValida = checkNuevaPassword(nuevaPassword);
+    const esConfirmacionValida = confirmPasswordNueva(confirmarPassword);
+    const boton = document.getElementById(idBoton);
+
+    // Habilitamos el botón si las 3 validaciones son correctas
+    boton.disabled = !(esNuevaValida && esConfirmacionValida);
+}
 
 //-------------------------------------------------------------------------------------------
 //-----------------------------------[ USUARIO ]---------------------------------------------
@@ -191,11 +217,11 @@ export function checkAvatar(element) {
 export function checkNuevaPassword(element) {
     let password = document.getElementById("password");
 
-    if (element.value !== password.value){
+    if (element.value !== password.value) {
         element.classList.remove("is-invalid");
         element.classList.add("is-valid");
         return true;
-    }else{
+    } else {
         element.classList.remove("is-valid");
         element.classList.add("is-invalid");
         return false;
@@ -217,13 +243,14 @@ export function confirmPasswordNueva(element) {
     }
 }
 
-export function checkSexo(element){
+// Regex para comprobar sexo del usuario
+export function checkSexo(element) {
     console.log(element);
-    if (element.value !== null){
+    if (element.value !== null) {
         element.classList.remove("is-invalid");
         element.classList.add("is-valid");
         return true;
-    }else{
+    } else {
         element.classList.remove("is-valid");
         element.classList.add("is-invalid");
         return false;

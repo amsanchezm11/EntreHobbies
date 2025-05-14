@@ -50,7 +50,8 @@
         </div>
 
         <div class="form-floating mb-3 shadow d-none" id="passwordContainer">
-            <input type="password" class="form-control animacion-aparicion" id="floatingPassword" name="password" placeholder="Password">
+            <input type="password" class="form-control animacion-aparicion" id="floatingPassword" name="password"
+                   placeholder="Password">
             <label for="floatingPassword">Password</label>
         </div>
 
@@ -69,11 +70,11 @@
         </div>
     </form>
 
-
-    <form action="FrontController" method="post"  class="text-center card-link bg-opacity-50 position-relative">
-        <div class="text-center card-body-link">
-            <button name="accion" class="btn-link" value="Registro-usuario">Si a&uacute;n no tienes cuenta. Reg&iacute;strate</button>
-        </div>
+    <form action="FrontController" method="post"
+          class="bg-white bg-opacity-25 backdrop-blur rounded-3 p-3 text-center position-relative">
+        <button name="accion" class="btn btn-link text-decoration-none text-body-emphasis p-0" value="Registro-usuario">
+            Si a&uacute;n no tienes cuenta. Reg&iacute;strate
+        </button>
     </form>
 </main>
 </body>

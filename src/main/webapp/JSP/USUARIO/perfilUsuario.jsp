@@ -1,4 +1,5 @@
 <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="es">
 <head>
     <jsp:include page="/INC/cabecera.jsp">
@@ -6,6 +7,8 @@
         <jsp:param name="estilo" value="perfil.css"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/perfilUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/modificarUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/alertas.js" defer></script>
     <script type="module" src="${contexto}/JS/vistaPreviaIMG.js" defer></script>
 </head>
 <body class="bg-light h-100">
@@ -25,9 +28,19 @@
 
                     <button type="button" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
                             data-target="info">
-                        <i class="bi bi-person-circle me-2"></i>Información de cuenta
+                        <i class="bi bi-person-circle me-2"></i>Informaci&oacute;n de cuenta
                     </button>
 
+                    <button type="button" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
+                            data-target="password">
+                        <i class="bi bi-eye me-2"></i>Cambiar contrase&ntilde;a
+                    </button>
+
+                    <button type="button" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
+                            data-target="avatar">
+                        <i class="bi bi-image me-2"></i>Cambiar avatar
+                    </button>
+                    
                     <form action="${contexto}/FrontController" method="post">
                         <button type="submit"
                                 class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
@@ -45,23 +58,13 @@
                             <i class="bi bi-calendar-event me-2"></i>Crear evento
                         </button>
                     </form>
-
-                    <button type="button" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
-                            data-target="password">
-                        <i class="bi bi-eye me-2"></i>Cambiar contraseña
-                    </button>
-
-                    <button type="button" class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
-                            data-target="avatar">
-                        <i class="bi bi-image me-2"></i>Cambiar avatar
-                    </button>
-
+                    
                     <form action="${contexto}/Login" method="post">
                         <button type="submit"
                                 class="nav-link py-2 text-danger fw-semibold bg-transparent border-0 text-start w-100"
                                 name="accion"
                                 value="Logout">
-                            <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+                            <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesi&oacute;n
                         </button>
                     </form>
                 </nav>
@@ -88,9 +91,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="nombre" class="form-control" id="floatingNombre"
+                                    <input type="text" name="nombre" class="form-control" id="nombre"
                                            value="${sessionScope.usuario.nombre}" required>
-                                    <label for="floatingNombre">Nombre</label>
+                                    <label for="nombre">Nombre</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
@@ -112,41 +115,45 @@
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="localidad" class="form-control" id="floatingLocalidad"
+                                    <input type="text" name="localidad" class="form-control" id="localidad"
                                            value="${sessionScope.usuario.localidad}">
-                                    <label for="floatingLocalidad">Localidad</label>
+                                    <label for="localidad">Localidad</label>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="apellidos" class="form-control" id="floatingApellidos"
+                                    <input type="text" name="apellidos" class="form-control" id="apellidos"
                                            value="${sessionScope.usuario.apellidos}" required>
-                                    <label for="floatingApellidos">Apellidos</label>
+                                    <label for="apellidos">Apellidos</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="email" name="email" class="form-control" id="floatingEmail"
+                                    <input type="email" name="email" class="form-control" id="email"
                                            value="${sessionScope.usuario.email}" readonly>
-                                    <label for="floatingEmail">Email</label>
+                                    <label for="email">Email</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="telefono" class="form-control" id="floatingTelefono"
+                                    <input type="text" name="telefono" class="form-control" id="telefono"
                                            value="${sessionScope.usuario.telefono}">
-                                    <label for="floatingTelefono">Tel&eacute;fono</label>
+                                    <label for="telefono">Tel&eacute;fono</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="provincia" class="form-control" id="floatingProvincia"
+                                    <input type="text" name="provincia" class="form-control" id="provincia"
                                            value="${sessionScope.usuario.provincia}">
-                                    <label for="floatingProvincia">Provincia</label>
+                                    <label for="provincia">Provincia</label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-main" name="accion" value="Actualizar-datos">Actualizar</button>
+                            <button type="submit"
+                                    id="boton-datos"
+                                    class="btn btn-main"
+                                    name="accion"
+                                    value="Actualizar-datos" disabled>Actualizar</button>
                         </div>
                     </form>
                 </div>
@@ -169,7 +176,11 @@
                             <label for="confirmPass">Nueva contraseña</label>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-main" name="accion" value="Actualizar-password">Actualizar contraseña</button>
+                            <button type="submit"
+                                    id="boton-password"
+                                    class="btn btn-main"
+                                    name="accion"
+                                    value="Actualizar-password" disabled>Actualizar contrase&ntilde;a</button>
                         </div>
                     </form>
                 </div>
@@ -192,7 +203,11 @@
                             <input type="file" id="avatar" name="avatar" class="form-control w-50" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-main" name="accion" value="Actualizar-avatar">Actualizar avatar</button>
+                            <button type="submit"
+                                    id="boton-avatar"
+                                    class="btn btn-main"
+                                    name="accion"
+                                    value="Actualizar-avatar" disabled>Actualizar avatar</button>
                         </div>
                     </form>
                 </div>
@@ -210,6 +225,31 @@
     </button>
 </form>
 
+<c:if test="${requestScope.aviso != null}">
+    <div id="aviso"
+         class="notification"
+         role="alert"
+         style="pointer-events: none;">
+        <div class="notification-body">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span>${requestScope.aviso}</span>
+            <div class="notification-progress"></div>
+        </div>
+    </div>
+</c:if>
+
+<c:if test="${requestScope.error != null}">
+    <div id="aviso"
+         class="notification-danger"
+         role="alert"
+         style="pointer-events: none;">
+        <div class="notification-body">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span>${requestScope.error}</span>
+            <div class="notification-danger-progress"></div>
+        </div>
+    </div>
+</c:if>
 </body>
 </html>
 

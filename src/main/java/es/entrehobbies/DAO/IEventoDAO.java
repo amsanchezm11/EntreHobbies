@@ -1,7 +1,5 @@
 package es.entrehobbies.DAO;
 
-import es.entrehobbies.beans.Evento;
-
 import java.util.List;
 import java.util.Map;
 

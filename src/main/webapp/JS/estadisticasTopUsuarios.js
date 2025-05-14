@@ -15,7 +15,7 @@ fetch('Ajax', {
         const chartData = {
             labels: labels,
             datasets: [{
-                label: 'Usuarios con más activos',
+                label: 'Usuarios más activos',
                 data: values,
                 backgroundColor: '#6f42c1',
                 borderColor: '#a78cde',

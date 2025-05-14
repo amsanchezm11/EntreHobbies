@@ -7,4 +7,6 @@ public interface ICategoriaDAO {
     public List<Object[]> getAllCategoriasOrdenadas();
 
     public List<Object[]> getAllCategoriasOrdenadasConImg();
+
+    public String getNombreCategoriaPorId(int idCategoria);
 }

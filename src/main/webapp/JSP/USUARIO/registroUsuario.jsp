@@ -56,7 +56,6 @@
                 </div>
             </div>
 
-
             <div class="col-md-6">
                 <div class="input-group mb-4 shadow">
                     <div class="form-floating flex-grow-1">
@@ -140,7 +139,6 @@
         </span>
                 </div>
             </div>
-
 
             <div class="col-md-6">
                 <div class="input-group mb-4 shadow">
@@ -341,6 +339,24 @@
                         <label for="sexo">Sexo</label>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-center align-items-center mb-4">
+                <div class="form-check check-custom">
+                    <input class="form-check-input" type="checkbox" value="true" id="aceptoCondiciones" name="aceptoCondiciones" required>
+                    <label class="form-check-label text-white" for="aceptoCondiciones">
+                        Acepto los <a href="${contexto}/condiciones.jsp" target="_blank">términos y condiciones</a>
+                    </label>
+                </div>
+                <span class="ms-2 text-white" style="cursor: pointer;" role="button"
+                      title="Términos y condiciones"
+                      data-bs-toggle="popover"
+                      data-bs-placement="right"
+                      data-bs-html="true"
+                      data-bs-trigger="hover focus"
+                      data-bs-content="Debe aceptar los t&eacute;rminos y condiciones del servicio para poder registrarse.">
+        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+    </span>
             </div>
 
             <div class="col-12 text-center">

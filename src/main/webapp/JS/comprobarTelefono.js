@@ -5,7 +5,7 @@ document.getElementById("telefono").addEventListener("change", async () => {
     const inputTelefono = document.getElementById("telefono");
 
     if (!checkTelefono(inputTelefono)) {
-        validarFormulario();
+        validarFormulario('enviar');
         return;
     }
 
@@ -38,13 +38,13 @@ document.getElementById("telefono").addEventListener("change", async () => {
             console.log("No valido");
             inputTelefono.classList.remove("is-valid");
             inputTelefono.classList.add("is-invalid");
-            validarFormulario();
+            validarFormulario('enviar');
         } else {
 
             console.log("Valido");
             inputTelefono.classList.remove("is-invalid");
             inputTelefono.classList.add("is-valid");
-            validarFormulario();
+            validarFormulario('enviar');
         }
 
         //return responseData.disponible;
@@ -53,7 +53,7 @@ document.getElementById("telefono").addEventListener("change", async () => {
         console.log("Error catch");
         inputTelefono.classList.remove("is-valid");
         inputTelefono.classList.add("is-invalid");
-        validarFormulario();
+        validarFormulario('enviar');
         return false;
     }
 });

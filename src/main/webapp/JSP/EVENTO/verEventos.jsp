@@ -7,7 +7,6 @@
         <jsp:param name="titulo" value="Eventos" />
         <jsp:param name="estilo" value="${estilo}" />
     </jsp:include>
-    <%--    <script type="module" src="${contexto}/JS/index.js" defer></script>--%>
 </head>
 <body class="bg-body text-body position-relative w-100 bg-gradient-morado-blanco">
 <c:choose>
@@ -73,7 +72,7 @@
 </div>
 
 <div class="mb-5 ps-3 my-3">
-    <h1 class="text-light">Eventos de ${requestScope.eventos[10]}</h1>
+    <h1 class="text-light">Eventos de ${requestScope.categoria}</h1>
 </div>
 
 <div class="container my-5">
@@ -84,13 +83,11 @@
 
         <div class="col-md-6 mb-4">
             <div class="card shadow rounded-4 d-flex flex-column h-100" style="min-height: 500px;">
-                <!-- Imagen del evento (arriba) -->
                 <img src="${contexto}/IMG/CATEGORIAS/${evento[11]}"
                      class="card-img-top img-fluid rounded-circle"
                      alt="Imagen del evento"
                      style="object-fit: contain; height: 200px; width: 200px; margin: 0 auto;">
 
-                <!-- Contenido de la tarjeta -->
                 <div class="card-body d-flex flex-column h-100">
                     <h5 class="card-title fw-bold">${evento[1]}</h5>
                     <p class="text-muted small mb-2">${evento[2]}</p>

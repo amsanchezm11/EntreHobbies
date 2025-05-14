@@ -8,8 +8,20 @@
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
 
+    <style>
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card {
+            height: 100%;
+        }
+    </style>
 </head>
 <body class="bg-body text-body position-relative w-100 bg-gradient-morado-blanco">
+
 <c:choose>
     <c:when test="${sessionScope.usuario != null}">
         <c:import url="/INC/navbarUsuario.jsp"/>
@@ -23,33 +35,47 @@
     <h1 class="text-light text-login">Mis Eventos</h1>
 </div>
 
-<main class="container d-flex justify-content-center align-items-center">
-    <div class="accordion w-100" id="accordionEventos">
+<main class="container pb-5">
+    <div class="row">
         <c:forEach var="evento" items="${requestScope.eventos}">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="heading${evento[1]}">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse${evento[0]}" aria-expanded="true"
-                            aria-controls="collapse${evento[0]}">
-                            ${evento[1]} - <strong>${evento[3]}</strong>
-                    </button>
-                </h2>
-                <div id="collapse${evento[0]}" class="accordion-collapse collapse" aria-labelledby="heading${evento[0]}"
-                     data-bs-parent="#accordionEventos">
-                    <div class="accordion-body">
-                        <h5>${evento[1]}</h5>
-                        <p><i class="bi bi-card-text me-2"></i><strong>Descripción:</strong> ${evento[2]}</p>
-                        <p><i class="bi bi-calendar-plus me-2"></i><strong>Fecha de inicio:</strong> ${evento[4]}</p>
-                        <p><i class="bi bi-calendar-minus me-2"></i><strong>Fecha de fin:</strong> ${evento[5]}</p>
-                        <p><i class="bi bi-bookmark me-2"></i><strong>Categoría:</strong> ${evento[6]}</p>
-                        <p><i class="bi bi-tags me-2"></i><strong>Subcategoría:</strong> ${evento[7]}</p>
-                        <p><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> ${evento[8]}</p>
-                        <p><i class="bi bi-geo me-2"></i><strong>Localidad:</strong> ${evento[9]}</p>
-                        <p><i class="bi bi-globe me-2"></i><strong>Provincia:</strong> ${evento[10]}</p>
-                        <p><strong>Número de participantes:</strong>
-                                ${evento[12]} / ${evento[11]}
-                            <i class="bi bi-person-plus-fill"></i>
-                        </p>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm d-flex carta">
+                    <div class="card-body">
+                        <h5 class="card-title">${evento[1]} - <strong>${evento[3]}</strong></h5>
+                        <p class="card-text"><strong>Fecha de inicio:</strong> ${evento[4]}</p>
+                        <p class="card-text"><strong>Categoría:</strong> ${evento[6]}</p>
+                        <p class="card-text"><strong>Localidad:</strong> ${evento[9]}</p>
+                        <button type="button" class="btn btn-main" data-bs-toggle="modal" data-bs-target="#eventoModal${evento[0]}">
+                            Detalles
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="eventoModal${evento[0]}" tabindex="-1" aria-labelledby="eventoModalLabel${evento[0]}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="eventoModalLabel${evento[0]}">${evento[1]}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>${evento[1]}</h5>
+                            <p><strong>Descripción:</strong> ${evento[2]}</p>
+                            <p><i class="bi bi-calendar-plus me-2"></i><strong>Fecha de inicio:</strong> ${evento[4]}</p>
+                            <p><i class="bi bi-calendar-minus me-2"></i><strong>Fecha de fin:</strong> ${evento[5]}</p>
+                            <p><i class="bi bi-bookmark me-2"></i><strong>Categoría:</strong> ${evento[6]}</p>
+                            <p><i class="bi bi-tags me-2"></i><strong>Subcategoría:</strong> ${evento[7]}</p>
+                            <p><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> ${evento[8]}</p>
+                            <p><i class="bi bi-geo me-2"></i><strong>Localidad:</strong> ${evento[9]}</p>
+                            <p><i class="bi bi-globe me-2"></i><strong>Provincia:</strong> ${evento[10]}</p>
+                            <p><strong>Número de participantes:</strong> ${evento[12]} / ${evento[11]}
+                                <i class="bi bi-person-plus-fill"></i>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
                     </div>
                 </div>
             </div>

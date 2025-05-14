@@ -6,7 +6,7 @@ document.getElementById("email").addEventListener("change", async () => {
     //checkEmail(inputEmail);
 
     if (!checkEmail(inputEmail)) {
-        validarFormulario();
+        validarFormulario('enviar');
         return;
     }
 
@@ -39,13 +39,13 @@ document.getElementById("email").addEventListener("change", async () => {
             console.log("No valido");
             inputEmail.classList.remove("is-valid");
             inputEmail.classList.add("is-invalid");
-            validarFormulario();
+            validarFormulario('enviar');
         } else {
 
             console.log("Valido");
             inputEmail.classList.remove("is-invalid");
             inputEmail.classList.add("is-valid");
-            validarFormulario();
+            validarFormulario('enviar');
         }
 
         //return responseData.disponible;
@@ -54,7 +54,7 @@ document.getElementById("email").addEventListener("change", async () => {
         console.log("Error catch");
         inputEmail.classList.remove("is-valid");
         inputEmail.classList.add("is-invalid");
-        validarFormulario();
+        validarFormulario('enviar');
         return false;
     }
 });

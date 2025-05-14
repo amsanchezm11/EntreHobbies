@@ -5,38 +5,38 @@ import {checkNombre, checkApellidos, checkFechaNacimiento, checkLocalidad, check
 //-----------------------------------------
 document.getElementById("nombre").addEventListener("input", e => {
     checkNombre(e.target);
-    validarFormulario(); // Comprobar si el formulario está completo
+    validarFormulario('enviar'); // Comprobar si el formulario está completo
 });
 document.getElementById("apellidos").addEventListener("input", e => {
     checkApellidos(e.target);
-    validarFormulario();
+    validarFormulario('enviar');
 });
 
 document.getElementById("fechaNacimiento").addEventListener("input", e => {
     checkFechaNacimiento(e.target);
-    validarFormulario();
+    validarFormulario('enviar');
 });
 document.getElementById("localidad").addEventListener("input", e => {
     checkLocalidad(e.target);
-    validarFormulario();
+    validarFormulario('enviar');
 });
 document.getElementById("provincia").addEventListener("input", e => {
     checkProvincia(e.target);
-    validarFormulario();
+    validarFormulario('enviar');
 });
 document.getElementById("password").addEventListener("input", e => {
     checkPassword(e.target);
-    validarFormulario();
+    validarFormulario('enviar');
 });
 document.getElementById("passwordRepe").addEventListener("input", e => {
     confirmPassword(e.target);
-    validarFormulario();
+    validarFormulario('enviar');
 });
 document.getElementById("avatar").addEventListener("change", e => {
     checkAvatar(e.target);
-    validarFormulario();
+    validarFormulario('enviar');
 });
 document.getElementById("sexo").addEventListener("change",e=>{
     checkSexo(e.target);
-    validarFormulario();
+    validarFormulario('enviar');
 });

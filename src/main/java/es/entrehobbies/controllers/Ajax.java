@@ -267,7 +267,6 @@ public class Ajax extends HttpServlet {
                 response.getWriter().write(new Gson().toJson(listaSubcategorias));
                 break;
 
-
         }
 
     }

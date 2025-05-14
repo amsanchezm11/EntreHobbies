@@ -1,5 +1,7 @@
 package es.entrehobbies.models;
 
+import es.entrehobbies.beans.Usuario;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -26,6 +28,78 @@ public class Utilities {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String generarMensajeBienvenida(String nombre, String username, String email, Usuario.Sexo sexo) {
+
+        // Determinamos el saludo según el sexo del usuario
+        String saludo;
+        if (sexo == Usuario.Sexo.Mujer) {
+            saludo = "¡Bienvenida";
+        } else {
+            saludo = "¡Bienvenido";
+        }
+
+        // Configuramos el cuerpo del mensaje que se le va a enviar al usuario cuando se registre
+        return String.format(
+                "<html lang='es'>" +
+                        "<head>" +
+                        "    <meta charset='UTF-8'>" +
+                        "    <meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+                        "    <title>Bienvenida a EntreHobbies</title>" +
+                        "    <style>" +
+                        "        body {" +
+                        "            font-family: Arial, sans-serif;" +
+                        "            padding: 20px;" +
+                        "            background-color: #6F42C1;" +
+                        "        }" +
+                        "        .contenedor {" +
+                        "            background-color: #ffffff;" +
+                        "            padding: 30px;" +
+                        "            border-radius: 10px;" +
+                        "            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);" +
+                        "            max-width: 600px;" +
+                        "            margin: auto;" +
+                        "        }" +
+                        "        h2 { color: #2c3e50; }" +
+                        "        p { color: #555555; font-size: 16px; }" +
+                        "        .credenciales {" +
+                        "            background-color: #f9f9f9;" +
+                        "            padding: 15px;" +
+                        "            border-radius: 5px;" +
+                        "            margin-top: 20px;" +
+                        "            border: 1px solid #ddd;" +
+                        "        }" +
+                        "        .credenciales p {" +
+                        "            margin: 5px 0;" +
+                        "        }" +
+                        "        strong {" +
+                        "            color: #6c5ce7;" +
+                        "        }" +
+                        "        .copy {" +
+                        "            margin-top: 50px;" +
+                        "            text-align: center;" +
+                        "        }" +
+                        "    </style>" +
+                        "</head>" +
+                        "<body>" +
+                        "    <div class='contenedor'>" +
+                        "        <h2>" + saludo + " a EntreHobbies, %s!</h2>" +
+                        "        <p>Nos alegra mucho que te unas a nuestra comunidad. En EntreHobbies, queremos que disfrutes al máximo de tus pasatiempos, conectes con personas con intereses similares y vivas experiencias únicas.</p>" +
+                        "        <p>A partir de ahora, podrás crear eventos según tus hobbies favoritos y unirte a actividades que te apasionen. ¡Las posibilidades son infinitas!</p>" +
+                        "        <div class='credenciales'>" +
+                        "            <h3>Aquí tienes tus credenciales de acceso:</h3>" +
+                        "            <p><strong>Username:</strong> %s</p>" +
+                        "            <p><strong>Email:</strong> %s</p>" +
+                        "        </div>" +
+                        "        <p>Si tienes alguna duda o necesitas ayuda, no dudes en ponerte en contacto con nosotros a través de nuestro correo electrónico: <strong>entrehobbies.info@gmail.com</strong>. Estamos aquí para ayudarte.</p>" +
+                        "        <p>Disfruta de la experiencia y bienvenido a la comunidad. ¡Nos encanta tenerte con nosotros!</p>" +
+                        "        <p>— El equipo de EntreHobbies</p>" +
+                        "        <p class='copy'>&copy; 2025 EntreHobbies - Todos los derechos reservados.</p>" +
+                        "    </div>" +
+                        "</body>" +
+                        "</html>", nombre, username, email
+        );
     }
 
 }
