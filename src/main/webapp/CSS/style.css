@@ -1,5 +1,6 @@
 :root {
-    --color-primario: #6F42C1;
+    /*--color-primario: #6F42C1;*/
+    --color-primario: #5f27cd;
     --color-secundario: #4B1E8A;
     --color-fondo: #a78cde;
     --color-texto: #FFFFFF;
@@ -19,28 +20,79 @@
 html {
     /*scroll-snap-type: y mandatory;*/
     height: 100%;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
     /*overflow-y: auto;*/
     /*z-index: 1040;*/
 }
 
 body {
     min-height: 100%;
+
 }
 
-/*section.bloque {*/
-/*    scroll-snap-align: start;*/
-/*    min-height: 100vh;*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*    padding: 4rem 1rem;*/
-/*}*/
+.body-custom {
+    min-height: 100vh !important;
+    background-attachment: fixed !important;
+}
 
-/*.navbar.sticky-top {*/
-/*    top: 0;*/
-/*    z-index: 1050;*/
-/*}*/
+/*------LANDING PAGE-----*/
 
+/*html, body {*/
+/*    height: 100%;*/
+/*    margin: 0;*/
+/*    scroll-snap-type: y mandatory;*/
+/*    overflow-y: scroll;*/
+/*}*/
+section.bloque {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+}
+
+section.bloque-footer {
+    scroll-snap-align: start;
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+}
+
+.bg-white {
+    background-color: #fff;
+}
+.bg-gradient-morado {
+    background: linear-gradient(to bottom, #5f27cd, #a29bfe);
+    color: white;
+}
+
+.bg-gradient-morado-blanco {
+    /*background: linear-gradient(308deg, rgba(111, 66, 193, 1) 0%, rgba(75, 30, 138, 1) 50%);*/
+    background: linear-gradient(to bottom, #5f27cd, #a29bfe);
+    /*color: white;*/
+}
+
+body.landing-page section:nth-child(odd) {
+    background-color: #ffffff;
+    color: black;
+}
+
+body.landing-page section:nth-child(even) {
+    background: linear-gradient(to bottom, #5f27cd, #a29bfe);
+    color: var(--color-texto) !important;
+}
+
+.text-footer {
+    font-size: 6rem !important;
+}
+
+.card-user {
+    min-height: 220px;
+}
 
 /*----- [ COLORES ] -----*/
 
@@ -136,10 +188,6 @@ footer span:hover {
 
 /*-------[ VISTA - LOGIN ]-------*/
 
-.bg-gradient-morado-blanco {
-    /*background: var(--color-primario);*/
-    background: linear-gradient(308deg, rgba(111, 66, 193, 1) 0%, rgba(75, 30, 138, 1) 50%);
-}
 
 .text-login {
     font-size: 8rem !important;
@@ -177,6 +225,13 @@ footer span:hover {
     background-color: #cccccc;
     border-color: #cccccc;
     color: #999999;
+}
+
+.paso {
+    display: none;
+}
+.paso.activo {
+    display: block;
 }
 
 /*------[ BOTONES ]-------*/
@@ -250,6 +305,7 @@ footer span:hover {
 
 .step {
     display: none;
+    min-height: 450px;
 }
 .step.active {
     display: block;
@@ -371,7 +427,7 @@ footer span:hover {
     padding: 20px;
 }
 
-/*---------------ESTADISTICAS-----------*/
+/*---------------ESTADÍSTICAS-----------*/
 
 .estadisticas-layout aside.sidebar {
     position: fixed;
@@ -419,6 +475,17 @@ footer span:hover {
     line-height: 1.2em !important;
 }
 
+/*------[ VISTA - MIS EVENTOS ]-------*/
+
+.card-body-eventos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-eventos {
+    height: 100%;
+}
 
 /*------[ ANIMACIONES ]-------*/
 

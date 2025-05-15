@@ -4,9 +4,7 @@ import es.entrehobbies.beans.Evento;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
     @Override
@@ -15,7 +13,14 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         try {
             startTransaction();
 
-            // Consulta HQL para obtener los datos del evento por categoría, ordenados por fecha de creación descendente
+            Calendar calendar = Calendar.getInstance();
+            // Primer día del mes actual
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            Date primerDia = calendar.getTime();
+            // Último día del mes actual
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+            Date ultimoDia = calendar.getTime();
+
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
@@ -23,13 +28,18 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes p " +
                             "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
+                            "AND e.estado = 'Por_Empezar' " +
+                            "AND e.fechaInicio BETWEEN :primerDia AND :ultimoDia " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
-                            "e.subcategoria.categoria.imagen, e.creador.nombre " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.nombre " +
                             "ORDER BY e.fechaCreacion DESC",
                     Object[].class
             );
+
             query.setParameter("idCategoria", idCategoria);
+            query.setParameter("primerDia", primerDia);
+            query.setParameter("ultimoDia", ultimoDia);
 
             eventos = query.getResultList();
 
@@ -39,6 +49,8 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         }
         return eventos;
     }
+
+
 
     @Override
     public List<Object[]> getAllEventosUsuariosOrdenadosCrono(int idUsuario) {
@@ -68,6 +80,36 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         }
         return eventos;
     }
+
+    @Override
+    public List<Object[]> getEventosDondeParticipaUsuario(int idUsuario) {
+        List<Object[]> eventos = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia, e.numParticipantes, " +
+                            "COUNT(ep) " +
+                            "FROM Evento e " +
+                            "JOIN e.participantes p " +
+                            "LEFT JOIN e.participantes ep " +
+                            "WHERE p.idUsuario = :idUsuario " +
+                            "GROUP BY e.idEvento " +
+                            "ORDER BY e.fechaInicio DESC",
+                    Object[].class
+            );
+            query.setParameter("idUsuario", idUsuario);
+
+            eventos = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return eventos;
+    }
+
 
     @Override
     public List<Object[]> getNumeroEventosPorCategoria() {

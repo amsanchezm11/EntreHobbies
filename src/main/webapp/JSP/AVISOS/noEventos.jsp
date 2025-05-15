@@ -4,12 +4,11 @@
 <html lang="es">
 <head>
     <jsp:include page="/INC/cabecera.jsp">
-        <jsp:param name="titulo" value="Categorías" />
-        <jsp:param name="estilo" value="${estilo}" />
+        <jsp:param name="titulo" value="Eventos"/>
+        <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
-<%--    <script type="module" src="${contexto}/JS/index.js" defer></script>--%>
 </head>
-<body class="position-relative body-custom bg-gradient-morado-blanco">
+<body class="bg-body text-body position-relative w-100 bg-gradient-morado-blanco">
 <c:choose>
     <c:when test="${sessionScope.usuario != null}">
         <c:import url="/INC/navbarUsuario.jsp"/>
@@ -19,7 +18,8 @@
     </c:otherwise>
 </c:choose>
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+     id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title color-pm" id="offcanvasScrollingLabel">Filtros</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -73,43 +73,56 @@
 </div>
 
 <div class="mb-5 ps-3 my-3">
-    <h1 class="text-light text-login">Categor&iacute;as</h1>
+    <h1 class="text-light">Eventos de ${requestScope.categoria}</h1>
 </div>
 
-<div class="row justify-content-center m-5 pb-5">
-    <c:forEach var="categoria" items="${requestScope.categorias}">
-        <div class="col-md-4 mb-4">
-            <form action="${contexto}/FrontController" method="post" class="h-100">
-                <input type="hidden" name="idCategoria" value="${categoria[0]}">
-                <button type="submit"
-                        name="accion"
-                        class="card h-100 rounded-3 p-3 border-0 text-decoration-none bg-white text-dark w-100 carta"
-                        style="cursor: pointer;"
-                        value="Ver-Eventos">
-                    <c:choose>
-                        <c:when test="${not empty categoria[2]}">
-                            <img src="${contexto}/IMG/CATEGORIAS/${categoria[2]}"
-                                 class="card-img-top img-fluid mx-auto d-block"
-                                 alt="${categoria[1]}"
-                                 style="max-width: 65%; object-fit: contain; height: 200px;">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="${contexto}/IMG/CATEGORIAS/default.jpg"
-                                 class="card-img-top img-fluid mx-auto d-block"
-                                 alt="${categoria[1]}"
-                                 style="max-width: 65%; object-fit: contain; height: 200px;">
-                        </c:otherwise>
-                    </c:choose>
-                    <div class="card-body">
-                        <h5 class="card-title text-center fw-bold">${categoria[1]}</h5>
-                    </div>
-                </button>
-            </form>
+<div class="container d-flex justify-content-center align-items-center"
+     style="min-height: 60vh;">
+
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="text-center" style="max-width: 500px;">
+            <c:choose>
+                <c:when test="${sessionScope.usuario != null}">
+
+                    <h2 class="mb-3 text-light fw-bold fs-2">
+                        Ups! No hay eventos este mes
+                    </h2>
+                    <p class="mb-4 text-light fs-5">
+                        S&eacute; el primero en crear un evento.
+                    </p>
+
+                    <form action="${contexto}/FrontController" method="post">
+                        <button type="submit" name="accion" value="Crear-Evento" class="btn btn-main btn-lg px-4">
+                            Crear Evento
+                        </button>
+                    </form>
+
+                </c:when>
+                <c:otherwise>
+
+                    <h2 class="mb-3 text-light fw-bold fs-2">
+                        Ups! No hay eventos este mes
+                    </h2>
+                    <p class="mb-4 text-light fs-5">
+                        Para ser el primero en crear un evento, por favor reg&iacute;strate o inicia sesi&oacute;n.
+                    </p>
+
+                    <form action="${contexto}/FrontController" method="post"
+                          class="d-flex justify-content-center gap-3">
+                        <button type="submit" name="accion" value="Login" class="btn btn-main btn-lg px-4">
+                            Login
+                        </button>
+                        <button type="submit" name="accion" value="Registro-usuario" class="btn btn-main btn-lg px-4">
+                            Registrarse
+                        </button>
+                    </form>
+
+                </c:otherwise>
+            </c:choose>
         </div>
-    </c:forEach>
-</div>
-
-<c:if test="${sessionScope.usuario != null}">
+    </div>
+    
+    <c:if test="${sessionScope.usuario != null}">
     <form action="${contexto}/FrontController" method="post">
         <button type="submit"
                 name="accion"
@@ -119,9 +132,9 @@
             <i class="bi bi-plus-lg fs-3"></i>
         </button>
     </form>
-</c:if>
+    </c:if>
 
-<c:if test="${requestScope.aviso != null}">
+    <c:if test="${requestScope.aviso != null}">
     <div id="aviso"
          class="alert alert-success fade show position-fixed bottom-0 start-50 translate-middle-x mb-4 z-3 px-4 py-2"
          role="alert"
@@ -129,7 +142,7 @@
         <i class="bi bi-check-circle-fill me-2"></i>
             ${requestScope.aviso}
     </div>
-</c:if>
+    </c:if>
 
 </body>
 </html>

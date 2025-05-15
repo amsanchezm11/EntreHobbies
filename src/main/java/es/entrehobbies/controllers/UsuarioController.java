@@ -140,7 +140,7 @@ public class UsuarioController extends HttpServlet {
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, e);
                 }
-
+                url = "/JSP/USUARIO/menuUsuario.jsp";
                 break;
             case "Actualizar-datos":
 

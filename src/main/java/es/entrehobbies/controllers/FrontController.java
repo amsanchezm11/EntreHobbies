@@ -50,7 +50,7 @@ public class FrontController extends HttpServlet {
                     if (user.getRol() == Usuario.Rol.Admin) {
                         url = "/JSP/ADMIN/dashboard.jsp";
                     } else {
-                        url = ".";
+                        url = "/JSP/USUARIO/menuUsuario.jsp";
                     }
                 }
                 break;
@@ -76,7 +76,7 @@ public class FrontController extends HttpServlet {
                     request.setAttribute("eventos", listaObjetos);
                     url = "/JSP/USUARIO/eventosUsuario.jsp";
                 } else {
-                    url = "/JSP/ERRORES/error500.jsp";
+                    url = "/JSP/AVISOS/noEventos.jsp";
                 }
                 break;
             case "Sobre-Nosotros":
@@ -113,12 +113,23 @@ public class FrontController extends HttpServlet {
                 String nombreCategoria = daoC.getNombreCategoriaPorId(idCategoria);
                 // Recogemos todos los eventos de dicha categoría
                 listaObjetos = daoE.getAllEventosPorCategoriaOrdenados(idCategoria);
-                if (listaObjetos != null) {
+                if (listaObjetos != null && !listaObjetos.isEmpty()) {
                     request.setAttribute("categoria",nombreCategoria);
                     request.setAttribute("eventos", listaObjetos);
                     url = "/JSP/EVENTO/verEventos.jsp";
                 } else {
-                    request.setAttribute("error", "No se han encontrado eventos de esta categoría");
+                    request.setAttribute("categoria",nombreCategoria);
+                    url = "/JSP/AVISOS/noEventos.jsp";
+                }
+                break;
+            case "Eventos-Apuntados":
+                user = (Usuario) request.getSession().getAttribute("usuario");
+                listaObjetos = daoE.getEventosDondeParticipaUsuario(user.getIdUsuario());
+                if (listaObjetos != null) {
+                    request.setAttribute("eventos", listaObjetos);
+                    url = "/JSP/USUARIO/verEventosParticipado.jsp";
+                } else {
+                    request.setAttribute("error", "No se han encontrado eventos");
                     url = "/JSP/ERRORES/error500.jsp";
                 }
                 break;

@@ -1,9 +1,9 @@
-<footer class="bg-body-tertiary text-body-emphasis border-top pt-4 mt-5">
+<footer class="bg-body-tertiary text-body-emphasis border-top pt-4">
   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-start text-center text-md-start gap-4">
 
     <div>
       <h5 class="fw-semibold mb-2">Contacto</h5>
-      <p class="mb-0"><strong>Email:</strong> <span>infoHobby@entrehobbies.com</span></p>
+      <p class="mb-0"><strong>Email:</strong> <span>entrehobbies.info@gmail.com</span></p>
       <p class="mb-0"><strong>Tel&eacute;fono:</strong> <span>+34 000 111 222<span class="info"></p>
     </div>
 

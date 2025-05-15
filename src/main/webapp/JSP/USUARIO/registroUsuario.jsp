@@ -24,319 +24,339 @@
 <main class="position-relative bg-gradient-morado-blanco w-100 d-flex justify-content-center align-items-center flex-column flex-grow-1 pt-5">
     <h1 class="position-absolute top-0 start-0 text-light m-4 text-login">Registro</h1>
 
-    <form id="formRegistro" action="${contexto}/UsuarioController" method="post" class="container w-75 mb-4 pt-5"
+
+    <form id="miFormulario" action="${contexto}/UsuarioController" method="post" class="container w-75 mb-4 pt-5"
           enctype="multipart/form-data">
-        <div class="row g-3">
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="nombre"
-                               name="nombre"
-                               placeholder="Nombre"
-                               required>
-                        <label for="nombre">Nombre</label>
-                    </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato del nombre"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                  <li>No puede tener n&uacute;meros.</li>
-                                  <li>Debe empezar con may&uacute;scula.</li>
-                                  <li>Solo letras y espacios.</li>
-                                  <li>Est&aacute; permitido los acentos.</li>
-                                  <li>Longitud m&aacute;xima 30 caracteres.</li>
-                              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
-                </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="apellidos"
-                               name="apellidos"
-                               placeholder="Apellidos"
-                               required>
-                        <label for="apellidos">Apellidos</label>
-                    </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de apellidos"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                  <li>No puede tener n&uacute;meros.</li>
-                                  <li>Debe empezar con may&uacute;scula.</li>
-                                  <li>Solo letras y espacios.</li>
-                                  <li>Est&aacute; permitido los acentos.</li>
-                                  <li>Longitud m&aacute;xima 40 caracteres.</li>
-                              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
-                </div>
-            </div>
+        <div id="paso1" class="paso activo">
+            <h2 class="text-white mb-4">Paso 1: Datos personales y contacto</h2>
 
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="username"
-                               name="username"
-                               placeholder="Username"
-                               required>
-                        <label for="username">Username</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="text"
+                                   class="form-control"
+                                   id="nombre"
+                                   name="nombre"
+                                   placeholder="Nombre"
+                                   required>
+                            <label for="nombre">Nombre</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato del nombre"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>No puede tener n&uacute;meros.</li>
+                          <li>Debe empezar con may&uacute;scula.</li>
+                          <li>Solo letras y espacios.</li>
+                          <li>Est&aacute; permitido los acentos.</li>
+                          <li>Longitud m&aacute;xima 30 caracteres.</li>
+                      </ul>">
+        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+    </span>
                     </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de username"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                  <li>Solo letras y n&uacute;meros.</li>
-                                  <li>No puede tener caracteres especiales.</li>
-                                  <li>Est&aacute; permitido los acentos.</li>
-                                  <li>Longitud entre 3-20 caracteres.</li>
-                              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="email"
-                               class="form-control"
-                               id="email"
-                               name="email"
-                               placeholder="name@example.com"
-                               required>
-                        <label for="email">Email</label>
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="text"
+                                   class="form-control"
+                                   id="apellidos"
+                                   name="apellidos"
+                                   placeholder="Apellidos"
+                                   required>
+                            <label for="apellidos">Apellidos</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de apellidos"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>No puede tener n&uacute;meros.</li>
+                          <li>Debe empezar con may&uacute;scula.</li>
+                          <li>Solo letras y espacios.</li>
+                          <li>Est&aacute; permitido los acentos.</li>
+                          <li>Longitud m&aacute;xima 40 caracteres.</li>
+                      </ul>">
+        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+    </span>
                     </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de email"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="text"
+                                   class="form-control"
+                                   id="username"
+                                   name="username"
+                                   placeholder="Username"
+                                   required>
+                            <label for="username">Username</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de username"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>Solo letras y n&uacute;meros.</li>
+                          <li>No puede tener caracteres especiales.</li>
+                          <li>Est&aacute; permitido los acentos.</li>
+                          <li>Longitud entre 3-20 caracteres.</li>
+                      </ul>">
+        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+    </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="date"
+                                   class="form-control"
+                                   id="fechaNacimiento"
+                                   name="fechaNacimiento"
+                                   placeholder="Fecha de nacimiento">
+                            <label for="fechaNacimiento">Fecha de nacimiento</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de fecha de nacimiento"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>El usuario debe ser mayor de <strong>18</strong> a&ntilde;os.</li>
+                          <li>No se permiten fechas futuras.</li>
+                      </ul>">
+        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+    </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <select class="form-select" id="sexo" name="sexo" required>
+                                <option value="" selected disabled>Selecciona una opci&oacute;n</option>
+                                <option value="Hombre">Hombre</option>
+                                <option value="Mujer">Mujer</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            <label for="sexo">Sexo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="text"
+                                   class="form-control"
+                                   id="telefono"
+                                   name="telefono"
+                                   placeholder="Tel&eacute;fono"
+                                   required>
+                            <label for="telefono">Tel&eacute;fono</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de tel&eacute;fono"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>El n&uacute;mero compuesto por <strong>9</strong> d&iacute;gitos.</li>
+                          <li>Debe empezar por 6, 7 o 9.</li>
+                      </ul>">
+        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+    </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="text"
+                                   class="form-control"
+                                   id="localidad"
+                                   name="localidad"
+                                   placeholder="Localidad"
+                                   required>
+                            <label for="localidad">Localidad</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de localidad"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>Solo letras (may&uacute;sculas y min&uacute;sculas), incluyendo acentos y &ntilde;.</li>
+                          <li>Espacios solo entre palabras (no al principio, no al final, no dobles).</li>
+                          <li>Longitud m&aacute;xima: 50 caracteres.</li>
+                      </ul>">
+        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+    </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="text"
+                                   class="form-control"
+                                   id="provincia"
+                                   name="provincia"
+                                   placeholder="Provincia"
+                                   required>
+                            <label for="provincia">Provincia</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de provincia"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>Solo letras (may&uacute;sculas y min&uacute;sculas), incluyendo acentos y &ntilde;.</li>
+                          <li>Espacios solo entre palabras (no al principio, no al final, no dobles).</li>
+                          <li>Longitud m&aacute;xima: 50 caracteres.</li>
+                      </ul>">
+        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+    </span>
+                    </div>
+                </div>
+
+                <div class="col-12 text-center">
+                    <button type="button" class="btn btn-login btn-lg btn-siguiente" data-paso="2">
+                        Siguiente
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div id="paso2" class="paso">
+            <h2 class="text-white mb-4">Paso 2: Acceso y perfil</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   name="email"
+                                   placeholder="name@example.com"
+                                   required>
+                            <label for="email">Email</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de email"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
                                   <li>Debe contener '@'.</li>
                                   <li>Solo se permiten correos terminados en '.com' o '.es'.</li>
                                   <li>Longitud m&aacute;xima 60 caracteres.</li>
                               </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+          <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
         </span>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="date"
-                               class="form-control"
-                               id="fechaNacimiento"
-                               name="fechaNacimiento"
-                               placeholder="Fecha de nacimiento">
-                        <label for="fechaNacimiento">Fecha de nacimiento</label>
                     </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de fecha de nacimiento"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                  <li>El usuario debe ser mayor de <strong>18</strong> a&ntilde;os.</li>
-                                  <li>No se permiten fechas futuras.</li>
-                              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="telefono"
-                               name="telefono"
-                               placeholder="Tel&eacute;fono"
-                               required>
-                        <label for="telefono">Tel&eacute;fono</label>
-                    </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de tel&eacute;fono"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                  <li>El n&uacute;mero compuesto por <strong>9</strong> d&iacute;gitos.</li>
-                                  <li>Debe empezar por 6, 7 o 9.</li>
-                              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
-                </div>
-            </div>
-
-
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="localidad"
-                               name="localidad"
-                               placeholder="Localidad"
-                               required>
-                        <label for="localidad">Localidad</label>
-                    </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de localidad"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                  <li>Solo letras (may&uacute;sculas y min&uacute;sculas), incluyendo acentos y &ntilde;.</li>
-                                  <li>Espacios solo entre palabras (no al principio, no al final, no dobles).</li>
-                                  <li>Longitud m&aacute;xima: 50 caracteres.</li>
-                              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="provincia"
-                               name="provincia"
-                               placeholder="Provincia"
-                               required>
-                        <label for="provincia">Provincia</label>
-                    </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de provincia"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                  <li>Solo letras (may&uacute;sculas y min&uacute;sculas), incluyendo acentos y &ntilde;.</li>
-                                  <li>Espacios solo entre palabras (no al principio, no al final, no dobles).</li>
-                                  <li>Longitud m&aacute;xima: 50 caracteres.</li>
-                              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
-                </div>
-            </div>
-
-
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="password"
-                               class="form-control"
-                               id="password"
-                               name="password"
-                               placeholder="Contrase&ntilde;a"
-                               required>
-                        <label for="password">Contrase&ntilde;a</label>
-                    </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de contrase&ntilde;a"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                  <li>Cualquier car&aacute;cter.</li>
-                                  <li>No se permite <strong>espacios</strong></li>
-                                  <li>Longitud entre 6 y 100 caracteres.</li>
-                              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="password"
-                               class="form-control"
-                               id="passwordRepe"
-                               name="passwordRepe"
-                               placeholder="Repetir contrase&ntilde;a"
-                               required>
-                        <label for="passwordRepe">Repetir Contrase&ntilde;a</label>
-                    </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de repetir contrase&ntilde;a"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                  <li>Debe ser <strong>igual</strong> a la contrase&ntilde;a anterior.</li>
-                              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
-                </div>
-            </div>
-            
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <input type="file"
-                               class="form-control"
-                               id="avatar"
-                               name="avatar"
-                               placeholder="Avatar"
-                               required>
-                        <label for="avatar">Avatar</label>
-                    </div>
-                    <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                          title="Formato de Avatar"
-                          data-bs-toggle="popover"
-                          data-bs-placement="bottom"
-                          data-bs-html="true"
-                          data-bs-trigger="hover focus"
-                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="file"
+                                   class="form-control"
+                                   id="avatar"
+                                   name="avatar"
+                                   placeholder="Avatar"
+                                   required>
+                            <label for="avatar">Avatar</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de Avatar"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
                                   <li>Texto, n&uacute;meros, espacios, s&iacute;mbolos.</li>
                                   <li>Extensi&oacute;n de imagen (jpg, jpeg, png).</li>
                                   <li>Tama&ntilde;o m&aacute;ximo 100KB.</li>
                                   <li>Longitud m&aacute;xima 30 caracteres.</li>
                               </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+          <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
         </span>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="input-group mb-4 shadow">
-                    <div class="form-floating flex-grow-1">
-                        <select class="form-select" id="sexo" name="sexo" required>
-                            <option value="" selected disabled>Selecciona una opci&oacute;n</option>
-                            <option value="Hombre">Hombre</option>
-                            <option value="Mujer">Mujer</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                        <label for="sexo">Sexo</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="password"
+                                   class="form-control"
+                                   id="password"
+                                   name="password"
+                                   placeholder="Contrase&ntilde;a"
+                                   required>
+                            <label for="password">Contrase&ntilde;a</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de contrase&ntilde;a"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                                  <li>Cualquier car&aacute;cter.</li>
+                                  <li>No se permite <strong>espacios</strong></li>
+                                  <li>Longitud entre 6 y 100 caracteres.</li>
+                              </ul>">
+          <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="input-group mb-4 shadow">
+                        <div class="form-floating flex-grow-1">
+                            <input type="password"
+                                   class="form-control"
+                                   id="passwordRepe"
+                                   name="passwordRepe"
+                                   placeholder="Repetir contrase&ntilde;a"
+                                   required>
+                            <label for="passwordRepe">Repetir Contrase&ntilde;a</label>
+                        </div>
+                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+                              title="Formato de repetir contrase&ntilde;a"
+                              data-bs-toggle="popover"
+                              data-bs-placement="bottom"
+                              data-bs-html="true"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                                  <li>Debe ser <strong>igual</strong> a la contrase&ntilde;a anterior.</li>
+                              </ul>">
+          <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+        </span>
                     </div>
                 </div>
             </div>
@@ -355,12 +375,14 @@
                       data-bs-html="true"
                       data-bs-trigger="hover focus"
                       data-bs-content="Debe aceptar los t&eacute;rminos y condiciones del servicio para poder registrarse.">
-        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+      <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
     </span>
             </div>
 
-            <div class="col-12 text-center">
-                <button type="submit" id="enviar" class="btn btn-login btn-lg" name="accion" value="Registrar" disabled>
+            <div class="col-12 d-flex justify-content-center align-items-center mb-4">
+                <button type="button" class="btn btn-anterior btn-secondary btn-lg ms-3" data-paso="1">Anterior</button>
+
+                <button type="submit" id="enviar" class="btn btn-login btn-lg ms-3" name="accion" value="Registrar" disabled>
                     Registrarse
                 </button>
             </div>
@@ -368,8 +390,12 @@
             <div class="col-12">
                 <p class="text-center text-danger m-0 invisible" id="aviso">Mensaje</p>
             </div>
+
         </div>
+
     </form>
+
+
 
 </main>
 </body>

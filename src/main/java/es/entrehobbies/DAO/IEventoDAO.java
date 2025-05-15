@@ -9,6 +9,8 @@ public interface IEventoDAO {
 
     public List<Object[]> getAllEventosUsuariosOrdenadosCrono(int idUsuario);
 
+    public List<Object[]> getEventosDondeParticipaUsuario(int idUsuario);
+
     public List<Object[]> getNumeroEventosPorCategoria();
 
     public Map<String, Long> getNumeroEventosPorMes(int anio);

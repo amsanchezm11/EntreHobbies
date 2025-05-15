@@ -7,20 +7,8 @@
         <jsp:param name="titulo" value="Mis Eventos"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
-
-    <style>
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card {
-            height: 100%;
-        }
-    </style>
 </head>
-<body class="bg-body text-body position-relative w-100 bg-gradient-morado-blanco">
+<body class="body-custom position-relative bg-gradient-morado-blanco">
 
 <c:choose>
     <c:when test="${sessionScope.usuario != null}">
@@ -39,8 +27,8 @@
     <div class="row">
         <c:forEach var="evento" items="${requestScope.eventos}">
             <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <div class="card shadow-sm d-flex carta">
-                    <div class="card-body">
+                <div class="card-eventos shadow-sm d-flex carta">
+                    <div class="card-body-eventos">
                         <h5 class="card-title">${evento[1]} - <strong>${evento[3]}</strong></h5>
                         <p class="card-text"><strong>Fecha de inicio:</strong> ${evento[4]}</p>
                         <p class="card-text"><strong>Categoría:</strong> ${evento[6]}</p>
@@ -60,7 +48,6 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                         </div>
                         <div class="modal-body">
-                            <h5>${evento[1]}</h5>
                             <p><strong>Descripción:</strong> ${evento[2]}</p>
                             <p><i class="bi bi-calendar-plus me-2"></i><strong>Fecha de inicio:</strong> ${evento[4]}</p>
                             <p><i class="bi bi-calendar-minus me-2"></i><strong>Fecha de fin:</strong> ${evento[5]}</p>
@@ -73,7 +60,9 @@
                                 <i class="bi bi-person-plus-fill"></i>
                             </p>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer d-flex justify-content-end">
+                            <button class="btn btn-main">Modificar Evento</button>
+                            <button class="btn btn-danger">Cancelar Evento</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>

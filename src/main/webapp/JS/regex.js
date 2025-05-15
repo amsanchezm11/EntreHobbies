@@ -3,7 +3,7 @@
  * con la función de comprobar regex y validar formulario
  */
 
-// Método comprobar regex
+// Función comprobar regex
 export function comprobarRegex(element, regex, length) {
     if (regex.test(element.value) && element.value.length <= length) {
         element.classList.remove("is-invalid");
@@ -16,7 +16,7 @@ export function comprobarRegex(element, regex, length) {
     }
 }
 
-// Método para comprobar si todos los inputs son válidos
+// Función para comprobar si todos los inputs son válidos
 export function validarFormulario(idBoton) {
     const campos = document.querySelectorAll('input, select, textarea');
     const boton = document.getElementById(idBoton);
@@ -34,7 +34,7 @@ export function validarFormulario(idBoton) {
     boton.disabled = false;
 }
 
-// Método validar botón del formulario modificar(datos y avatar)
+// Función validar botón del formulario modificar(datos y avatar)
 export function validarBoton(idInput, idBoton) {
 
     const input = document.getElementById(idInput);
@@ -245,7 +245,7 @@ export function confirmPasswordNueva(element) {
 
 // Regex para comprobar sexo del usuario
 export function checkSexo(element) {
-    console.log(element);
+
     if (element.value !== null) {
         element.classList.remove("is-invalid");
         element.classList.add("is-valid");
@@ -254,5 +254,47 @@ export function checkSexo(element) {
         element.classList.remove("is-valid");
         element.classList.add("is-invalid");
         return false;
+    }
+}
+
+// Función para comprobar si el usuario ha seleccionado que acepta las condiciones
+export function checkCondiciones(element) {
+
+    let aviso = document.getElementById('aviso');
+
+    if (element.checked) {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
+        return true;
+    } else {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        aviso.textContent = 'Debe aceptar los términos y condiciones del servicio para poder registrarse.';
+        return false;
+    }
+}
+
+//-------------------------------------------------------------------------------------------
+//------------------------------------[ EVENTO ]---------------------------------------------
+//-------------------------------------------------------------------------------------------
+
+// Función para validar el titulo del evento
+export function checkTitulo(element) {
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s,]{1,40}$/;
+    return comprobarRegex(element,regex,40);
+}
+
+// Función para validar el número de participantes del evento
+export function checkNumParticipantes(element) {
+    const numero = parseInt(element.value,10);
+
+    if (!Number.isInteger(numero) || numero < 1) {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
+    } else {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
+        return true;
     }
 }
