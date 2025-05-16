@@ -128,7 +128,7 @@
         <div class="row justify-content-center text-center">
             <div class="col-md-5 mb-4">
                 <div class="card h-100 p-3">
-                    <img src="${contexto}/IMG/GENERAL/buscar.svg" class="card-img-top img-fluid" alt="Busca eventos" style="max-width: 65%; height: 200px;">
+                    <img src="${contexto}/IMG/GENERAL/buscar.svg" class="card-img-top img-fluid align-self-center m-2" alt="Busca eventos" style="max-width: 65%; height: 200px;">
                     <div class="card-body">
                         <h5 class="fw-bold">Busca eventos</h5>
                         <p>Filtra por subcategor&iacute;as, provincia y m&aacute;s para encontrar tu plan ideal.</p>
@@ -137,7 +137,7 @@
             </div>
             <div class="col-md-5 mb-4">
                 <div class="card h-100 p-3">
-                    <img src="${contexto}/IMG/GENERAL/unirse.svg" class="card-img-top img-fluid" alt="&uacute;nete a un evento" style="max-width: 65%; height: 200px;">
+                    <img src="${contexto}/IMG/GENERAL/unirse.svg" class="card-img-top img-fluid align-self-center m-2" alt="&uacute;nete a un evento" style="max-width: 65%; height: 200px;">
                     <div class="card-body">
                         <h5 class="fw-bold">Ap&uacute;ntate</h5>
                         <p>Haz clic y empieza a disfrutar con otros usuarios.</p>
@@ -185,6 +185,10 @@
 </section>
 
 <c:import url="/INC/pie.inc"/>
-
+<div id="scroll-down" class="scroll-arrow" title="Desplazar hacia abajo" aria-label="Desplazar hacia abajo" role="button" tabindex="0">
+    <svg height="30" width="30" viewBox="0 0 24 24" role="img" aria-hidden="true" fill="white">
+        <path d="M23.7 8.7 12 20.42.3 8.71l1.4-1.42L12 17.6 22.3 7.3z"></path>
+    </svg>
+</div>
 </body>
 </html>

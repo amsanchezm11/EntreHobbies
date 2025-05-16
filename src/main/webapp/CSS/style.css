@@ -491,6 +491,30 @@ footer span:hover {
     min-height: 100%;
 }
 
+/*------[ FLECHA SCROLL ]-------*/
+
+.scroll-arrow {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    animation: bounceDown 2s infinite;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.scroll-arrow svg {
+    filter: drop-shadow(0 0 2px black);
+}
+
 /*------[ ANIMACIONES ]-------*/
 
 @keyframes fadeInSlide {
@@ -519,5 +543,17 @@ footer span:hover {
 @keyframes progress {
     to {
         transform: scaleX(1);
+    }
+}
+
+@keyframes bounceDown {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(10px);
+    }
+    60% {
+        transform: translateY(5px);
     }
 }
