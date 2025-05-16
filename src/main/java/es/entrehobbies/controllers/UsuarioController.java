@@ -186,7 +186,7 @@ public class UsuarioController extends HttpServlet {
 
                 // Recuperamos el usuario de la sesión
                 usuario = (Usuario) request.getSession().getAttribute("usuario");
-
+                // Obtenemos las contraseñas
                 passwordActual = request.getParameter("passwordActual");
                 passwordNueva = request.getParameter("nuevaPassword");
                 confirmPassword = request.getParameter("confirmPassword");

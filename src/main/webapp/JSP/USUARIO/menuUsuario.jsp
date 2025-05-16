@@ -16,7 +16,31 @@
 
 <section class="bloque d-flex flex-column gap-4">
     <h2 class="text-center mb-4 text-footer text-light">¡Bienvenido a EntreHobbies!</h2>
+    <c:if test="${requestScope.aviso != null}">
+        <div id="aviso"
+             class="notification"
+             role="alert"
+             style="pointer-events: none;">
+            <div class="notification-body">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <span>${requestScope.aviso}</span>
+                <div class="notification-progress"></div>
+            </div>
+        </div>
+    </c:if>
 
+    <c:if test="${requestScope.error != null}">
+        <div id="aviso"
+             class="notification-danger"
+             role="alert"
+             style="pointer-events: none;">
+            <div class="notification-body">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <span>${requestScope.error}</span>
+                <div class="notification-danger-progress"></div>
+            </div>
+        </div>
+    </c:if>
     <div class="row">
         <div class="col-md-6 mb-3 d-flex flex-column gap-3">
             <div class="card card-user h-100 d-flex flex-column justify-content-between p-4">
@@ -64,7 +88,8 @@
     </div>
 </section>
 
-<section class="bloque">
+<section class="bloque d-flex flex-column gap-5">
+    <h1 class="fw-bold">Explora, comparte y vive tu hobby</h1>
     <div class="container">
         <div class="row text-center justify-content-center">
             <div class="col-md-4 mb-4">
@@ -119,7 +144,8 @@
     </div>
 </section>
 
-<section class="bloque">
+<section class="bloque d-flex flex-column gap-5">
+    <h1 class="fw-bold">Encuentra eventos, únete a la comunidad y disfruta</h1>
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-md-5 mb-4">
@@ -157,20 +183,6 @@
             <i class="bi bi-plus-lg fs-4"></i>
         </button>
     </form>
-</c:if>
-
-<c:if test="${requestScope.aviso != null}">
-    <div class="notification alert alert-success" role="alert">
-        <i class="bi bi-check-circle-fill me-2"></i>
-        <span>${requestScope.aviso}</span>
-    </div>
-</c:if>
-
-<c:if test="${requestScope.error != null}">
-    <div class="notification-danger alert alert-danger" role="alert">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-        <span>${requestScope.error}</span>
-    </div>
 </c:if>
 
 <section class="bloque-footer text-center d-flex justify-content-center align-items-center">

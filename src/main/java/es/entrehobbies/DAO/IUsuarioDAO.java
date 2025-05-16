@@ -30,4 +30,5 @@ public interface IUsuarioDAO {
     public Boolean comprobarTelefono(String telefono);
 
     public Map<String, Long> getNumeroUsuariosPorSexo();
+
 }

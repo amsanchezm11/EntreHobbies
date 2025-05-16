@@ -98,7 +98,7 @@
                             <small><strong>${evento[14]} / ${evento[6]}</strong></small>
                         </div>
                         <div class="progress rounded-pill" style="height: 6px;">
-                            <div class="progress-bar" role="progressbar"
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-morado" role="progressbar"
                                  style="width: ${(evento[14] / evento[6]) * 100}%;"
                                  aria-valuenow="${evento[14]}" aria-valuemin="0" aria-valuemax="${evento[6]}">
                             </div>
@@ -118,9 +118,10 @@
                     <p class="card-text small mb-1"><i class="bi bi-globe me-2"></i><strong>Localidad:</strong> ${evento[8]}, ${evento[9]}</p>
                     <p class="card-text small mb-3"><i class="bi bi-person me-2"></i><strong>Creador:</strong> ${evento[13]}</p>
 
-                    <div class="mt-auto">
-                        <button class="btn btn-main btn-sm rounded-pill w-100"><i class="bi bi-check2-circle me-2"></i>Apuntarse</button>
-                    </div>
+                    <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
+                        <input type="hidden" name="idEvento" value="${evento[0]}">
+                        <button class="btn btn-main btn-sm rounded-pill w-100" name="accion" value="Unirse-evento"><i class="bi bi-check2-circle me-2"></i>Apuntarse</button>
+                    </form>
                 </div>
             </div>
         </div>

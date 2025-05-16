@@ -33,7 +33,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="input-group mb-4 shadow">
+                    <div class="input-group shadow">
                         <div class="form-floating flex-grow-1">
                             <input type="text"
                                    class="form-control"
@@ -365,7 +365,7 @@
                 <div class="form-check check-custom">
                     <input class="form-check-input" type="checkbox" value="true" id="aceptoCondiciones" name="aceptoCondiciones" required>
                     <label class="form-check-label text-white" for="aceptoCondiciones">
-                        Acepto los <a href="${contexto}/condiciones.jsp" target="_blank">términos y condiciones</a>
+                        Acepto los <a href="${contexto}/condiciones.jsp" target="_blank">t&eacute;rminos y condiciones</a>
                     </label>
                 </div>
                 <span class="ms-2 text-white" style="cursor: pointer;" role="button"

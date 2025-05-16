@@ -101,7 +101,6 @@ export function checkEmail(element) {
     }
 }
 
-
 // Regex para contraseña (cualquier carácter sin espacios, entre 6 y 100 caracteres)
 export function checkPassword(element) {
     let regex = /^[^\s]{6,100}$/;

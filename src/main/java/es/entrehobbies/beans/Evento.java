@@ -4,8 +4,10 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "eventos")
@@ -74,7 +76,7 @@ public class Evento implements Serializable {
     private Estado estado;
 
     @ManyToMany(mappedBy = "eventosParticipados")
-    private List<Usuario> participantes;
+    private List<Usuario> participantes= new ArrayList<>();
 
     // GETTERS AND SETTERS
 
@@ -199,5 +201,18 @@ public class Evento implements Serializable {
         this.participantes = participantes;
     }
 
+    // Equals & HashCode
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Evento evento = (Evento) o;
+        return Objects.equals(idEvento, evento.idEvento);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idEvento);
+    }
 }

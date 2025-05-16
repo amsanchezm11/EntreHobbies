@@ -27,15 +27,18 @@
     <div class="row">
         <c:forEach var="evento" items="${requestScope.eventos}">
             <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <div class="card-eventos shadow-sm d-flex carta">
-                    <div class="card-body-eventos">
+                <div class="card card-eventos shadow-sm d-flex flex-column carta p-3 h-100">
+                    <div class="card-body-eventos flex-grow-1 d-flex flex-column">
                         <h5 class="card-title">${evento[1]} - <strong>${evento[3]}</strong></h5>
                         <p class="card-text"><strong>Fecha de inicio:</strong> ${evento[4]}</p>
                         <p class="card-text"><strong>Categoría:</strong> ${evento[6]}</p>
                         <p class="card-text"><strong>Localidad:</strong> ${evento[9]}</p>
-                        <button type="button" class="btn btn-main" data-bs-toggle="modal" data-bs-target="#eventoModal${evento[0]}">
-                            Detalles
-                        </button>
+
+                        <div class="mt-auto text-center">
+                            <button type="button" class="btn btn-main w-100" data-bs-toggle="modal" data-bs-target="#eventoModal${evento[0]}">
+                                Detalles
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

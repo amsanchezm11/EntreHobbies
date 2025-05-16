@@ -1,5 +1,6 @@
 package es.entrehobbies.DAO;
 
+import es.entrehobbies.beans.Evento;
 import es.entrehobbies.beans.Usuario;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
@@ -156,7 +157,5 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
 
         return resultados;
     }
-
-
 
 }

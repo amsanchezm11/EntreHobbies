@@ -6,6 +6,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -74,13 +75,13 @@ public class Usuario implements Serializable {
     private String avatar = "avatar.svg";
 
     @OneToMany(mappedBy = "creador", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Evento> eventosCreados;
+    private List<Evento> eventosCreados= new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "usuario_eventos",
             joinColumns = @JoinColumn(name = "IdUsuario"),
             inverseJoinColumns = @JoinColumn(name = "IdEvento"))
-    private List<Evento> eventosParticipados;
+    private List<Evento> eventosParticipados= new ArrayList<>();
 
     // GETTERS AND SETTERS
 

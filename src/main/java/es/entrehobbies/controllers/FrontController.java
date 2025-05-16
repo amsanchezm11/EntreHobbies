@@ -32,10 +32,10 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
 
         String url = ".";
-        String accion = request.getParameter("accion");
+        String accion = request.getParameter("accion");;
         Usuario user = null;
         List<Object[]> listaObjetos = null;
-
+        int idCategoria;
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
         //IGenericoDAO daoG = daoF.getGenericoDAO();
@@ -108,7 +108,7 @@ public class FrontController extends HttpServlet {
                 break;
             case "Ver-Eventos":
                 // Obtenemos el idCategoria que el usuario ha seleccionado
-                int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+                idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
                 // Obtenemos el nombre de la categoria
                 String nombreCategoria = daoC.getNombreCategoriaPorId(idCategoria);
                 // Recogemos todos los eventos de dicha categoría
