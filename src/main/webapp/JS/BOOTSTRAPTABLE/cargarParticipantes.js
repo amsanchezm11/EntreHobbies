@@ -20,12 +20,15 @@ function formatearParticipante(value, row, index) {
 $(document).ready(function() {
     $('#tablaParticipantes').bootstrapTable({
         columns: [{
-
+            field: 'username',
             formatter: formatearParticipante
         }],
         data: [],
         pagination: false,
-        search: false
+        search: false,
+        formatNoMatches: function () {
+            return 'No hay participantes registrados en este evento';
+        }
     });
 });
 

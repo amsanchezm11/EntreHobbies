@@ -82,6 +82,9 @@ public class FrontController extends HttpServlet {
             case "Sobre-Nosotros":
                 url = "/JSP/INFO/sobreNosotros.jsp";
                 break;
+            case "Privacidad":
+                url = "/JSP/INFO/politicaPrivacidad.jsp";
+                break;
             case "Crear-Evento":
                 // Obtenemos las categorias para los eventos
                 listaObjetos = daoC.getAllCategoriasOrdenadas();
