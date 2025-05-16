@@ -4,11 +4,12 @@
 <html lang="es">
 <head>
     <jsp:include page="/INC/cabecera.jsp">
-        <jsp:param name="titulo" value="Eventos" />
-        <jsp:param name="estilo" value="${estilo}" />
+        <jsp:param name="titulo" value="Eventos"/>
+        <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
+    <script type="module" src="${contexto}/JS/BOOTSTRAPTABLE/cargarParticipantes.js" defer></script>
 </head>
-<body class="bg-body text-body position-relative w-100 bg-gradient-morado-blanco">
+<body class="body-custom position-relative bg-gradient-morado-blanco">
 <c:choose>
     <c:when test="${sessionScope.usuario != null}">
         <c:import url="/INC/navbarUsuario.jsp"/>
@@ -18,7 +19,8 @@
     </c:otherwise>
 </c:choose>
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+     id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title color-pm" id="offcanvasScrollingLabel">Filtros</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -61,7 +63,6 @@
                 </div>
             </div>
 
-
             <div class="mt-4 align-self-bottom">
                 <button type="submit" class="btn btn-main w-100">Aplicar filtros</button>
                 <button type="reset" class="btn btn-main w-100">Limpiar filtros</button>
@@ -98,7 +99,8 @@
                             <small><strong>${evento[14]} / ${evento[6]}</strong></small>
                         </div>
                         <div class="progress rounded-pill" style="height: 6px;">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-morado" role="progressbar"
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-morado"
+                                 role="progressbar"
                                  style="width: ${(evento[14] / evento[6]) * 100}%;"
                                  aria-valuenow="${evento[14]}" aria-valuemin="0" aria-valuemax="${evento[6]}">
                             </div>
@@ -112,16 +114,34 @@
 
                     <hr class="my-2">
 
-                    <p class="card-text small mb-1"><i class="bi bi-card-text me-2"></i><strong>Fecha creaci&oacute;n:</strong> ${evento[3]}</p>
-                    <p class="card-text small mb-1"><i class="bi bi-tags me-2"></i><strong>Subcategor&iacute;a:</strong> ${evento[12]}</p>
-                    <p class="card-text small mb-1"><i class="bi bi-geo me-2"></i><strong>Direcci&oacute;n:</strong> ${evento[7]}</p>
-                    <p class="card-text small mb-1"><i class="bi bi-globe me-2"></i><strong>Localidad:</strong> ${evento[8]}, ${evento[9]}</p>
-                    <p class="card-text small mb-3"><i class="bi bi-person me-2"></i><strong>Creador:</strong> ${evento[13]}</p>
+                    <p class="card-text small mb-1"><i class="bi bi-card-text me-2"></i><strong>Fecha
+                        creaci&oacute;n:</strong> ${evento[3]}</p>
+                    <p class="card-text small mb-1"><i
+                            class="bi bi-tags me-2"></i><strong>Subcategor&iacute;a:</strong> ${evento[12]}</p>
+                    <p class="card-text small mb-1"><i
+                            class="bi bi-geo me-2"></i><strong>Direcci&oacute;n:</strong> ${evento[7]}</p>
+                    <p class="card-text small mb-1"><i
+                            class="bi bi-globe me-2"></i><strong>Localidad:</strong> ${evento[8]}, ${evento[9]}</p>
+                    <p class="card-text small mb-3"><i
+                            class="bi bi-person me-2"></i><strong>Creador:</strong> ${evento[13]}</p>
 
-                    <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
-                        <input type="hidden" name="idEvento" value="${evento[0]}">
-                        <button class="btn btn-main btn-sm rounded-pill w-100" name="accion" value="Unirse-evento"><i class="bi bi-check2-circle me-2"></i>Apuntarse</button>
-                    </form>
+                    <div class="d-flex flex-column gap-1">
+                        <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
+                            <input type="hidden" name="idEvento" value="${evento[0]}">
+                            <button class="btn btn-main btn-sm rounded-pill w-100" name="accion" value="Unirse-evento">
+                                <i class="bi bi-check2-circle me-2"></i>Apuntarse
+                            </button>
+                        </form>
+                        <button
+                                type="button"
+                                class="btn btn-outline-secondary btn-sm rounded-pill mt-2 w-100"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalParticipantes"
+                                data-id-evento="${evento[0]}">
+                            <i class="bi bi-people me-2"></i>Ver participantes
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -131,8 +151,6 @@
         </c:if>
     </c:forEach>
 </div>
-
-
 
 
 <c:if test="${sessionScope.usuario != null}">
@@ -156,6 +174,27 @@
             ${requestScope.aviso}
     </div>
 </c:if>
+
+
+<div class="modal fade" id="modalParticipantes" tabindex="-1" aria-labelledby="modalParticipantesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalParticipantesLabel">Participantes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <table
+                        id="tablaParticipantes"
+                        data-bs-toggle="table"
+                        data-search="false"
+                        data-pagination="false"
+                        class="table table-bordered table-hover">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

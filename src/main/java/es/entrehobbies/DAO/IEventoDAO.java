@@ -22,4 +22,6 @@ public interface IEventoDAO {
     public List<Object[]> getTop5CategoriasConMasEventos();
 
     public List<Object[]> getTop5SubcategoriasConMasEventos();
+
+    public List<Object[]> getParticipantesDeUnEvento(int idEvento);
 }

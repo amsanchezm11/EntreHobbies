@@ -48,11 +48,13 @@ public class UsuarioEventoController extends HttpServlet {
                 int idEvento = Integer.parseInt(request.getParameter("idEvento"));
                 // Obtenemos el evento de la base de datos mediante el id obtenido
                 evento = (Evento) daoG.getById(idEvento, Evento.class);
-
+                // Comprobamos que el usuario no sea el creador del evento
                 if (user.getIdUsuario() != evento.getCreador().getIdUsuario()) {
                     // Comprobamos que el evento no esté ya en la lista
                     if (!user.getEventosParticipados().contains(evento)) {
+                        // Añadimos el usuario al evento
                         user.getEventosParticipados().add(evento);
+                        // Realizamos el update del usuario en la base de datos
                         daoG.insertOrUpdate(user);
                         request.setAttribute("aviso", "Te has unido al evento correctamente");
                     } else {

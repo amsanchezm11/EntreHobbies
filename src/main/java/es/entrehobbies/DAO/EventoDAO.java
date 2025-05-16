@@ -271,5 +271,28 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         return resultados;
     }
 
+    @Override
+    public List<Object[]> getParticipantesDeUnEvento(int idEvento) {
+        List<Object[]> resultados = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT u.username, u.avatar " +
+                            "FROM Evento e " +
+                            "JOIN e.participantes u " +
+                            "WHERE e.idEvento = :idEvento",
+                    Object[].class
+            );
+            query.setParameter("idEvento", idEvento);
+
+            resultados = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultados;
+    }
 
 }

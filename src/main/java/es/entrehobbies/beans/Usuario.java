@@ -78,7 +78,7 @@ public class Usuario implements Serializable {
     private List<Evento> eventosCreados= new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "usuario_eventos",
+    @JoinTable(name = "participantes_eventos",
             joinColumns = @JoinColumn(name = "IdUsuario"),
             inverseJoinColumns = @JoinColumn(name = "IdEvento"))
     private List<Evento> eventosParticipados= new ArrayList<>();
