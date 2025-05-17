@@ -20,7 +20,7 @@
                         <h5 class="card-title">Gesti&oacute;n de Usuarios</h5>
                         <p class="card-text">Administra y gestiona los usuarios del sistema.</p>
                         <form action="${contexto}/FrontController" method="post">
-                            <button type="submit" name="accion" value="Usuarios" class="btn btn-main">Ir a Usuarios</button>
+                            <button type="submit" name="accion" value="Ver-AllUsuarios" class="btn btn-main">Ir a Usuarios</button>
                         </form>
                     </div>
                 </div>

@@ -557,3 +557,45 @@ footer span:hover {
         transform: translateY(5px);
     }
 }
+
+
+
+#tablaUsuarios {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+.pagination-info {
+    color: white !important;
+}
+
+.page-list {
+    color: white !important;
+}
+
+.page-link {
+    color: var(--color-primario) !important;
+}
+
+.page-link:hover {
+    background-color: var(--color-primario) !important;
+    border-color: var(--color-primario) !important;
+    color: var(--color-texto) !important;
+}
+
+.page-link:active {
+    background-color: var(--color-primario) !important;
+    border-color: var(--color-primario) !important;
+    color: var(--color-texto) !important;
+}
+
+.dropdown-toggle {
+    white-space: nowrap;
+    background-color: var(--color-primario) !important;
+    border-color: var(--color-texto) !important;
+}
+
+.dropdown-item.active {
+    background-color: var(--color-primario) !important;
+}

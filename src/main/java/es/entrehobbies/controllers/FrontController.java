@@ -136,6 +136,9 @@ public class FrontController extends HttpServlet {
                     url = "/JSP/ERRORES/error500.jsp";
                 }
                 break;
+            case "Ver-AllUsuarios":
+                url = "/JSP/ADMIN/verTodosUsuarios.jsp";
+                break;
         }
 
         // Redirigimos al usuario a la url correspondiente

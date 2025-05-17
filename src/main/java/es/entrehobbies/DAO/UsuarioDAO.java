@@ -158,4 +158,29 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
         return resultados;
     }
 
+    @Override
+    public List<Object[]> getAllUsuariosResumen() {
+        List<Object[]> resultados = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT u.idUsuario, u.nombre, u.apellidos, u.username, u.email, u.telefono, " +
+                            "u.fechaNacimiento, u.localidad, u.provincia, " +
+                            "(SELECT COUNT(e1) FROM Evento e1 WHERE e1.creador.idUsuario = u.idUsuario), " +
+                            "(SELECT COUNT(e2) FROM Evento e2 JOIN e2.participantes p WHERE p.idUsuario = u.idUsuario) " +
+                            "FROM Usuario u",
+                    Object[].class
+            );
+
+            resultados = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultados;
+    }
+
+
 }
