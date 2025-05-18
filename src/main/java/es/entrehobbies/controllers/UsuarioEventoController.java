@@ -63,7 +63,21 @@ public class UsuarioEventoController extends HttpServlet {
                 }else {
                     request.setAttribute("error", "No puedes unirte a tu propio evento");
                 }
+                break;
 
+            case "Desapuntarse-evento":
+                sessionUser = (Usuario) request.getSession().getAttribute("usuario");
+                user = (Usuario) daoG.getById(sessionUser.getIdUsuario(), Usuario.class);
+                int idEventoDesapuntar = Integer.parseInt(request.getParameter("idEvento"));
+                evento = (Evento) daoG.getById(idEventoDesapuntar, Evento.class);
+
+                if (user.getEventosParticipados().contains(evento)) {
+                    user.getEventosParticipados().remove(evento);
+                    daoG.insertOrUpdate(user);
+                    request.setAttribute("aviso", "Te has desapuntado del evento correctamente");
+                } else {
+                    request.setAttribute("error", "No estás inscrito en este evento");
+                }
                 break;
         }
 

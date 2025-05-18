@@ -108,7 +108,6 @@ body.landing-page section:nth-child(even) {
 }
 
 .perfil-colaborador {
-    background-color: var(--color-texto) !important;
     color: var(--color-primario) !important;
 }
 
@@ -380,7 +379,7 @@ footer span:hover {
 .notification {
     position: fixed;
     width: max-content;
-    left: 50%;
+    left: 45%;
     bottom: 2rem;
     transform: translateY(1.875rem);
     margin: 0 auto;
@@ -417,7 +416,7 @@ footer span:hover {
 .notification-danger {
     position: fixed;
     width: max-content;
-    left: 50%;
+    left: 45%;
     bottom: 2rem;
     transform: translateY(1.875rem);
     margin: 0 auto;
