@@ -36,6 +36,7 @@ public class FrontController extends HttpServlet {
         Usuario user = null;
         List<Object[]> listaObjetos = null;
         int idCategoria;
+        String nombreCategoria;
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
         //IGenericoDAO daoG = daoF.getGenericoDAO();
@@ -113,7 +114,7 @@ public class FrontController extends HttpServlet {
                 // Obtenemos el idCategoria que el usuario ha seleccionado
                 idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
                 // Obtenemos el nombre de la categoria
-                String nombreCategoria = daoC.getNombreCategoriaPorId(idCategoria);
+                nombreCategoria = daoC.getNombreCategoriaPorId(idCategoria);
                 // Recogemos todos los eventos de dicha categoría
                 listaObjetos = daoE.getAllEventosPorCategoriaOrdenados(idCategoria);
                 if (listaObjetos != null && !listaObjetos.isEmpty()) {
@@ -138,6 +139,25 @@ public class FrontController extends HttpServlet {
                 break;
             case "Ver-AllUsuarios":
                 url = "/JSP/ADMIN/verTodosUsuarios.jsp";
+                break;
+
+            case "Ver-Eventos-Logueado":
+                // Obtenemos el usuario de la sesión
+                user = (Usuario) request.getSession().getAttribute("usuario");
+                // Obtenemos el idCategoria que el usuario ha seleccionado
+                idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+                // Obtenemos el nombre de la categoria
+                nombreCategoria = daoC.getNombreCategoriaPorId(idCategoria);
+                // Recogemos todos los eventos de dicha categoría
+                listaObjetos = daoE.getAllEventosPorCategoriaOrdenadosUserLogueado(idCategoria,user.getIdUsuario());
+                if (listaObjetos != null && !listaObjetos.isEmpty()) {
+                    request.setAttribute("categoria",nombreCategoria);
+                    request.setAttribute("eventos", listaObjetos);
+                    url = "/JSP/EVENTO/verEventosLogueado.jsp";
+                } else {
+                    request.setAttribute("categoria",nombreCategoria);
+                    url = "/JSP/AVISOS/noEventos.jsp";
+                }
                 break;
         }
 

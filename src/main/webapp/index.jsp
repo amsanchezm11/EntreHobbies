@@ -25,14 +25,13 @@
 
 <section class="bloque">
     <div class="text-center">
-<%--        <h1 class="fw-bold">Explora, comparte y vive tu hobby</h1>--%>
         <h1 class="text-login text-light">EntreHobbies</h1>
         <h2 class="fw-normal mt-2 text-light">Haz amigos haciendo lo que te apasiona</h2>
     </div>
 </section>
 
 <section class="bloque d-flex flex-column gap-5">
-    <h1 class="fw-bold">Explora, comparte y vive tu hobby</h1>
+    <h1 class="fw-bold text-titulo">Explora, comparte y vive tu hobby</h1>
     <div class="container">
         <div class="row text-center justify-content-center">
             <div class="col-md-4 mb-4">
@@ -67,7 +66,7 @@
 </section>
 
 <section class="bloque d-flex flex-column gap-5">
-    <h1 class="fw-bold text-footer">Nuevos usuarios</h1>
+    <h1 class="fw-bold text-titulo">Nuevos usuarios</h1>
     <div class="container">
         <c:choose>
             <c:when test="${sessionScope.usuario == null}">
@@ -123,7 +122,7 @@
 </section>
 
 <section class="bloque d-flex flex-column gap-5">
-    <h1 class="fw-bold">Encuentra eventos, únete a la comunidad y disfruta</h1>
+    <h1 class="fw-bold text-titulo">Encuentra eventos, únete a la comunidad y disfruta</h1>
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-md-5 mb-4">

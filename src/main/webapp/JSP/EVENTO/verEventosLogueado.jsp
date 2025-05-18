@@ -135,10 +135,32 @@
 
                     <div class="d-flex flex-column gap-1">
                         <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
-                            <input type="hidden" name="idEvento" value="${evento[0]}">
-                            <button class="btn btn-main btn-sm rounded-pill w-100" name="accion" value="Unirse-evento">
-                                <i class="bi bi-check2-circle me-2"></i>Apuntarse
-                            </button>
+                            <c:choose>
+                                <c:when test="${evento[16] == 'creador'}">
+                                    <div class="alert alert-creador text-center p-2 rounded-pill mb-0">
+                                        <span>Eres el creador del evento</span>
+                                    </div>
+                                </c:when>
+
+                                <c:when test="${evento[16] == 'participante'}">
+                                    <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
+                                        <input type="hidden" name="idEvento" value="${evento[0]}">
+                                        <button class="btn btn-warning btn-sm rounded-pill w-100" name="accion" value="Desapuntarse-evento">
+                                            <i class="bi bi-x-circle me-2"></i>Desapuntarse
+                                        </button>
+                                    </form>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
+                                        <input type="hidden" name="idEvento" value="${evento[0]}">
+                                        <button class="btn btn-main btn-sm rounded-pill w-100" name="accion" value="Unirse-evento">
+                                            <i class="bi bi-check2-circle me-2"></i>Apuntarse
+                                        </button>
+                                    </form>
+                                </c:otherwise>
+                            </c:choose>
+
                         </form>
                         <button
                                 type="button"
@@ -206,4 +228,3 @@
 
 </body>
 </html>
-

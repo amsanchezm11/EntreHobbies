@@ -32,7 +32,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
                             "AND e.fechaInicio BETWEEN :primerDia AND :ultimoDia " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
-                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.nombre " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.username " +
                             "ORDER BY e.fechaCreacion DESC",
                     Object[].class
             );
@@ -294,5 +294,77 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         }
         return resultados;
     }
+
+     @Override
+    public List<Object[]> getAllEventosPorCategoriaOrdenadosUserLogueado(int idCategoria, int idUsuario) {
+        List<Object[]> eventos = new ArrayList<>();
+        try {
+            startTransaction();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            Date primerDia = calendar.getTime();
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+            Date ultimoDia = calendar.getTime();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                            "e.subcategoria.nombre, e.creador.nombre, COUNT(p), e.creador.idUsuario " +
+                            "FROM Evento e " +
+                            "LEFT JOIN e.participantes p " +
+                            "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
+                            "AND e.estado = 'Por_Empezar' " +
+                            "AND e.fechaInicio BETWEEN :primerDia AND :ultimoDia " +
+                            "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                            "e.subcategoria.nombre, e.creador.username, e.creador.idUsuario " +
+                            "ORDER BY e.fechaCreacion DESC",
+                    Object[].class
+            );
+
+            query.setParameter("idCategoria", idCategoria);
+            query.setParameter("primerDia", primerDia);
+            query.setParameter("ultimoDia", ultimoDia);
+
+            List<Object[]> resultados = query.getResultList();
+
+            for (Object[] row : resultados) {
+                Integer idEvento = (Integer) row[0];
+                Integer idCreador = (Integer) row[15];
+
+                String rol;
+
+                if (idUsuario == idCreador) {
+                    rol = "creador";
+                } else {
+                    Query<Long> subquery = sesion.createQuery(
+                            "SELECT COUNT(u) FROM Evento e JOIN e.participantes u " +
+                                    "WHERE e.idEvento = :idEvento AND u.idUsuario = :idUsuario",
+                            Long.class
+                    );
+                    subquery.setParameter("idEvento", idEvento);
+                    subquery.setParameter("idUsuario", idUsuario);
+
+                    Long count = subquery.uniqueResult();
+                    rol = (count != null && count > 0) ? "participante" : "libre";
+                }
+
+                // Añadimos el rol como evento[16]
+                Object[] rowConRol = Arrays.copyOf(row, row.length + 1);
+                rowConRol[row.length] = rol;
+
+                eventos.add(rowConRol);
+            }
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return eventos;
+    }
+
 
 }

@@ -7,7 +7,6 @@
         <jsp:param name="titulo" value="Categorías" />
         <jsp:param name="estilo" value="${estilo}" />
     </jsp:include>
-<%--    <script type="module" src="${contexto}/JS/index.js" defer></script>--%>
 </head>
 <body class="position-relative body-custom bg-gradient-morado-blanco">
 <c:choose>
@@ -78,14 +77,14 @@
 
 <div class="row justify-content-center m-5 pb-5">
     <c:forEach var="categoria" items="${requestScope.categorias}">
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-5">
             <form action="${contexto}/FrontController" method="post" class="h-100">
                 <input type="hidden" name="idCategoria" value="${categoria[0]}">
                 <button type="submit"
                         name="accion"
-                        class="card h-100 rounded-3 p-3 border-0 text-decoration-none bg-white text-dark w-100 carta"
+                        class="card h-100 rounded-5 p-3 border-0 text-decoration-none bg-white text-dark w-100 carta"
                         style="cursor: pointer;"
-                        value="Ver-Eventos">
+                        value="${usuario != null ? 'Ver-Eventos-Logueado' : 'Ver-Eventos'}">
                     <c:choose>
                         <c:when test="${not empty categoria[2]}">
                             <img src="${contexto}/IMG/CATEGORIAS/${categoria[2]}"

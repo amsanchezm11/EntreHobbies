@@ -89,7 +89,7 @@
 </section>
 
 <section class="bloque d-flex flex-column gap-5">
-    <h1 class="fw-bold">Explora, comparte y vive tu hobby</h1>
+    <h1 class="fw-bold text-titulo">Explora, comparte y vive tu hobby</h1>
     <div class="container">
         <div class="row text-center justify-content-center">
             <div class="col-md-4 mb-4">
@@ -145,7 +145,7 @@
 </section>
 
 <section class="bloque d-flex flex-column gap-5">
-    <h1 class="fw-bold">Encuentra eventos, únete a la comunidad y disfruta</h1>
+    <h1 class="fw-bold text-titulo">Encuentra eventos, únete a la comunidad y disfruta</h1>
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-md-5 mb-4">
