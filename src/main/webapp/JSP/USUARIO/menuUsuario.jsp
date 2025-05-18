@@ -14,7 +14,7 @@
 
 <c:import url="/INC/navbarUsuario.jsp"/>
 
-<section class="bloque d-flex flex-column gap-4">
+<section class="bloque d-flex flex-column gap-4 bg-gradient-morado-blanco text-light">
     <h2 class="text-center mb-4 text-footer text-light">¡Bienvenido a EntreHobbies!</h2>
     <c:if test="${requestScope.aviso != null}">
         <div id="aviso"
@@ -93,7 +93,7 @@
     <div class="container">
         <div class="row text-center justify-content-center">
             <div class="col-md-4 mb-4">
-                <div class="card h-100 rounded-3 p-3">
+                <div class="card h-100 rounded-3 p-3 sombra-morada">
                     <img src="${contexto}/IMG/GENERAL/conoce.svg" class="card-img-top img-fluid mx-auto"
                          alt="Conoce a gente" style="max-width: 65%; height: 200px;">
                     <div class="card-body">
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="card h-100 rounded-3 p-3">
+                <div class="card h-100 rounded-3 p-3 sombra-morada">
                     <img src="${contexto}/IMG/GENERAL/comparte.svg" class="card-img-top img-fluid mx-auto"
                          alt="Comparte tu afici&oacute;n" style="max-width: 65%; height: 200px;">
                     <div class="card-body">
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="card h-100 rounded-3 p-3">
+                <div class="card h-100 rounded-3 p-3 sombra-morada">
                     <img src="${contexto}/IMG/GENERAL/calendario.svg" class="card-img-top img-fluid mx-auto"
                          alt="Crea tus planes" style="max-width: 65%; height: 200px;">
                     <div class="card-body">
@@ -126,7 +126,7 @@
     </div>
 </section>
 
-<section class="bloque">
+<section class="bloque bg-gradient-morado-blanco text-light">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 text-center text-md-start">
@@ -144,29 +144,57 @@
     </div>
 </section>
 
-<section class="bloque d-flex flex-column gap-5">
-    <h1 class="fw-bold text-titulo">Encuentra eventos, únete a la comunidad y disfruta</h1>
+<%--<section class="bloque d-flex flex-column gap-5">--%>
+<%--    <h1 class="fw-bold text-titulo">Encuentra eventos, únete a la comunidad y disfruta</h1>--%>
+<%--    <div class="container">--%>
+<%--        <div class="row justify-content-center text-center">--%>
+<%--            <div class="col-md-5 mb-4">--%>
+<%--                <div class="card h-100 p-3">--%>
+<%--                    <img src="${contexto}/IMG/GENERAL/buscar.svg" class="card-img-top img-fluid align-self-center m-2" alt="Busca eventos"--%>
+<%--                         style="max-width: 65%; height: 200px;">--%>
+<%--                    <div class="card-body">--%>
+<%--                        <h5 class="fw-bold">Busca eventos</h5>--%>
+<%--                        <p>Filtra por subcategor&iacute;as, provincia y m&aacute;s para encontrar tu plan ideal.</p>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="col-md-5 mb-4">--%>
+<%--                <div class="card h-100 p-3">--%>
+<%--                    <img src="${contexto}/IMG/GENERAL/unirse.svg" class="card-img-top img-fluid align-self-center m-2"--%>
+<%--                         alt="&uacute;nete a un evento" style="max-width: 65%; height: 200px;">--%>
+<%--                    <div class="card-body">--%>
+<%--                        <h5 class="fw-bold">Ap&uacute;ntate</h5>--%>
+<%--                        <p>Haz clic y empieza a disfrutar con otros usuarios.</p>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</section>--%>
+
+<section class="bloque">
     <div class="container">
-        <div class="row justify-content-center text-center">
-            <div class="col-md-5 mb-4">
-                <div class="card h-100 p-3">
-                    <img src="${contexto}/IMG/GENERAL/buscar.svg" class="card-img-top img-fluid align-self-center m-2" alt="Busca eventos"
-                         style="max-width: 65%; height: 200px;">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Busca eventos</h5>
-                        <p>Filtra por subcategor&iacute;as, provincia y m&aacute;s para encontrar tu plan ideal.</p>
-                    </div>
-                </div>
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-center">
+                <h2 class="fw-bold fs-1">Busca eventos</h2>
+                <p class="fs-4">Filtra por subcategor&iacute;as, provincia y m&aacute;s para encontrar tu plan ideal.</p>
             </div>
-            <div class="col-md-5 mb-4">
-                <div class="card h-100 p-3">
-                    <img src="${contexto}/IMG/GENERAL/unirse.svg" class="card-img-top img-fluid align-self-center m-2"
-                         alt="&uacute;nete a un evento" style="max-width: 65%; height: 200px;">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Ap&uacute;ntate</h5>
-                        <p>Haz clic y empieza a disfrutar con otros usuarios.</p>
-                    </div>
-                </div>
+            <div class="col-md-6 text-center">
+                <img src="${contexto}/IMG/GENERAL/buscar.svg" class="img-fluid" style="max-width: 80%; height: auto;" alt="Busca eventos">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bloque bg-gradient-morado-blanco text-light">
+    <div class="container">
+        <div class="row align-items-center flex-md-row-reverse">
+            <div class="col-md-6 text-center text-md-center">
+                <h2 class="fw-bold fs-1">Ap&uacute;ntate</h2>
+                <p class="fs-4">Descubre eventos pensados para ti y &uacute;nete f&aacute;cilmente al que quieras. ¡Tu pr&oacute;xima experiencia te espera!</p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="${contexto}/IMG/GENERAL/unirse.svg" class="img-fluid" style="max-width: 80%; height: auto;" alt="&uacute;nete a un evento">
             </div>
         </div>
     </div>

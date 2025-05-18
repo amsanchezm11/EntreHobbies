@@ -1,5 +1,6 @@
 <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,13 +30,30 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card card-eventos shadow-sm d-flex flex-column carta p-3 h-100">
                     <div class="card-body-eventos flex-grow-1 d-flex flex-column">
-                        <h5 class="card-title">${evento[1]} - <strong>${evento[3]}</strong></h5>
-                        <p class="card-text"><strong>Fecha de inicio:</strong> ${evento[4]}</p>
-                        <p class="card-text"><strong>Categoría:</strong> ${evento[6]}</p>
+                        <h5 class="card-title text-bold">${evento[1]} - <strong class="fst-italic"><fmt:formatDate
+                                value="${evento[3]}" pattern="dd/MM/yyyy"/></strong></h5>
+                        <p class="card-text"><strong>Fecha de inicio:</strong> <fmt:formatDate value="${evento[4]}" pattern="dd/MM/yyyy"/></p>
+                        <p class="card-text"><strong>Categor&iacute;a:</strong> ${evento[6]}</p>
                         <p class="card-text"><strong>Localidad:</strong> ${evento[9]}</p>
-
+                        <p class="card-text">
+                            <c:choose>
+                                <c:when test="${evento[11] == 'Por_Empezar'}">
+                                    <strong>Estado:</strong> <span class="text-success fw-bold fst-italic">Por Empezar</span>
+                                </c:when>
+                                <c:when test="${evento[11] == 'Cancelado'}">
+                                    <strong>Estado:</strong> <span class="text-danger fw-bold fst-italic">${evento[11]}</span>
+                                </c:when>
+                                <c:when test="${evento[11] == 'Finalizado'}">
+                                    <strong>Estado:</strong> <span class="text-secondary fw-bold fst-italic"> ${evento[11]}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <strong>Estado:</strong> <span class="text-info fw-bold fst-italic">En Curso</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
                         <div class="mt-auto text-center">
-                            <button type="button" class="btn btn-main w-100" data-bs-toggle="modal" data-bs-target="#eventoModal${evento[0]}">
+                            <button type="button" class="btn btn-main w-100" data-bs-toggle="modal"
+                                    data-bs-target="#eventoModal${evento[0]}">
                                 Detalles
                             </button>
                         </div>
@@ -43,30 +61,86 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="eventoModal${evento[0]}" tabindex="-1" aria-labelledby="eventoModalLabel${evento[0]}" aria-hidden="true">
+            <div class="modal fade" id="eventoModal${evento[0]}" tabindex="-1"
+                 aria-labelledby="eventoModalLabel${evento[0]}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="eventoModalLabel${evento[0]}">${evento[1]}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Cerrar"></button>
                         </div>
                         <div class="modal-body">
-                            <p><strong>Descripción:</strong> ${evento[2]}</p>
-                            <p><i class="bi bi-calendar-plus me-2"></i><strong>Fecha de inicio:</strong> ${evento[4]}</p>
-                            <p><i class="bi bi-calendar-minus me-2"></i><strong>Fecha de fin:</strong> ${evento[5]}</p>
-                            <p><i class="bi bi-bookmark me-2"></i><strong>Categoría:</strong> ${evento[6]}</p>
-                            <p><i class="bi bi-tags me-2"></i><strong>Subcategoría:</strong> ${evento[7]}</p>
-                            <p><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> ${evento[8]}</p>
+                            <p><strong>Descripci&oacute;n:</strong> ${evento[2]}</p>
+                            <p><i class="bi bi-calendar-plus me-2"></i><strong>Fecha de inicio:</strong> <fmt:formatDate
+                                    value="${evento[4]}" pattern="dd/MM/yyyy"/></p>
+                            <p><i class="bi bi-calendar-minus me-2"></i><strong>Fecha de fin:</strong> <fmt:formatDate
+                                    value="${evento[5]}" pattern="dd/MM/yyyy"/></p>
+                            <p><i class="bi bi-bookmark me-2"></i><strong>Categor&iacute;a:</strong> ${evento[6]}</p>
+                            <p><i class="bi bi-tags me-2"></i><strong>Subcategor&iacute;a:</strong> ${evento[7]}</p>
+                            <p><i class="bi bi-geo-alt me-2"></i><strong>Direcci&oacute;n:</strong> ${evento[8]}</p>
                             <p><i class="bi bi-geo me-2"></i><strong>Localidad:</strong> ${evento[9]}</p>
                             <p><i class="bi bi-globe me-2"></i><strong>Provincia:</strong> ${evento[10]}</p>
-                            <p><strong>Número de participantes:</strong> ${evento[12]} / ${evento[11]}
+                            <p>
+                                <c:choose>
+                                    <c:when test="${evento[11] == 'Por_Empezar'}">
+                                        <i class="bi bi-hourglass-split me-2"></i><strong>Estado:</strong> <span class="text-success">Por Empezar</span>
+                                    </c:when>
+                                    <c:when test="${evento[11] == 'Cancelado'}">
+                                        <i class="bi bi-x-circle-fill me-2"></i><strong>Estado:</strong> <span class="text-danger">${evento[11]}</span>
+                                    </c:when>
+                                    <c:when test="${evento[11] == 'Finalizado'}">
+                                        <i class="bi bi-flag-fill me-2"></i><strong>Estado:</strong> <span class="text-secondary"> ${evento[11]}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <i class="bi bi-arrow-repeat me-2"></i><strong>Estado:</strong> <span class="text-info">En Curso</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </p>
+                            <p><strong>N&uacute;mero de participantes:</strong> ${evento[13]} / ${evento[12]}
                                 <i class="bi bi-person-plus-fill"></i>
                             </p>
                         </div>
                         <div class="modal-footer d-flex justify-content-end">
-                            <button class="btn btn-main">Modificar Evento</button>
-                            <button class="btn btn-danger">Cancelar Evento</button>
+                            <form action="${contexto}/EventoController" method="post">
+                                <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado'}">
+                                    <button class="btn btn-main" name="accion" value="Modificar-Evento">Modificar Evento</button>
+                                </c:if>
+                            </form>
+                            <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado'}">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#confirmarCancelacion${evento[0]}">
+                                    Cancelar Evento
+                                </button>
+                            </c:if>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="confirmarCancelacion${evento[0]}" tabindex="-1"
+                 aria-labelledby="confirmarCancelacionLabel${evento[0]}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmarCancelacionLabel${evento[0]}">Confirmar cancelaci&oacute;n</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Est&aacute;s seguro de que quieres cancelar el evento <strong>"${evento[1]}"</strong>?
+                            Esta acci&oacute;n no se puede deshacer. Los participantes no podr&aacute;n asistir al
+                            evento.
+                        </div>
+                        <div class="modal-footer">
+                            <form action="${contexto}/EventoController" method="post">
+                                <input type="hidden" name="idEvento" value="${evento[0]}"/>
+                                <button class="btn btn-danger" name="accion" value="Cancelar-Evento">S&iacute;,
+                                    cancelar
+                                </button>
+                            </form>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, volver</button>
                         </div>
                     </div>
                 </div>

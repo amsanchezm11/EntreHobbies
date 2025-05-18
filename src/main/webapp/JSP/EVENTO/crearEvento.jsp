@@ -15,16 +15,15 @@
 
 <h1 class="text-light mb-3 position-relative text-footer" style="z-index: -10;">Nuevo Evento</h1>
 
-<div class="d-flex h-100 justify-content-center align-items-start">
+<div class="d-flex h-100 justify-content-center align-items-start pt-5">
     <form id="multiStepForm" action="${contexto}/EventoController" method="post"
           style="min-width: 600px; margin: 0 auto;" class="mt-3">
         <div class="step active">
             <div class="form-floating mb-4">
-                <h3 class="text-light">Paso 1: Informaci&oacute;n general del evento</h3>
+                <h3 class="text-light text-titulo">Paso 1: Informaci&oacute;n general del evento</h3>
             </div>
 
             <div class="row">
-
                 <div class="col-md-6">
                     <div class="input-group mb-4">
                         <div class="form-floating flex-grow-1">
@@ -88,7 +87,7 @@
                               data-bs-trigger="hover focus"
                               data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
             <li>Selecciona la categor&iacute;a principal a la que pertenece tu evento.</li>
-            <li>Esta ayuda a los usuarios a encontrar eventos relacionados.</li>
+            <li>Esto ayuda a los usuarios a encontrar eventos relacionados.</li>
           </ul>">
         <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
     </span>
@@ -115,7 +114,6 @@
         </span>
                     </div>
                 </div>
-
             </div>
 
             <div class="row">
@@ -129,13 +127,13 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-main" onclick="nextStep()">Siguiente</button>
+            <button type="button" class="btn btn-main btn-lg" onclick="nextStep()">Siguiente</button>
         </div>
 
 
         <div class="step">
             <div class="mb-4">
-                <h3 class="text-light">Paso 2: Ubicaci&oacute;n del evento</h3>
+                <h3 class="text-light text-titulo">Paso 2: Ubicaci&oacute;n del evento</h3>
             </div>
 
             <div class="input-group mb-3">
@@ -198,14 +196,14 @@
         </span>
             </div>
 
-            <button type="button" class="btn btn-secondary" onclick="prevStep()">Anterior</button>
-            <button type="button" class="btn btn-main" onclick="nextStep()">Siguiente</button>
+            <button type="button" class="btn btn-secondary btn-lg" onclick="prevStep()">Anterior</button>
+            <button type="button" class="btn btn-main btn-lg" onclick="nextStep()">Siguiente</button>
         </div>
 
 
         <div class="step">
             <div class="mb-4">
-                <h3 class="text-light">Paso 3: Fechas del evento</h3>
+                <h3 class="text-light text-titulo">Paso 3: Fechas del evento</h3>
             </div>
 
             <div class="input-group mb-3">
@@ -246,8 +244,8 @@
         </span>
             </div>
 
-            <button type="button" class="btn btn-secondary" onclick="prevStep()">Anterior</button>
-            <button type="submit" class="btn btn-main" name="accion" value="Crear-Evento">Crear Evento</button>
+            <button type="button" class="btn btn-secondary btn-lg" onclick="prevStep()">Anterior</button>
+            <button type="submit" class="btn btn-main btn-lg" name="accion" value="Crear-Evento">Crear Evento</button>
         </div>
     </form>
 </div>

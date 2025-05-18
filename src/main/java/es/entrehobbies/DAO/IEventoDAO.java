@@ -26,4 +26,6 @@ public interface IEventoDAO {
     public List<Object[]> getParticipantesDeUnEvento(int idEvento);
 
     public List<Object[]> getAllEventosPorCategoriaOrdenadosUserLogueado(int idCategoria, int idUsuario);
+
+
 }

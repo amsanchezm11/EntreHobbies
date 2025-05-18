@@ -1,5 +1,6 @@
 <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -93,7 +94,7 @@
         <div class="col-md-6 mb-4">
             <div class="card shadow rounded-4 d-flex flex-column h-100" style="min-height: 500px;">
                 <img src="${contexto}/IMG/CATEGORIAS/${evento[11]}"
-                     class="card-img-top img-fluid rounded-circle"
+                     class="card-img-top img-fluid rounded-circle mt-1"
                      alt="Imagen del evento"
                      style="object-fit: contain; height: 200px; width: 200px; margin: 0 auto;">
 
@@ -116,8 +117,8 @@
                     </div>
 
                     <div class="row text-center small text-muted">
-                        <div class="col"><i class="bi bi-calendar-event me-1"></i>Empieza: ${evento[4]}</div>
-                        <div class="col"><i class="bi bi-calendar-check me-1"></i>Acaba: ${evento[5]}</div>
+                        <div class="col"><i class="bi bi-calendar-event me-1"></i>Empieza: <fmt:formatDate value="${evento[4]}" pattern="dd/MM/yyyy" /></div>
+                        <div class="col"><i class="bi bi-calendar-check me-1"></i>Acaba: <fmt:formatDate value="${evento[5]}" pattern="dd/MM/yyyy" /></div>
                     </div>
 
                     <hr class="my-2">

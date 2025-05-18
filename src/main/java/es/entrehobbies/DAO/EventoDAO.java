@@ -61,7 +61,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
             // Consulta HQL para obtener los eventos creados por el usuario, con la información solicitada y ordenados por fecha de creación
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
-                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre,e.direccion, e.localidad, e.provincia, e.numParticipantes, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre,e.direccion, e.localidad, e.provincia, e.estado, e.numParticipantes, " +
                             "COUNT(ep) " +
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes ep " +
@@ -141,7 +141,6 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
                 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         };
 
-        // Inicializamos todos los meses en 0
         for (int i = 0; i < 12; i++) {
             String clave = nombresMeses[i] + " " + anio;
             mapaMeses.put(clave, 0L);
@@ -161,9 +160,8 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
             query.setParameter("anio", anio);
             List<Object[]> resultados = query.getResultList();
 
-            // Rellenamos con los datos obtenidos
             for (Object[] fila : resultados) {
-                Integer mes = (Integer) fila[0]; // de 1 a 12
+                Integer mes = (Integer) fila[0];
                 Long total = (Long) fila[1];
                 String clave = nombresMeses[mes - 1] + " " + anio;
                 mapaMeses.put(clave, total);
@@ -365,6 +363,5 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         }
         return eventos;
     }
-
 
 }

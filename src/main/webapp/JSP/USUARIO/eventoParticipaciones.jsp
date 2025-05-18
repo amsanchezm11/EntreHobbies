@@ -16,8 +16,6 @@
     <div class="container py-5">
         <h1 class="text-center text-light fw-bold sobre-nosotros">Mis Participaciones</h1>
     </div>
-
-
 </main>
 
 <c:import url="/INC/pie.inc"/>

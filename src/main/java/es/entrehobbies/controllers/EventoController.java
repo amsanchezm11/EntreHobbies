@@ -39,13 +39,14 @@ public class EventoController extends HttpServlet {
             throws ServletException, IOException {
 
         // Variables
-        String url = ".";
+        String url = "/JSP/USUARIO/menuUsuario.jsp";
         String accion = request.getParameter("accion");
         Usuario creador = null;
         Evento evento = null;
         Categoria categoria = null;
         Subcategoria subcategoria = null;
         DateConverter converter = null;
+        int idEvento;
 
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
@@ -81,16 +82,9 @@ public class EventoController extends HttpServlet {
                     evento.setModo(Evento.ModoEvento.Comunitario);
                     // Le añadimos la fecha de hoy en su fecha de creación
                     evento.setFechaCreacion(new Date());
-                    // Añadimos la categoria y sub categoria al evento
+                    // Añadimos la categoria y subcategoria al evento
                     subcategoria.setCategoria(categoria);
                     evento.setSubcategoria(subcategoria);
-
-                    // Comprobamos si es el primer evento que se va a insertar en la lista del creador
-//                    if (creador.getEventosCreados() == null){
-//                        creador.setEventosCreados(new ArrayList<Evento>());
-//                    }
-                    // Añadimos el evento a la lista de eventos creados del usuario
-                    //creador.getEventosCreados().add(evento);
                     // Añadimos el evento a la base de datos
                     daoG.insertOrUpdate(evento);
                     // Notificamos al usuario que ha creado el evento correctamente
@@ -101,6 +95,18 @@ public class EventoController extends HttpServlet {
                     Logger.getLogger(Categoria.class.getName()).log(Level.SEVERE, null, e);
                     Logger.getLogger(Evento.class.getName()).log(Level.SEVERE, null, e);
                 }
+                break;
+
+            case "Cancelar-Evento":
+                // Obtenemos el id del evento que se va a cancelar
+                idEvento = Integer.parseInt(request.getParameter("idEvento"));
+                // Obtenemos el evento de la base de datos por el id obtenido
+                evento = (Evento) daoG.getById(idEvento, Evento.class);
+                // Ponemos su estado en 'Cancelado'
+                evento.setEstado(Evento.Estado.Cancelado);
+                // Aplicamos la modificación en la base de datos
+                daoG.insertOrUpdate(evento);
+                request.setAttribute("aviso", "Se ha cancelado el evento correctamente");
                 break;
         }
 
