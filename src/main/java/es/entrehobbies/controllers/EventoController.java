@@ -8,6 +8,7 @@ import es.entrehobbies.beans.Evento;
 import es.entrehobbies.beans.Subcategoria;
 import es.entrehobbies.beans.Usuario;
 import es.entrehobbies.models.EnumConverter;
+import es.entrehobbies.models.Utilities;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
@@ -106,6 +107,11 @@ public class EventoController extends HttpServlet {
                 evento.setEstado(Evento.Estado.Cancelado);
                 // Aplicamos la modificación en la base de datos
                 daoG.insertOrUpdate(evento);
+                // Comprobamos si habia participantes en el evento
+                if (evento.getParticipantes().size()>0){
+                    // Enviamos los emails de que el evento ha sido cancelado a los participantes del evento
+                    Utilities.enviarEmailCanceladoAParticipantes(evento.getParticipantes(),"Evento cancelado",evento.getCreador().getUsername(),evento.getTitulo());
+                }
                 request.setAttribute("aviso", "Se ha cancelado el evento correctamente");
                 break;
         }

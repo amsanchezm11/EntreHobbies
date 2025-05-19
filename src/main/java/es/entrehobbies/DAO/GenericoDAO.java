@@ -1,5 +1,6 @@
 package es.entrehobbies.DAO;
 
+import es.entrehobbies.beans.Evento;
 import es.entrehobbies.beans.Usuario;
 import es.entrehobbies.persistence.HibernateUtil;
 import java.io.Serializable;
@@ -67,9 +68,14 @@ public class GenericoDAO<T> implements IGenericoDAO<T> {
             startTransaction();
             objetoRecuperado = (T) sesion.get(claseEntidad, pk);
 
-            if (claseEntidad.equals(es.entrehobbies.beans.Usuario.class)) {
-                es.entrehobbies.beans.Usuario usuario = (Usuario) objetoRecuperado;
+            if (claseEntidad.equals(Usuario.class)) {
+                Usuario usuario = (Usuario) objetoRecuperado;
                 usuario.getEventosParticipados().size();
+            }
+
+            if (claseEntidad.equals(Evento.class)) {
+                Evento evento = (Evento) objetoRecuperado;
+                evento.getParticipantes().size();
             }
 
         } catch (HibernateException he) {

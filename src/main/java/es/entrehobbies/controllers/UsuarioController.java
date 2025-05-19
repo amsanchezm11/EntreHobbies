@@ -64,6 +64,7 @@ public class UsuarioController extends HttpServlet {
         StringBuilder nombreFichero = new StringBuilder();
         String filePath = null;
         Part filePart = null;
+        String extension = null;
 
         // Correos
         String destinatario = null;
@@ -88,8 +89,6 @@ public class UsuarioController extends HttpServlet {
                     usuario.setPassword(Utilities.md5(usuario.getPassword()));
                     // Le añadimos su rol correspondiente
                     usuario.setRol(Usuario.Rol.Colaborador);
-                    // Actualizamos su ultimo acceso
-                    //usuario.setUltimoAcceso(Date.valueOf(LocalDate.now()));
                     // Lo añadimos a la base de datos
                     daoG.insertOrUpdate(usuario);
                     // Gestionamos el enviar correo de bienvenida
@@ -98,7 +97,7 @@ public class UsuarioController extends HttpServlet {
                     // Configuramos el asunto del mensaje
                     asunto = "Bienvenido a EntreHobbies";
                     // Configuramos el cuerpo del mensaje
-                    cuerpo = cuerpo = generarMensajeBienvenida(usuario.getNombre(), usuario.getUsername(), usuario.getEmail(), usuario.getSexo());
+                    cuerpo = generarMensajeBienvenida(usuario.getNombre(), usuario.getUsername(), usuario.getEmail(), usuario.getSexo());
                     EnviarCorreos.enviar(destinatario, asunto, cuerpo);
                     // Gestionamos el avatar del usuario
                     // Obtenemos la imagen de avatar del input type file
@@ -108,7 +107,7 @@ public class UsuarioController extends HttpServlet {
                         // Comprobamos que la imagen no sea mayor de 100KB(Tamaño permitido en la aplicación)
                         if (filePart.getSize() < 102400) {
                             // Obtenemos la extensión de la imagen
-                            String extension = ".jpeg";
+                            extension = ".jpeg";
                             if (filePart.getContentType().equals("image/jpg")) {
                                 extension = ".jpg";
                             }
@@ -134,7 +133,7 @@ public class UsuarioController extends HttpServlet {
                     // Añadimos el usuario a la sesión
                     request.getSession().setAttribute("usuario", usuario);
                     // Notificamos que se ha hecho el registro correctamente
-                    request.setAttribute("aviso", "Se ha registrado el usuario correctamente");
+                    request.setAttribute("aviso", "Te has registrado correctamente");
 
 
                 } catch (IllegalAccessException | InvocationTargetException e) {
@@ -166,8 +165,6 @@ public class UsuarioController extends HttpServlet {
                     usuarioModificado.setSexo(usuario.getSexo());
                     // Aplicamos el avatar que ya tenía el usuario
                     usuarioModificado.setAvatar(usuario.getAvatar());
-                    // Actualizamos su ultimo acceso
-                    //usuario.setUltimoAcceso(Date.valueOf(LocalDate.now()));
                     // Lo añadimos a la base de datos
                     daoG.insertOrUpdate(usuarioModificado);
                     // Añadimos el usuario a la sesión
@@ -227,7 +224,7 @@ public class UsuarioController extends HttpServlet {
                     // Comprobamos que la imagen no sea mayor de 100KB(Tamaño permitido en la aplicación)
                     if (filePart.getSize() < 102400) {
                         // Obtenemos la extensión de la imagen
-                        String extension = ".jpeg";
+                        extension = ".jpeg";
                         if (filePart.getContentType().equals("image/jpg")) {
                             extension = ".jpg";
                         }
