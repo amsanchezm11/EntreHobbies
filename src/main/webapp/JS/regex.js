@@ -242,8 +242,8 @@ export function confirmPasswordNueva(element) {
     }
 }
 
-// Regex para comprobar sexo del usuario
-export function checkSexo(element) {
+// Función genérica para comprobar los selects de los formularios (sexo, categorias, subcategorias)
+export function checkSelect(element) {
 
     if (element.value !== null) {
         element.classList.remove("is-invalid");
@@ -280,12 +280,12 @@ export function checkCondiciones(element) {
 // Función para validar el titulo del evento
 export function checkTitulo(element) {
     const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s,]{1,40}$/;
-    return comprobarRegex(element,regex,40);
+    return comprobarRegex(element, regex, 40);
 }
 
 // Función para validar el número de participantes del evento
 export function checkNumParticipantes(element) {
-    const numero = parseInt(element.value,10);
+    const numero = parseInt(element.value, 10);
 
     if (!Number.isInteger(numero) || numero < 1) {
         element.classList.remove("is-valid");
@@ -295,5 +295,57 @@ export function checkNumParticipantes(element) {
         element.classList.remove("is-invalid");
         element.classList.add("is-valid");
         return true;
+    }
+}
+
+// Función para validar la descripción de un evento
+export function checkDescripcion(element) {
+    let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,ºª°/#\-]+$/;
+    return comprobarRegex(element, regex, 255);
+}
+
+// Regex para dirección de un evento
+export function checkDireccion(element) {
+    let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,ºª°/#\-]+$/;
+    return comprobarRegex(element, regex, 50);
+}
+
+// Función para validar la fecha de inicio de un evento
+export function checkFechaInicio(element) {
+
+    const fechaInicio = new Date(element.value);
+    const fechaActual = new Date();
+    // Le reseteamos el tiempo a las fechas para que la validación sea más optima
+    fechaInicio.setHours(0, 0, 0, 0);
+    fechaActual.setHours(0, 0, 0, 0);
+
+    if (fechaInicio >= fechaActual) {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
+        return true;
+    } else {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
+    }
+}
+
+export function checkFechaFin(element) {
+    const fechaInicioInput = document.getElementById('fechaInicio').value;
+
+    const fechaInicio = new Date(fechaInicioInput);
+    const fechaFin = new Date(element.value)
+    // Le reseteamos el tiempo a las fechas para que la validación sea más optima
+    fechaInicio.setHours(0, 0, 0, 0);
+    fechaFin.setHours(0, 0, 0, 0);
+
+    if (fechaFin > fechaInicio) {
+        element.classList.remove("is-invalid");
+        element.classList.add("is-valid");
+        return true;
+    } else {
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
     }
 }

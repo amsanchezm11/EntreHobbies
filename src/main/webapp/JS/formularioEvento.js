@@ -23,11 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // document.getElementById('multiStepForm').addEventListener('submit', function (e) {
-    //     e.preventDefault();
-    //     alert('Formulario enviado correctamente');
-    // });
-
 
     document.getElementById("descripcion").addEventListener('input', updateCharCount);
 });

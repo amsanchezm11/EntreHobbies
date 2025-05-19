@@ -8,13 +8,13 @@
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="${contexto}/JS/estadisticasEventos.js" defer></script>
-    <script type="module" src="${contexto}/JS/estadisticasEventosMes.js" defer></script>
-    <script type="module" src="${contexto}/JS/estadisticasUsuarios.js" defer></script>
-    <script type="module" src="${contexto}/JS/estadisticasTopProvincias.js" defer></script>
-    <script type="module" src="${contexto}/JS/estadisticasTopUsuarios.js" defer></script>
-    <script type="module" src="${contexto}/JS/estadisticasTopCategorias.js" defer></script>
-    <script type="module" src="${contexto}/JS/estadisticasTopSubcategorias.js" defer></script>
+    <script type="module" src="${contexto}/JS/ESTADISTICAS/estadisticasEventos.js" defer></script>
+    <script type="module" src="${contexto}/JS/ESTADISTICAS/estadisticasEventosMes.js" defer></script>
+    <script type="module" src="${contexto}/JS/ESTADISTICAS/estadisticasUsuarios.js" defer></script>
+    <script type="module" src="${contexto}/JS/ESTADISTICAS/estadisticasTopProvincias.js" defer></script>
+    <script type="module" src="${contexto}/JS/ESTADISTICAS/estadisticasTopUsuarios.js" defer></script>
+    <script type="module" src="${contexto}/JS/ESTADISTICAS/estadisticasTopCategorias.js" defer></script>
+    <script type="module" src="${contexto}/JS/ESTADISTICAS/estadisticasTopSubcategorias.js" defer></script>
 </head>
 <body class="bg-body text-body min-vh-100">
 

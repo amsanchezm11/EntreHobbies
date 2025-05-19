@@ -9,8 +9,9 @@
     <script type="module" src="${contexto}/JS/formularioEvento.js" defer></script>
     <script type="module" src="${contexto}/JS/obtenerSubcategorias.js" defer></script>
     <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
+    <script type="module" src="${contexto}/JS/VALIDACIONES/validarEvento.js" defer></script>
 </head>
-<body class="bg-gradient-morado-blanco p-4" style="margin-top: 70px;">
+<body class="body-custom bg-gradient-morado-blanco p-4" style="margin-top: 70px;">
 <c:import url="/INC/navbarCreate.jsp"/>
 
 <h1 class="text-light mb-3 position-relative text-footer" style="z-index: -10;">Nuevo Evento</h1>
@@ -130,7 +131,6 @@
             <button type="button" class="btn btn-main btn-lg" onclick="nextStep()">Siguiente</button>
         </div>
 
-
         <div class="step">
             <div class="mb-4">
                 <h3 class="text-light text-titulo">Paso 2: Ubicaci&oacute;n del evento</h3>
@@ -245,7 +245,7 @@
             </div>
 
             <button type="button" class="btn btn-secondary btn-lg" onclick="prevStep()">Anterior</button>
-            <button type="submit" class="btn btn-main btn-lg" name="accion" value="Crear-Evento">Crear Evento</button>
+            <button type="submit" class="btn btn-login btn-lg" id="enviar" name="accion" value="Crear-Evento" disabled>Crear Evento</button>
         </div>
     </form>
 </div>

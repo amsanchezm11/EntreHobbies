@@ -24,7 +24,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
-                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.nombre, COUNT(p) " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.username, COUNT(p) " +
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes p " +
                             "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
@@ -109,7 +109,6 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         }
         return eventos;
     }
-
 
     @Override
     public List<Object[]> getNumeroEventosPorCategoria() {
@@ -309,7 +308,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
-                            "e.subcategoria.nombre, e.creador.nombre, COUNT(p), e.creador.idUsuario " +
+                            "e.subcategoria.nombre, e.creador.username, COUNT(p), e.creador.idUsuario " +
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes p " +
                             "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +

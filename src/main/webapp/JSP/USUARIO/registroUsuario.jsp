@@ -8,7 +8,7 @@
     </jsp:include>
     <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
     <script type="module" src="${contexto}/JS/regex.js" defer></script>
-    <script type="module" src="${contexto}/JS/validarUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/VALIDACIONES/validarUsuario.js" defer></script>
     <script type="module" src="${contexto}/JS/comprobarEmail.js" defer></script>
     <script type="module" src="${contexto}/JS/comprobarUsername.js" defer></script>
     <script type="module" src="${contexto}/JS/comprobarTelefono.js" defer></script>
