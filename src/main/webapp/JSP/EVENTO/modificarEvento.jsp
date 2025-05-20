@@ -3,22 +3,24 @@
 <html lang="es">
 <head>
     <jsp:include page="/INC/cabecera.jsp">
-        <jsp:param name="titulo" value="Nuevo evento"/>
+        <jsp:param name="titulo" value="Modificar evento"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/formularioEvento.js" defer></script>
-    <script type="module" src="${contexto}/JS/obtenerSubcategorias.js" defer></script>
+<%--    <script type="module" src="${contexto}/JS/obtenerSubcategorias.js" defer></script>--%>
     <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
-    <script type="module" src="${contexto}/JS/VALIDACIONES/validarEvento.js" defer></script>
+    <script type="module" src="${contexto}/JS/VALIDACIONES/modificarEvento.js" defer></script>
 </head>
 <body class="body-custom bg-gradient-morado-blanco p-4" style="margin-top: 70px;">
 <c:import url="/INC/navbarCreate.jsp"/>
 
-<h1 class="text-light mb-3 position-relative text-footer" style="z-index: -10;">Nuevo Evento</h1>
+<h1 class="text-light mb-3 position-relative text-footer" style="z-index: -10;">Modificar Evento</h1>
 
 <div class="d-flex h-100 justify-content-center align-items-start pt-5">
     <form id="multiStepForm" action="${contexto}/EventoController" method="post"
           style="min-width: 600px; margin: 0 auto;" class="mt-3">
+        <input type="hidden" class="is-valid" name="idEvento" value="${sessionScope.evento.idEvento}">
+        <input type="hidden" class="is-valid" name="Modificacion" value="Completa">
         <div class="step active">
             <div class="form-floating mb-4">
                 <h3 class="text-light text-titulo">Paso 1: Informaci&oacute;n general del evento</h3>
@@ -28,7 +30,7 @@
                 <div class="col-md-6">
                     <div class="input-group mb-4">
                         <div class="form-floating flex-grow-1">
-                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="T&iacute;tulo"
+                            <input type="text" class="form-control is-valid" id="titulo" name="titulo" placeholder="T&iacute;tulo" value="${sessionScope.evento.titulo}"
                                    required>
                             <label for="titulo">T&iacute;tulo</label>
                         </div>
@@ -50,8 +52,8 @@
 
                     <div class="input-group mb-4">
                         <div class="form-floating flex-grow-1">
-                            <input type="number" class="form-control" id="numParticipantes" step="1" min="1"
-                                   name="numParticipantes" placeholder="N&uacute;mero de participantes" required>
+                            <input type="number" class="form-control is-valid" id="numParticipantes" step="1" min="1"
+                                   name="numParticipantes" placeholder="N&uacute;mero de participantes" value="${sessionScope.evento.numParticipantes}" required>
                             <label for="numParticipantes">N&uacute;mero de participantes</label>
                         </div>
                         <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
@@ -72,13 +74,15 @@
                 <div class="col-md-6">
                     <div class="input-group mb-4">
                         <div class="form-floating flex-grow-1">
-                            <select class="form-control" id="categoria" name="idCategoria" required>
-                                <option value="" disabled selected hidden>Selecciona una categor&iacute;a</option>
-                                <c:forEach var="categoria" items="${requestScope.categorias}">
-                                    <option value="${categoria[0]}">${categoria[1]}</option>
-                                </c:forEach>
-                            </select>
-                            <label for="categoria">Categor&iacute;a</label>
+                            <input type="hidden" class="is-valid" name="idCategoria" value="${sessionScope.evento.subcategoria.categoria.idCategoria}">
+                            <input type="text"
+                                   class="form-control is-valid"
+                                   id="categoria"
+                                   name="categoriaText"
+                                   placeholder="Categoría"
+                                   value="${sessionScope.evento.subcategoria.categoria.nombre}"
+                                   readonly required>
+                            <label for="categoria">Categoría</label>
                         </div>
                         <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
                               title="Categor&iacute;a"
@@ -87,9 +91,7 @@
                               data-bs-html="true"
                               data-bs-trigger="hover focus"
                               data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-            <li>Selecciona la categor&iacute;a principal a la que pertenece tu evento.</li>
-            <li>Esto ayuda a los usuarios a encontrar eventos relacionados.</li>
-            <li><i class='bi bi-exclamation-triangle-fill text-warning'></i> <strong>No podr&aacute;s modificar la categor&iacute;a una vez creado el evento.</strong></li>
+            <li>No se puede modificar la categor&iacute;a principal una vez creado el evento.</li>
           </ul>">
         <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
     </span>
@@ -97,10 +99,16 @@
 
                     <div class="input-group mb-3">
                         <div class="form-floating flex-grow-1">
-                            <select class="form-control" id="subcategoria" name="idSubcategoria" required>
-                                <option value="" disabled selected hidden>Selecciona una subcategor&iacute;a</option>
-                            </select>
-                            <label for="subcategoria">Subcategor&iacute;a</label>
+                            <input type="hidden" class="is-valid" name="idSubcategoria" value="${sessionScope.evento.subcategoria.idSubcategoria}">
+                            <input type="text"
+                                   class="form-control is-valid"
+                                   id="subcategoria"
+                                   name="subcategoriaText"
+                                   placeholder="Subcategoría"
+                                   value="${sessionScope.evento.subcategoria.nombre}"
+                                   readonly
+                                   required>
+                            <label for="subcategoria">Subcategoría</label>
                         </div>
                         <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
                               title="Subcategor&iacute;a"
@@ -109,9 +117,7 @@
                               data-bs-html="true"
                               data-bs-trigger="hover focus"
                               data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                                <li>Selecciona una categor&iacute;a antes para poder ver las subcategor&iacute;as.</li>
-                                <li>Selecciona la subcategor&iacute;a espec&iacute;fica para detallar mejor el tipo de evento.</li>
-                                <li><i class='bi bi-exclamation-triangle-fill text-warning'></i> <strong>No podr&aacute;s modificar la subcategor&iacute;a una vez creado el evento.</strong></li>
+                                <li>No e puede modificar la subcategor&iacute;a espec&iacute;fica una vez creado el evento.</li>
                               </ul>">
             <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
         </span>
@@ -122,8 +128,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-floating mb-3">
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripci&oacute;n"
-                          maxlength="255"></textarea>
+                <textarea class="form-control is-valid" id="descripcion" name="descripcion" rows="3" placeholder="Descripci&oacute;n"
+                          maxlength="255" required>${sessionScope.evento.descripcion}</textarea>
                         <label for="descripcion">Descripci&oacute;n</label>
                         <small id="charCount" class="form-text text-light d-block text-end">0/255 caracteres</small>
                     </div>
@@ -140,8 +146,8 @@
 
             <div class="input-group mb-3">
                 <div class="form-floating flex-grow-1">
-                    <input type="text" class="form-control" id="direccion" name="direccion" maxlength="50"
-                           placeholder="Direcci&oacute;n" required>
+                    <input type="text" class="form-control is-valid" id="direccion" name="direccion" maxlength="50"
+                           placeholder="Direcci&oacute;n" value="${sessionScope.evento.direccion}" required>
                     <label for="direccion">Direcci&oacute;n</label>
                 </div>
                 <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
@@ -160,8 +166,8 @@
 
             <div class="input-group mb-3">
                 <div class="form-floating flex-grow-1">
-                    <input type="text" class="form-control" id="localidad" name="localidad" maxlength="50"
-                           placeholder="Localidad" required>
+                    <input type="text" class="form-control is-valid" id="localidad" name="localidad" maxlength="50"
+                           placeholder="Localidad" value="${sessionScope.evento.localidad}" required>
                     <label for="localidad">Localidad</label>
                 </div>
                 <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
@@ -180,8 +186,8 @@
 
             <div class="input-group mb-3">
                 <div class="form-floating flex-grow-1">
-                    <input type="text" class="form-control" id="provincia" name="provincia" maxlength="50"
-                           placeholder="Provincia" required>
+                    <input type="text" class="form-control is-valid" id="provincia" name="provincia" maxlength="50"
+                           placeholder="Provincia" value="${sessionScope.evento.provincia}" required>
                     <label for="provincia">Provincia</label>
                 </div>
                 <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
@@ -210,7 +216,7 @@
 
             <div class="input-group mb-3">
                 <div class="form-floating flex-grow-1">
-                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+                    <input type="date" class="form-control is-valid" id="fechaInicio" name="fechaInicio" value="${sessionScope.evento.fechaInicio}" required>
                     <label for="fechaInicio">Fecha de inicio</label>
                 </div>
                 <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
@@ -229,7 +235,7 @@
 
             <div class="input-group mb-3">
                 <div class="form-floating flex-grow-1">
-                    <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
+                    <input type="date" class="form-control is-valid" id="fechaFin" name="fechaFin" value="${sessionScope.evento.fechaFin}" required>
                     <label for="fechaFin">Fecha de fin</label>
                 </div>
                 <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
@@ -247,7 +253,7 @@
             </div>
 
             <button type="button" class="btn btn-secondary btn-lg" onclick="prevStep()">Anterior</button>
-            <button type="submit" class="btn btn-login btn-lg" id="enviar" name="accion" value="Crear-Evento" disabled>Crear Evento</button>
+            <button type="submit" class="btn btn-login btn-lg" id="enviar" name="accion" value="Modificar-Evento" disabled>Modificar Evento</button>
         </div>
     </form>
 </div>

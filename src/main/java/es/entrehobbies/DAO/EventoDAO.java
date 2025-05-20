@@ -1,12 +1,13 @@
 package es.entrehobbies.DAO;
 
 import es.entrehobbies.beans.Evento;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
 
 import java.util.*;
 
-public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
+public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
     @Override
     public List<Object[]> getAllEventosPorCategoriaOrdenados(int idCategoria) {
         List<Object[]> eventos = null;
@@ -49,7 +50,6 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         }
         return eventos;
     }
-
 
 
     @Override
@@ -292,7 +292,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         return resultados;
     }
 
-     @Override
+    @Override
     public List<Object[]> getAllEventosPorCategoriaOrdenadosUserLogueado(int idCategoria, int idUsuario) {
         List<Object[]> eventos = new ArrayList<>();
         try {
@@ -362,5 +362,38 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO{
         }
         return eventos;
     }
+
+
+    @Override
+    public Evento getEventoCompletoPorId(int idEvento) {
+        Evento evento = null;
+        try {
+            startTransaction();
+
+            // 1. Cargar el evento con sus relaciones principales
+            Query<Evento> query = sesion.createQuery(
+                    "SELECT e FROM Evento e " +
+                            "JOIN FETCH e.creador " +
+                            "JOIN FETCH e.subcategoria sc " +
+                            "JOIN FETCH sc.categoria c " +
+                            "WHERE e.idEvento = :idEvento", Evento.class);
+
+            query.setParameter("idEvento", idEvento);
+            evento = query.getSingleResult();
+
+            // 2. Inicializar colecciones lazy (participantes y subcategorías)
+            Hibernate.initialize(evento.getParticipantes());
+            Hibernate.initialize(evento.getSubcategoria().getCategoria().getSubcategorias());
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+
+        return evento;
+    }
+
+
+
 
 }

@@ -7,7 +7,7 @@
         <jsp:param name="titulo" value="Login Usuario"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
-    <script src="${contexto}/JS/comprobarCredencial.js" defer></script>
+    <script src="${contexto}/JS/VALIDACIONES/comprobarCredencial.js" defer></script>
     <script src="${contexto}/JS/inicializarPopovers.js" defer></script>
 </head>
 <body class="bg-body text-body min-vh-100">

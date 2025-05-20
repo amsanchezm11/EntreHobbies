@@ -81,7 +81,7 @@
                     <p>Consulta los eventos a los que te has unido.</p>
                 </div>
                 <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-main btn-lg" name="accion" value="Eventos-Apuntados">Ver participaciones</button>
+                    <button type="submit" class="btn btn-main btn-lg" name="accion" value="Mis-Participaciones">Ver participaciones</button>
                 </form>
             </div>
         </div>

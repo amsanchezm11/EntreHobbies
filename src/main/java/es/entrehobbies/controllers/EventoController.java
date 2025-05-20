@@ -44,10 +44,12 @@ public class EventoController extends HttpServlet {
         String accion = request.getParameter("accion");
         Usuario creador = null;
         Evento evento = null;
+        Evento eventoModificado = null;
         Categoria categoria = null;
         Subcategoria subcategoria = null;
         DateConverter converter = null;
         int idEvento;
+        String modificarTipo = null;
 
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
@@ -113,6 +115,52 @@ public class EventoController extends HttpServlet {
                     Utilities.enviarEmailCanceladoAParticipantes(evento.getParticipantes(),"Evento cancelado",evento.getCreador().getUsername(),evento.getTitulo());
                 }
                 request.setAttribute("aviso", "Se ha cancelado el evento correctamente");
+                break;
+
+            case "Modificar-Evento":
+                modificarTipo = request.getParameter("Modificacion");
+                // Obtenemos el evento original de la sesión
+                evento = (Evento) request.getSession().getAttribute("evento");
+                // Convertimos la fecha y el enum antes de utilizar BeansUtils
+                converter = new DateConverter();
+                converter.setPattern("yyyy-MM-dd");
+                ConvertUtils.register(converter, java.util.Date.class);
+                ConvertUtils.register(new EnumConverter(), Evento.Estado.class);
+
+                try {
+
+                    // Inicializamos evento, categoria y subcategoria
+                    eventoModificado = new Evento();
+                    categoria = new Categoria();
+                    subcategoria = new Subcategoria();
+                    // Obtenemos los datos modificados de evento que vienen del formulario con BeansUtils
+                    BeanUtils.populate(eventoModificado, request.getParameterMap());
+                    // Le añadimos al evento su usuario creador
+                    eventoModificado.setCreador(evento.getCreador());
+                    // Añadimos al evento su estado y modo
+                    eventoModificado.setEstado(evento.getEstado());
+                    eventoModificado.setModo(evento.getModo());
+                    // Le añadimos la fecha de hoy en su fecha de creación
+                    eventoModificado.setFechaCreacion(evento.getFechaCreacion());
+                    // Le añadimos la subcategoría
+                    eventoModificado.setSubcategoria(evento.getSubcategoria());
+                    // Comprobamos el tipo de modificación (Parcial = tiene participantes)
+                    if (modificarTipo.equals("Parcial")){
+                        eventoModificado.setParticipantes(evento.getParticipantes());
+                        // Notificamos a todos los participantes que el evento ha sido modificado
+                        Utilities.enviarEmailEventoModificadoAParticipantes("EntreHobbies: Evento Modificado",eventoModificado);
+                    }
+                    // Añadimos el evento a la base de datos
+                    daoG.insertOrUpdate(eventoModificado);
+                    //Eliminamos el evento de la sesión
+                    request.getSession().removeAttribute("evento");
+                    // Notificamos al usuario que ha creado el evento correctamente
+                    request.setAttribute("aviso", "Evento modificado correctamente");
+
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    Logger.getLogger(Evento.class.getName()).log(Level.SEVERE, null, e);
+                }
+
                 break;
         }
 

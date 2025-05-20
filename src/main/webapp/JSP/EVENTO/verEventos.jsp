@@ -22,7 +22,7 @@
 
 <div style="position: fixed; top: 75px; right: 1rem; z-index: 1050;">
     <form action="${contexto}/FrontController" method="post">
-        <button type="submit" class="btn btn-outline-categorias" name="accion" value="Ver-Categorias">
+        <button type="submit" class="btn btn-main" name="accion" value="Ver-Categorias">
             <i class="bi bi-arrow-left me-2"></i> Volver a categor&iacute;as
         </button>
     </form>
@@ -135,12 +135,6 @@
                             class="bi bi-person me-2"></i><strong>Creador:</strong> ${evento[13]}</p>
 
                     <div class="d-flex flex-column gap-1">
-                            <%--                        <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">--%>
-                            <%--                            <input type="hidden" name="idEvento" value="${evento[0]}">--%>
-                            <%--                            <button class="btn btn-main btn-sm rounded-pill w-100" name="accion" value="Unirse-evento">--%>
-                            <%--                                <i class="bi bi-check2-circle me-2"></i>Apuntarse--%>
-                            <%--                            </button>--%>
-                            <%--                        </form>--%>
                         <div class="alert alert-creador text-center p-2 rounded-pill mb-0">
                             <span>Reg&iacute;strate para poder unirte</span>
                         </div>

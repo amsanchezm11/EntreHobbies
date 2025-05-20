@@ -7,7 +7,7 @@
         <jsp:param name="estilo" value="perfil.css"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/perfilUsuario.js" defer></script>
-    <script type="module" src="${contexto}/JS/modificarUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/VALIDACIONES/modificarUsuario.js" defer></script>
     <script type="module" src="${contexto}/JS/alertas.js" defer></script>
     <script type="module" src="${contexto}/JS/vistaPreviaIMG.js" defer></script>
 </head>

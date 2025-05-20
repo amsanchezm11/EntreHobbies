@@ -11,14 +11,7 @@
 </head>
 <body class="body-custom position-relative bg-gradient-morado-blanco">
 
-<c:choose>
-    <c:when test="${sessionScope.usuario != null}">
-        <c:import url="/INC/navbarUsuario.jsp"/>
-    </c:when>
-    <c:otherwise>
-        <c:import url="/INC/navbarDefault.jsp"/>
-    </c:otherwise>
-</c:choose>
+<c:import url="/INC/navbarUsuario.jsp"/>
 
 <div class="mb-5 ps-3 my-3">
     <h1 class="text-light text-login">Mis Eventos</h1>
@@ -32,19 +25,24 @@
                     <div class="card-body-eventos flex-grow-1 d-flex flex-column">
                         <h5 class="card-title text-bold">${evento[1]} - <strong class="fst-italic"><fmt:formatDate
                                 value="${evento[3]}" pattern="dd/MM/yyyy"/></strong></h5>
-                        <p class="card-text"><strong>Fecha de inicio:</strong> <fmt:formatDate value="${evento[4]}" pattern="dd/MM/yyyy"/></p>
+                        <p class="card-text"><strong>Fecha de inicio:</strong> <fmt:formatDate value="${evento[4]}"
+                                                                                               pattern="dd/MM/yyyy"/>
+                        </p>
                         <p class="card-text"><strong>Categor&iacute;a:</strong> ${evento[6]}</p>
                         <p class="card-text"><strong>Localidad:</strong> ${evento[9]}</p>
                         <p class="card-text">
                             <c:choose>
                                 <c:when test="${evento[11] == 'Por_Empezar'}">
-                                    <strong>Estado:</strong> <span class="text-success fw-bold fst-italic">Por Empezar</span>
+                                    <strong>Estado:</strong> <span
+                                        class="text-success fw-bold fst-italic">Por Empezar</span>
                                 </c:when>
                                 <c:when test="${evento[11] == 'Cancelado'}">
-                                    <strong>Estado:</strong> <span class="text-danger fw-bold fst-italic">${evento[11]}</span>
+                                    <strong>Estado:</strong> <span
+                                        class="text-danger fw-bold fst-italic">${evento[11]}</span>
                                 </c:when>
                                 <c:when test="${evento[11] == 'Finalizado'}">
-                                    <strong>Estado:</strong> <span class="text-secondary fw-bold fst-italic"> ${evento[11]}</span>
+                                    <strong>Estado:</strong> <span
+                                        class="text-secondary fw-bold fst-italic"> ${evento[11]}</span>
                                 </c:when>
                                 <c:otherwise>
                                     <strong>Estado:</strong> <span class="text-info fw-bold fst-italic">En Curso</span>
@@ -84,16 +82,20 @@
                             <p>
                                 <c:choose>
                                     <c:when test="${evento[11] == 'Por_Empezar'}">
-                                        <i class="bi bi-hourglass-split me-2"></i><strong>Estado:</strong> <span class="text-success">Por Empezar</span>
+                                        <i class="bi bi-hourglass-split me-2"></i><strong>Estado:</strong> <span
+                                            class="text-success">Por Empezar</span>
                                     </c:when>
                                     <c:when test="${evento[11] == 'Cancelado'}">
-                                        <i class="bi bi-x-circle-fill me-2"></i><strong>Estado:</strong> <span class="text-danger">${evento[11]}</span>
+                                        <i class="bi bi-x-circle-fill me-2"></i><strong>Estado:</strong> <span
+                                            class="text-danger">${evento[11]}</span>
                                     </c:when>
                                     <c:when test="${evento[11] == 'Finalizado'}">
-                                        <i class="bi bi-flag-fill me-2"></i><strong>Estado:</strong> <span class="text-secondary"> ${evento[11]}</span>
+                                        <i class="bi bi-flag-fill me-2"></i><strong>Estado:</strong> <span
+                                            class="text-secondary"> ${evento[11]}</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <i class="bi bi-arrow-repeat me-2"></i><strong>Estado:</strong> <span class="text-info">En Curso</span>
+                                        <i class="bi bi-arrow-repeat me-2"></i><strong>Estado:</strong> <span
+                                            class="text-info">En Curso</span>
                                     </c:otherwise>
                                 </c:choose>
                             </p>
@@ -102,9 +104,12 @@
                             </p>
                         </div>
                         <div class="modal-footer d-flex justify-content-end">
-                            <form action="${contexto}/EventoController" method="post">
+                            <form action="${contexto}/FrontController" method="post">
                                 <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado'}">
-                                    <button class="btn btn-main" name="accion" value="Modificar-Evento">Modificar Evento</button>
+                                    <input type="hidden" name="idEvento" value="${evento[0]}">
+                                    <button class="btn btn-main" name="accion" value="Modificar-Evento">Modificar
+                                        Evento
+                                    </button>
                                 </c:if>
                             </form>
                             <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado'}">

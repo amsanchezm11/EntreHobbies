@@ -21,8 +21,7 @@ export function validarFormulario(idBoton) {
     const campos = document.querySelectorAll('input, select, textarea');
     const boton = document.getElementById(idBoton);
 
-    console.log(idBoton);
-    console.log(boton);
+    console.log(campos);
 
     for (let campo of campos) {
         if (!campo.classList.contains('is-valid')) {

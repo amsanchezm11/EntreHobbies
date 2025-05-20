@@ -11,18 +11,12 @@
     <script type="module" src="${contexto}/JS/BOOTSTRAPTABLE/cargarParticipantes.js" defer></script>
 </head>
 <body class="body-custom position-relative bg-gradient-morado-blanco">
-<c:choose>
-    <c:when test="${sessionScope.usuario != null}">
-        <c:import url="/INC/navbarUsuario.jsp"/>
-    </c:when>
-    <c:otherwise>
-        <c:import url="/INC/navbarDefault.jsp"/>
-    </c:otherwise>
-</c:choose>
+
+<c:import url="/INC/navbarUsuario.jsp"/>
 
 <div style="position: fixed; top: 75px; right: 1rem; z-index: 1050;">
     <form action="${contexto}/FrontController" method="post">
-        <button type="submit" class="btn btn-outline-categorias" name="accion" value="Ver-Categorias">
+        <button type="submit" class="btn btn-main" name="accion" value="Ver-Categorias">
             <i class="bi bi-arrow-left me-2"></i> Volver a categor&iacute;as
         </button>
     </form>
@@ -117,8 +111,10 @@
                     </div>
 
                     <div class="row text-center small text-muted">
-                        <div class="col"><i class="bi bi-calendar-event me-1"></i>Empieza: <fmt:formatDate value="${evento[4]}" pattern="dd/MM/yyyy" /></div>
-                        <div class="col"><i class="bi bi-calendar-check me-1"></i>Acaba: <fmt:formatDate value="${evento[5]}" pattern="dd/MM/yyyy" /></div>
+                        <div class="col"><i class="bi bi-calendar-event me-1"></i>Empieza: <fmt:formatDate
+                                value="${evento[4]}" pattern="dd/MM/yyyy"/></div>
+                        <div class="col"><i class="bi bi-calendar-check me-1"></i>Acaba: <fmt:formatDate
+                                value="${evento[5]}" pattern="dd/MM/yyyy"/></div>
                     </div>
 
                     <hr class="my-2">
@@ -137,6 +133,12 @@
                     <div class="d-flex flex-column gap-1">
                         <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
                             <c:choose>
+                                <c:when test="${evento[14] >= evento[6] && evento[16] != 'creador' && evento[16] != 'participante'}">
+                                    <div class="alert alert-completo text-center p-2 rounded-pill mb-0">
+                                        <span>Evento completo</span>
+                                    </div>
+                                </c:when>
+
                                 <c:when test="${evento[16] == 'creador'}">
                                     <div class="alert alert-creador text-center p-2 rounded-pill mb-0">
                                         <span>Eres el creador del evento</span>
@@ -146,7 +148,8 @@
                                 <c:when test="${evento[16] == 'participante'}">
                                     <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
                                         <input type="hidden" name="idEvento" value="${evento[0]}">
-                                        <button class="btn btn-warning btn-sm rounded-pill w-100" name="accion" value="Desapuntarse-evento">
+                                        <button class="btn btn-warning btn-sm rounded-pill w-100" name="accion"
+                                                value="Desapuntarse-evento">
                                             <i class="bi bi-x-circle me-2"></i>Desapuntarse
                                         </button>
                                     </form>
@@ -155,7 +158,8 @@
                                 <c:otherwise>
                                     <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
                                         <input type="hidden" name="idEvento" value="${evento[0]}">
-                                        <button class="btn btn-main btn-sm rounded-pill w-100" name="accion" value="Unirse-evento">
+                                        <button class="btn btn-main btn-sm rounded-pill w-100" name="accion"
+                                                value="Unirse-evento">
                                             <i class="bi bi-check2-circle me-2"></i>Apuntarse
                                         </button>
                                     </form>
@@ -207,7 +211,8 @@
 </c:if>
 
 
-<div class="modal fade" id="modalParticipantes" tabindex="-1" aria-labelledby="modalParticipantesLabel" aria-hidden="true">
+<div class="modal fade" id="modalParticipantes" tabindex="-1" aria-labelledby="modalParticipantesLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header">

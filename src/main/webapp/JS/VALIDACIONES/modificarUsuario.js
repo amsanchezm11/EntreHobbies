@@ -1,4 +1,4 @@
-import {checkNombre, checkApellidos, checkFechaNacimiento, checkLocalidad, checkProvincia, checkAvatar, validarBoton, validarFormularioPassword} from "./regex.js";
+import {checkNombre, checkApellidos, checkFechaNacimiento, checkLocalidad, checkProvincia, checkAvatar, validarBoton, validarFormularioPassword} from "../regex.js";
 
 //-----------------------------------------
 // Validación formulario de modificar datos de usuario

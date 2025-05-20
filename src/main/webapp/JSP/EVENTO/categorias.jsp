@@ -18,64 +18,11 @@
     </c:otherwise>
 </c:choose>
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title color-pm" id="offcanvasScrollingLabel">Filtros</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <form id="formFiltros" class="h-100 d-flex flex-column justify-content-between" method="post" action="#">
-
-            <div>
-                <div class="mb-3">
-                    <label for="categoria" class="form-label fw-bold mb-2">Categor&iacute;a</label>
-                    <select class="form-select" id="categoria" name="categoria">
-                        <option value="" disabled selected>Selecciona una categor&iacute;a</option>
-                        <option value="deportes">Deportes</option>
-                        <option value="videojuegos">Videojuegos</option>
-                        <option value="lectura">Lectura y Literatura</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="provincia" class="form-label fw-bold mb-2">Provincia</label>
-                    <select class="form-select" id="provincia" name="provincia">
-                        <option value="" disabled selected>Selecciona una provincia</option>
-                        <option value="badajoz">Badajoz</option>
-                        <option value="caceres">Cáceres</option>
-                        <option value="sevilla">Sevilla</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-bold mb-2">Rango de fechas</label>
-                    <div class="d-flex flex-column flex-md-row gap-2">
-                        <div class="flex-fill">
-                            <label for="fechaInicio" class="form-label">Desde</label>
-                            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
-                        </div>
-                        <div class="flex-fill">
-                            <label for="fechaLimite" class="form-label">Hasta</label>
-                            <input type="date" class="form-control" id="fechaLimite" name="fechaLimite">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="mt-4 align-self-bottom">
-                <button type="submit" class="btn btn-main w-100">Aplicar filtros</button>
-                <button type="reset" class="btn btn-main w-100">Limpiar filtros</button>
-            </div>
-
-        </form>
-    </div>
-</div>
-
 <div class="mb-5 ps-3 my-3">
     <h1 class="text-light text-login">Categor&iacute;as</h1>
 </div>
 
-<div class="row justify-content-center m-5 pb-5">
+<div class="row justify-content-center m-5 py-5">
     <c:forEach var="categoria" items="${requestScope.categorias}">
         <div class="col-md-4 mb-5">
             <form action="${contexto}/FrontController" method="post" class="h-100">

@@ -1,11 +1,13 @@
 package es.entrehobbies.models;
 
+import es.entrehobbies.beans.Evento;
 import es.entrehobbies.beans.Usuario;
 import es.entrehobbies.utils.EnviarCorreos;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Utilities {
@@ -31,76 +33,45 @@ public class Utilities {
             throw new RuntimeException(e);
         }
     }
-
     public static String generarMensajeBienvenida(String nombre, String username, String email, Usuario.Sexo sexo) {
+        // Configuramos el saludo según el sexo del usuario
+        String saludo = (sexo == Usuario.Sexo.Mujer) ? "¡Bienvenida" : "¡Bienvenido";
 
-        // Determinamos el saludo según el sexo del usuario
-        String saludo;
-        if (sexo == Usuario.Sexo.Mujer) {
-            saludo = "¡Bienvenida";
-        } else {
-            saludo = "¡Bienvenido";
-        }
-
-        // Configuramos el cuerpo del mensaje que se le va a enviar al usuario cuando se registre
         return String.format(
-                "<html lang='es'>" +
+                "<!DOCTYPE html>" +
+                        "<html lang='es'>" +
                         "<head>" +
-                        "    <meta charset='UTF-8'>" +
-                        "    <meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
-                        "    <title>Bienvenida a EntreHobbies</title>" +
-                        "    <style>" +
-                        "        body {" +
-                        "            font-family: Arial, sans-serif;" +
-                        "            padding: 20px;" +
-                        "            background-color: #6F42C1;" +
-                        "        }" +
-                        "        .contenedor {" +
-                        "            background-color: #ffffff;" +
-                        "            padding: 30px;" +
-                        "            border-radius: 10px;" +
-                        "            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);" +
-                        "            max-width: 600px;" +
-                        "            margin: auto;" +
-                        "        }" +
-                        "        h2 { color: #2c3e50; }" +
-                        "        p { color: #555555; font-size: 16px; }" +
-                        "        .credenciales {" +
-                        "            background-color: #f9f9f9;" +
-                        "            padding: 15px;" +
-                        "            border-radius: 5px;" +
-                        "            margin-top: 20px;" +
-                        "            border: 1px solid #ddd;" +
-                        "        }" +
-                        "        .credenciales p {" +
-                        "            margin: 5px 0;" +
-                        "        }" +
-                        "        strong {" +
-                        "            color: #6c5ce7;" +
-                        "        }" +
-                        "        .copy {" +
-                        "            margin-top: 50px;" +
-                        "            text-align: center;" +
-                        "        }" +
-                        "    </style>" +
+                        "  <meta charset='UTF-8'>" +
+                        "  <title>Bienvenida a EntreHobbies</title>" +
                         "</head>" +
-                        "<body>" +
-                        "    <div class='contenedor'>" +
-                        "        <h2>" + saludo + " a EntreHobbies, %s!</h2>" +
-                        "        <p>Nos alegra mucho que te unas a nuestra comunidad. En EntreHobbies, queremos que disfrutes al máximo de tus pasatiempos, conectes con personas con intereses similares y vivas experiencias únicas.</p>" +
-                        "        <p>A partir de ahora, podrás crear eventos según tus hobbies favoritos y unirte a actividades que te apasionen. ¡Las posibilidades son infinitas!</p>" +
-                        "        <div class='credenciales'>" +
-                        "            <h3>Aquí tienes tus credenciales de acceso:</h3>" +
-                        "            <p><strong>Username:</strong> %s</p>" +
-                        "            <p><strong>Email:</strong> %s</p>" +
-                        "        </div>" +
-                        "        <p>Si tienes alguna duda o necesitas ayuda, no dudes en ponerte en contacto con nosotros a través de nuestro correo electrónico: <strong>entrehobbies.info@gmail.com</strong>. Estamos aquí para ayudarte.</p>" +
-                        "        <p>Disfruta de la experiencia y bienvenido a la comunidad. ¡Nos encanta tenerte con nosotros!</p>" +
-                        "        <p>— El equipo de EntreHobbies</p>" +
-                        "        <p class='copy'>&copy; 2025 EntreHobbies - Todos los derechos reservados.</p>" +
-                        "    </div>" +
+                        "<body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color: #f0f0f0;'>" +
+                        "  <table align='center' cellpadding='0' cellspacing='0' width='100%%' style='padding: 20px 0;'>" +
+                        "    <tr>" +
+                        "      <td align='center'>" +
+                        "        <table cellpadding='0' cellspacing='0' width='600' style='background-color: #ffffff; padding: 30px; border: 1px solid #ddd;'>" +
+                        "          <tr>" +
+                        "            <td>" +
+                        "              <h2 style='color: #4b1e8a;'>" + saludo + " a EntreHobbies, %s!</h2>" +
+                        "              <p style='color: #333333; font-size: 16px;'>Nos alegra mucho que te unas a nuestra comunidad. En EntreHobbies, queremos que disfrutes al máximo de tus pasatiempos, conectes con personas con intereses similares y vivas experiencias únicas.</p>" +
+                        "              <p style='color: #333333; font-size: 16px;'>A partir de ahora, podrás crear eventos según tus hobbies favoritos y unirte a actividades que te apasionen. ¡Las posibilidades son infinitas!</p>" +
+                        "              <div style='background-color: #f9f9f9; padding: 15px; border: 1px solid #cccccc; margin-top: 20px; border-radius: 15px;'>" +
+                        "                <h3 style='color: #4b1e8a;'>Tus credenciales de acceso:</h3>" +
+                        "                <p style='color: #333333; font-size: 16px;'><strong>Username:</strong> %s</p>" +
+                        "                <p style='color: #333333; font-size: 16px;'><strong>Email:</strong> %s</p>" +
+                        "              </div>" +
+                        "              <p style='color: #333333; font-size: 16px; margin-top: 20px;'>Si tienes alguna duda o necesitas ayuda, puedes escribirnos a: <strong>entrehobbies.info@gmail.com</strong>. Estamos aquí para ayudarte.</p>" +
+                        "              <p style='color: #333333; font-size: 16px;'>Disfruta de la experiencia y bienvenido a la comunidad. ¡Nos encanta tenerte con nosotros!</p>" +
+                        "              <p style='color: #333333; font-size: 16px;'>— El equipo de EntreHobbies</p>" +
+                        "              <p style='text-align: center; color: #999999; font-size: 13px; margin-top: 40px;'>&copy; 2025 EntreHobbies - Todos los derechos reservados.</p>" +
+                        "            </td>" +
+                        "          </tr>" +
+                        "        </table>" +
+                        "      </td>" +
+                        "    </tr>" +
+                        "  </table>" +
                         "</body>" +
-                        "</html>", nombre, username, email
+                        "</html>",
+                nombre, username, email
         );
     }
 
@@ -159,6 +130,90 @@ public class Utilities {
             destinatario = u.getEmail();
             // Creamos el cuerpo del mensaje con los datos correspondientes
             cuerpo = generarMensajeCancelado(u.getNombre(),nombreCreador, nombreEvento);
+            // Enviamos el email al destinatario
+            EnviarCorreos.enviar(destinatario, asunto, cuerpo);
+        }
+    }
+
+
+
+
+
+    public static String generarMensajeEventoModificado(Evento evento, String nombreParticipante) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        String fechaInicioFormateada = sdf.format(evento.getFechaInicio());
+        String fechaFinFormateada = sdf.format(evento.getFechaFin());
+
+        return String.format(
+                "<!DOCTYPE html>" +
+                        "<html lang='es'>" +
+                        "<head>" +
+                        "  <meta charset='UTF-8'>" +
+                        "  <title>Evento modificado - EntreHobbies</title>" +
+                        "</head>" +
+                        "<body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color: #f0f0f0;'>" +
+                        "  <table align='center' cellpadding='0' cellspacing='0' width='100%%' style='padding: 20px 0;'>" +
+                        "    <tr>" +
+                        "      <td align='center'>" +
+                        "        <table cellpadding='0' cellspacing='0' width='600' style='background-color: #ffffff; padding: 30px; border: 1px solid #ddd;'>" +
+                        "          <tr>" +
+                        "            <td>" +
+                        "              <h2 style='color: #4b1e8a;'>¡Uno de tus eventos ha sido modificado!</h2>" +
+                        "              <p style='color: #333333; font-size: 16px;'>Hola %s, te informamos que un evento en el que estás inscrito ha sido actualizado recientemente. A continuación puedes ver los nuevos detalles:</p>" +
+                        "              <div style='background-color: #f9f9f9; padding: 15px; border: 1px solid #cccccc; margin-top: 20px; border-radius: 15px;'>" +
+                        "                <h3 style='color: #4b1e8a;'>Detalles del evento modificado:</h3>" +
+                        "                <p><strong>Título:</strong> %s</p>" +
+                        "                <p><strong>Descripción:</strong> %s</p>" +
+                        "                <p><strong>Fecha de inicio:</strong> %s</p>" +
+                        "                <p><strong>Fecha de fin:</strong> %s</p>" +
+                        "                <p><strong>Dirección::</strong> %s</p>" +
+                        "                <p><strong>Localidad:</strong> %s</p>" +
+                        "                <p><strong>Provincia:</strong> %s</p>" +
+                        "                <p><strong>Categoría:</strong> %s</p>" +
+                        "                <p><strong>Subcategoría:</strong> %s</p>" +
+                        "                <p><strong>Tipo de evento:</strong> %s</p>" +
+                        "                <p><strong>Organizador:</strong> %s</p>" +
+                        "              </div>" +
+                        "              <p style='color: #333333; font-size: 16px; margin-top: 20px;'>Si tienes dudas sobre los cambios, puedes contactar con el organizador o escribirnos a: <strong>entrehobbies.info@gmail.com</strong>.</p>" +
+                        "              <p style='color: #333333; font-size: 16px;'>Gracias por seguir compartiendo tus hobbies con nosotros.</p>" +
+                        "              <p style='color: #333333; font-size: 16px;'>— El equipo de EntreHobbies</p>" +
+                        "              <p style='text-align: center; color: #999999; font-size: 13px; margin-top: 40px;'>&copy; 2025 EntreHobbies - Todos los derechos reservados.</p>" +
+                        "            </td>" +
+                        "          </tr>" +
+                        "        </table>" +
+                        "      </td>" +
+                        "    </tr>" +
+                        "  </table>" +
+                        "</body>" +
+                        "</html>",
+                nombreParticipante,
+                evento.getTitulo(),
+                evento.getDescripcion(),
+                fechaInicioFormateada,
+                fechaFinFormateada,
+                evento.getDireccion(),
+                evento.getLocalidad(),
+                evento.getProvincia(),
+                evento.getSubcategoria().getCategoria().getNombre(),
+                evento.getSubcategoria().getNombre(),
+                evento.getModo(),
+                evento.getCreador().getUsername()
+        );
+    }
+
+
+    public static void enviarEmailEventoModificadoAParticipantes(String asunto, Evento evento) {
+
+        String destinatario;
+        String cuerpo;
+
+        // Iteramos por cada participante
+        for (Usuario u : evento.getParticipantes()) {
+            // Obtenemos el email del destinatario (participante)
+            destinatario = u.getEmail();
+            // Creamos el cuerpo del mensaje con los datos correspondientes
+            cuerpo = generarMensajeEventoModificado(evento, u.getNombre());
             // Enviamos el email al destinatario
             EnviarCorreos.enviar(destinatario, asunto, cuerpo);
         }

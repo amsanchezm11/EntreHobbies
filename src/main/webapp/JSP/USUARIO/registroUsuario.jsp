@@ -9,9 +9,9 @@
     <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
     <script type="module" src="${contexto}/JS/regex.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/validarUsuario.js" defer></script>
-    <script type="module" src="${contexto}/JS/comprobarEmail.js" defer></script>
-    <script type="module" src="${contexto}/JS/comprobarUsername.js" defer></script>
-    <script type="module" src="${contexto}/JS/comprobarTelefono.js" defer></script>
+    <script type="module" src="${contexto}/JS/VALIDACIONES/comprobarEmail.js" defer></script>
+    <script type="module" src="${contexto}/JS/VALIDACIONES/comprobarUsername.js" defer></script>
+    <script type="module" src="${contexto}/JS/VALIDACIONES/comprobarTelefono.js" defer></script>
 </head>
 <body class="bg-body text-body min-vh-100 d-flex flex-column">
 <nav class="navbar bg-body-tertiary border-bottom">

@@ -1,5 +1,7 @@
 package es.entrehobbies.DAO;
 
+import es.entrehobbies.beans.Evento;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +28,8 @@ public interface IEventoDAO {
     public List<Object[]> getParticipantesDeUnEvento(int idEvento);
 
     public List<Object[]> getAllEventosPorCategoriaOrdenadosUserLogueado(int idCategoria, int idUsuario);
+
+    public Evento getEventoCompletoPorId(int idEvento);
 
 
 }

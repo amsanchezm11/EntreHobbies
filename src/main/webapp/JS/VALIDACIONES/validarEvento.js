@@ -6,7 +6,7 @@ import {checkTitulo, checkNumParticipantes, checkDescripcion, checkDireccion, ch
 //-----------------------------------------
 document.getElementById("titulo").addEventListener("input", e => {
     checkTitulo(e.target);
-    validarFormulario('enviar'); // Comprobar si el formulario está completo
+    validarFormulario('enviar');
 });
 document.getElementById("numParticipantes").addEventListener("input", e => {
     checkNumParticipantes(e.target);
