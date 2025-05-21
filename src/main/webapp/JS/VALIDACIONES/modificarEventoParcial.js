@@ -1,4 +1,5 @@
 import {
+    checkDescripcion,
     checkDireccion,
     checkFechaFin,
     checkFechaInicio,
@@ -8,7 +9,10 @@ import {
 //-----------------------------------------
 // Añadimos los eventos de comprobación de regex a los inputs del formulario
 //-----------------------------------------
-
+document.getElementById("descripcion").addEventListener("change", e => {
+    checkDescripcion(e.target);
+    validarFormulario('enviar');
+});
 document.getElementById("direccion").addEventListener("change", e => {
     checkDireccion(e.target);
     validarFormulario('enviar');

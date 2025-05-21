@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
                         url = "/JSP/USUARIO/menuUsuario.jsp";
                     }
                 } else {
-                    request.setAttribute("error", "Credenciales incorrectas");
+                    request.setAttribute("error", "Credenciales incorrectas. Inténtalo de nuevo");
                     url = "/JSP/LOGIN/login.jsp";
                 }
                 break;

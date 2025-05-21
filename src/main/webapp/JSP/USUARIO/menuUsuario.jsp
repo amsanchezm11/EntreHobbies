@@ -49,7 +49,7 @@
                     <p>Nos alegra verte nuevamente. Disfruta de todas las funcionalidades.</p>
                 </div>
                 <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-main btn-lg" name="accion" value="Mi-Cuenta">Ir a mi perfil</button>
+                    <button type="submit" class="btn btn-main btn-lg w-50" name="accion" value="Mi-Cuenta">Ir a mi perfil</button>
                 </form>
             </div>
 
@@ -59,7 +59,7 @@
                     <p>Consulta los eventos que has organizado.</p>
                 </div>
                 <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-main btn-lg" name="accion" value="Mis-Eventos">Ver eventos</button>
+                    <button type="submit" class="btn btn-main btn-lg w-50" name="accion" value="Mis-Eventos">Ver eventos</button>
                 </form>
             </div>
         </div>
@@ -71,7 +71,7 @@
                     <p>¿Tienes un plan en mente? Comp&aacute;rtelo con la comunidad.</p>
                 </div>
                 <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-main btn-lg" name="accion" value="Crear-Evento">Crear evento</button>
+                    <button type="submit" class="btn btn-main btn-lg w-50" name="accion" value="Crear-Evento">Crear evento</button>
                 </form>
             </div>
 
@@ -81,7 +81,7 @@
                     <p>Consulta los eventos a los que te has unido.</p>
                 </div>
                 <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-main btn-lg" name="accion" value="Mis-Participaciones">Ver participaciones</button>
+                    <button type="submit" class="btn btn-main btn-lg w-50" name="accion" value="Mis-Participaciones">Ver participaciones</button>
                 </form>
             </div>
         </div>

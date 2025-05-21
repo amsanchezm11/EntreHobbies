@@ -120,7 +120,7 @@
                     <hr class="my-2">
 
                     <p class="card-text small mb-1"><i class="bi bi-card-text me-2"></i><strong>Fecha
-                        creaci&oacute;n:</strong> ${evento[3]}</p>
+                        creaci&oacute;n:</strong> <fmt:formatDate value="${evento[3]}" pattern="dd/MM/yyyy" /></p>
                     <p class="card-text small mb-1"><i
                             class="bi bi-tags me-2"></i><strong>Subcategor&iacute;a:</strong> ${evento[12]}</p>
                     <p class="card-text small mb-1"><i

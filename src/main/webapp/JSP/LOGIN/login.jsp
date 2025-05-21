@@ -56,11 +56,11 @@
         </div>
 
         <c:if test="${requestScope.error != null}">
-            <p class="m-0 text-center text-danger">${requestScope.error}</p>
+            <p class="m-0 text-center text-light"><i class='bi bi-exclamation-triangle-fill text-light'></i> <span>${requestScope.error}</span></p>
         </c:if>
 
-        <div class="text-center text-danger invisible" id="aviso">
-            <p class="m-0">Mensaje</p>
+        <div class="text-center text-light ">
+            <p class="m-0 text-center invisible" id="aviso"><i class='bi bi-exclamation-triangle-fill text-light'></i> Mensaje</p>
         </div>
 
         <div class="text-center">

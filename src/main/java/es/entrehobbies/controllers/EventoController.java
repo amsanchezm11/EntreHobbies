@@ -112,7 +112,7 @@ public class EventoController extends HttpServlet {
                 // Comprobamos si habia participantes en el evento
                 if (evento.getParticipantes().size()>0){
                     // Enviamos los emails de que el evento ha sido cancelado a los participantes del evento
-                    Utilities.enviarEmailCanceladoAParticipantes(evento.getParticipantes(),"Evento cancelado",evento.getCreador().getUsername(),evento.getTitulo());
+                    Utilities.enviarEmailCanceladoAParticipantes(evento.getParticipantes(),"EntreHobbies: Evento cancelado",evento.getCreador().getUsername(),evento.getTitulo());
                 }
                 request.setAttribute("aviso", "Se ha cancelado el evento correctamente");
                 break;
@@ -131,8 +131,6 @@ public class EventoController extends HttpServlet {
 
                     // Inicializamos evento, categoria y subcategoria
                     eventoModificado = new Evento();
-                    categoria = new Categoria();
-                    subcategoria = new Subcategoria();
                     // Obtenemos los datos modificados de evento que vienen del formulario con BeansUtils
                     BeanUtils.populate(eventoModificado, request.getParameterMap());
                     // Le añadimos al evento su usuario creador
@@ -161,6 +159,17 @@ public class EventoController extends HttpServlet {
                     Logger.getLogger(Evento.class.getName()).log(Level.SEVERE, null, e);
                 }
 
+                break;
+
+            case "Eliminar-Evento":
+                // Obtenemos el id del evento que se quiere eliminar
+                idEvento = Integer.parseInt(request.getParameter("idEvento"));
+                // Obtenemos el evento de la base de datos a partir del id obtenido
+                evento = (Evento) daoG.getById(idEvento, Evento.class);
+                // Eliminamos el evento de la base de datos
+                daoG.delete(evento);
+                // Notificamos al usuario de que se ha borrado correctamente el evento
+                request.setAttribute("aviso", "Evento eliminado correctamente");
                 break;
         }
 

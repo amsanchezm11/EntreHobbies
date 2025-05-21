@@ -24,7 +24,7 @@
         <div class="step active">
             <div class="form-floating mb-4">
                 <h3 class="text-light text-titulo">Paso 1: Informaci&oacute;n general del evento</h3>
-                <p class="text-light text-center"><i class='bi bi-exclamation-triangle-fill text-warning'></i> Al ser un evento con participantes solo podr&aacute;s modificar la direcci&oacute;n, la fecha de Inicio y la fecha de Fin de tu evento.</p>
+                <p class="text-light text-center"><i class='bi bi-exclamation-triangle-fill text-warning'></i> Al ser un evento con participantes solo podr&aacute;s modificar la descripci&oacute;n, direcci&oacute;n, fecha de Inicio y fecha de Fin de tu evento.</p>
             </div>
 
             <div class="row">
@@ -127,7 +127,7 @@
                 <div class="col-12">
                     <div class="form-floating mb-3">
                 <textarea class="form-control is-valid" id="descripcion" name="descripcion" rows="3" placeholder="Descripci&oacute;n"
-                          maxlength="255" readonly required>${sessionScope.evento.descripcion}"</textarea>
+                          maxlength="255" required>${sessionScope.evento.descripcion}</textarea>
                         <label for="descripcion">Descripci&oacute;n</label>
                         <small id="charCount" class="form-text text-light d-block text-end">0/255 caracteres</small>
                     </div>

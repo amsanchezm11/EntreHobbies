@@ -36,9 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 btnEnviar.classList.remove("d-none");
                 credencialValida = true;
             } else {
-                aviso.textContent = esEmail
-                    ? "El email no existe en nuestra base de datos."
-                    : "El username no existe en nuestra base de datos.";
+                const mensajeEmail = "<i class='bi bi-exclamation-triangle-fill text-light'></i> El email no existe en nuestra base de datos";
+                const mensajeUsername = "<i class='bi bi-exclamation-triangle-fill text-light'></i> El username no existe en nuestra base de datos";
+
+                aviso.innerHTML = esEmail
+                    ? mensajeEmail
+                    : mensajeUsername;
                 aviso.classList.remove("invisible");
                 passwordContainer.classList.add("d-none");
                 btnEnviar.classList.add("d-none");

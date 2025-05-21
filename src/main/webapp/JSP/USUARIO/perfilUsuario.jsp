@@ -54,6 +54,15 @@
                         <button type="submit"
                                 class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
                                 name="accion"
+                                value="Mis-Participaciones">
+                            <i class="bi bi-person-check me-2"></i>Mis Participaciones
+                        </button>
+                    </form>
+
+                    <form action="${contexto}/FrontController" method="post">
+                        <button type="submit"
+                                class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
+                                name="accion"
                                 value="Crear-Evento">
                             <i class="bi bi-calendar-event me-2"></i>Crear evento
                         </button>

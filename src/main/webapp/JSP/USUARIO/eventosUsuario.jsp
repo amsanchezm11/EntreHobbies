@@ -112,7 +112,13 @@
                                     </button>
                                 </c:if>
                             </form>
-                            <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado'}">
+                            <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado' && evento[13] == 0}">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#confirmarEliminacion${evento[0]}">
+                                    Eliminar Evento
+                                </button>
+                            </c:if>
+                            <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado' && evento[13] > 0}">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#confirmarCancelacion${evento[0]}">
                                     Cancelar Evento
@@ -150,6 +156,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="confirmarEliminacion${evento[0]}" tabindex="-1"
+                 aria-labelledby="confirmarEliminacionLabel${evento[0]}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmarEliminacionLabel${evento[0]}">Confirmar eliminaci&oacute;n</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Est&aacute;s seguro de que quieres eliminar el evento <strong>"${evento[1]}"</strong>?
+                            Esta acci&oacute;n no se puede deshacer. El evento se eliminar&aacute; permanentemente.
+                        </div>
+                        <div class="modal-footer">
+                            <form action="${contexto}/EventoController" method="post">
+                                <input type="hidden" name="idEvento" value="${evento[0]}"/>
+                                <button class="btn btn-danger" name="accion" value="Eliminar-Evento">S&iacute;, eliminar</button>
+                            </form>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, volver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </c:forEach>
     </div>
 </main>
