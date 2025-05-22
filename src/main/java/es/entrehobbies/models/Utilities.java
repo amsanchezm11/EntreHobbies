@@ -33,6 +33,20 @@ public class Utilities {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Genera un mensaje de bienvenida en formato HTML para un nuevo usuario de EntreHobbies.
+     *
+     * <p>El mensaje incluye un saludo personalizado dependiendo del sexo del usuario,
+     * así como sus credenciales de acceso (username y email). Este mensaje puede utilizarse
+     * para envíos por correo electrónico tras el registro.</p>
+     *
+     * @param nombre   el nombre del usuario que se registró.
+     * @param username el nombre de usuario con el que se ha registrado.
+     * @param email    la dirección de correo electrónico del usuario.
+     * @param sexo     el sexo del usuario, utilizado para personalizar el saludo ("Bienvenido/a").
+     * @return una cadena HTML con el contenido del mensaje de bienvenida personalizado.
+     */
     public static String generarMensajeBienvenida(String nombre, String username, String email, Usuario.Sexo sexo) {
         // Configuramos el saludo según el sexo del usuario
         String saludo = (sexo == Usuario.Sexo.Mujer) ? "¡Bienvenida" : "¡Bienvenido";
@@ -75,6 +89,18 @@ public class Utilities {
         );
     }
 
+    /**
+     * Genera un mensaje en formato HTML para notificar a un usuario que un evento en el que iba a participar ha sido cancelado.
+     *
+     * <p>El mensaje incluye un aviso personalizado con el nombre del usuario, el nombre del creador del evento
+     * y el título del evento cancelado. Está diseñado para ser enviado por correo electrónico como parte de la
+     * comunicación del sistema EntreHobbies.</p>
+     *
+     * @param nombre        el nombre del usuario que recibirá el mensaje.
+     * @param creadorNombre el nombre del usuario que creó el evento cancelado.
+     * @param nombreEvento  el nombre del evento que ha sido cancelado.
+     * @return una cadena HTML con el contenido del mensaje de cancelación del evento.
+     */
     public static String generarMensajeCancelado(String nombre, String creadorNombre, String nombreEvento) {
 
         return String.format(
@@ -97,7 +123,7 @@ public class Utilities {
                         "              </p>" +
                         "              <div style='background-color: #f9f9f9; padding: 15px; border: 1px solid #cccccc; margin-top: 20px; border-radius: 15px;'>" +
                         "                <h3 style='color: #4b1e8a;'>Detalles del evento cancelado:</h3>" +
-                        "                <p><strong>Creador:</strong> %s</p>" +
+                        "                <p><strong>Organizador:</strong> %s</p>" +
                         "                <p><strong>Nombre del evento:</strong> %s</p>" +
                         "              </div>" +
                         "              <p style='color: #333333; font-size: 16px; margin-top: 20px;'>" +
@@ -119,6 +145,17 @@ public class Utilities {
         );
     }
 
+    /**
+     * Envía un correo electrónico de cancelación del evento a todos los participantes registrados.
+     *
+     * <p>Este método recorre la lista de usuarios que estaban inscritos en un evento y les envía
+     * un correo personalizado informando que dicho evento ha sido cancelado.</p>
+     *
+     * @param participantes lista de usuarios que participaron en el evento cancelado.
+     * @param asunto        el asunto del correo electrónico.
+     * @param nombreCreador el nombre del usuario que creó el evento.
+     * @param nombreEvento  el nombre del evento que fue cancelado.
+     */
     public static void enviarEmailCanceladoAParticipantes(List<Usuario> participantes, String asunto, String nombreCreador, String nombreEvento) {
 
         String destinatario;
@@ -135,10 +172,17 @@ public class Utilities {
         }
     }
 
-
-
-
-
+    /**
+     * Genera un mensaje en formato HTML para notificar a un usuario que un evento en el que participa ha sido modificado.
+     *
+     * <p>El mensaje incluye todos los detalles actualizados del evento, como el título, la descripción, fechas, ubicación,
+     * categoría, subcategoría, tipo de evento y nombre del organizador. Está diseñado para ser enviado por correo
+     * electrónico a los participantes.</p>
+     *
+     * @param evento el objeto {@code Evento} que contiene la información actualizada del evento modificado.
+     * @param nombreParticipante el nombre del usuario participante que recibirá el mensaje.
+     * @return una cadena HTML con el contenido del mensaje de modificación del evento, personalizado para el participante.
+     */
     public static String generarMensajeEventoModificado(Evento evento, String nombreParticipante) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -194,7 +238,7 @@ public class Utilities {
                 fechaFinFormateada,
                 evento.getDireccion(),
                 evento.getLocalidad(),
-                evento.getProvincia(),
+                evento.getProvincia().getNombre(),
                 evento.getSubcategoria().getCategoria().getNombre(),
                 evento.getSubcategoria().getNombre(),
                 evento.getModo(),
@@ -202,7 +246,15 @@ public class Utilities {
         );
     }
 
-
+    /**
+     * Envía un correo electrónico de notificación a todos los participantes de un evento que ha sido modificado.
+     *
+     * <p>Este método recorre la lista de usuarios inscritos en el evento proporcionado y les envía un correo
+     * personalizado con los nuevos detalles del evento.</p>
+     *
+     * @param asunto el asunto del correo electrónico.
+     * @param evento el objeto {@code Evento} con la información actualizada del evento modificado.
+     */
     public static void enviarEmailEventoModificadoAParticipantes(String asunto, Evento evento) {
 
         String destinatario;

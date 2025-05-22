@@ -502,6 +502,22 @@ footer span:hover {
     margin-left: 250px;
 }
 
+.estadistica-card {
+    max-width: 300px;
+}
+
+.avatar-estadistica {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid var(--color-primario);
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 /*---------------SOBRE-NOSOTROS-----------*/
 
 .sobre-nosotros {
@@ -583,7 +599,7 @@ footer span:hover {
 }
 
 .page-list {
-    color: white !important;
+    color: #000 !important;
 }
 
 .page-link {
@@ -616,6 +632,12 @@ input[type='checkbox']:checked {
     background-color: #AF8EE0 !important;
     border-color: rgba(75, 30, 138, 1) !important;
     color: var(--color-texto);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--color-primario) !important;
+    border-color: var(--color-secundario) !important;
+    color: var(--color-texto) !important;
 }
 
 /*------[ SOMBRAS ]-------*/

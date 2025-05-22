@@ -27,6 +27,7 @@ fetch('Ajax', {
             type: 'line',
             data: chartData,
             options: {
+
                 responsive: true,
                 plugins: {
                     legend: {

@@ -7,16 +7,16 @@
         <button type="submit" name="accion" value="Dashboard" class="btn text-white text-start w-100">Dashboard</button>
     </form>
     <form action="${contexto}/FrontController" method="post">
-        <button type="submit" name="accion" value="usuarios" class="btn text-white text-start w-100">Gesti&oacute;n de Usuarios</button>
+        <button type="submit" name="accion" value="Ver-AllUsuarios" class="btn text-white text-start w-100">Gesti&oacute;n de Usuarios</button>
     </form>
     <form action="${contexto}/FrontController" method="post">
-        <button type="submit" name="accion" value="eventos" class="btn text-white text-start w-100">Gesti&oacute;n de Eventos</button>
+        <button type="submit" name="accion" value="Ver-AllEventos" class="btn text-white text-start w-100">Gesti&oacute;n de Eventos</button>
     </form>
     <form action="${contexto}/FrontController" method="post">
-        <button type="submit" name="accion" value="configuracion" class="btn text-white text-start w-100">Gesti&oacute;n de Categor&iacute;as</button>
+        <button type="submit" name="accion" value="Ver-AllCategorias" class="btn text-white text-start w-100">Gesti&oacute;n de Categor&iacute;as</button>
     </form>
     <form action="${contexto}/FrontController" method="post">
-        <button type="submit" name="accion" value="Ver-Estadisticas" class="btn text-white text-start w-100">Estad&iacute;sticas</button>
+        <button type="submit" name="accion" value="Ver-Estadisticas" class="btn text-white text-start w-100">Estad&iacute;sticas Generales</button>
     </form>
     <form action="${contexto}/Login" method="post">
         <button type="submit" name="accion" value="Logout" class="btn text-white text-start w-100">Cerrar sesi&oacute;n</button>

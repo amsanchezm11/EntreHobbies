@@ -43,8 +43,9 @@ public class CargarAllUsuariosAjax extends HttpServlet {
             map.put("fechaNacimiento", fila[6]);
             map.put("localidad", fila[7]);
             map.put("provincia", fila[8]);
-            map.put("eventosCreados", fila[9]);
-            map.put("eventosParticipados", fila[10]);
+            map.put("avatar", fila[9]);
+            map.put("eventosCreados", fila[10]);
+            map.put("eventosParticipados", fila[11]);
             jsonList.add(map);
         }
 
