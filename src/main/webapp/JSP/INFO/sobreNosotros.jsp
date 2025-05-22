@@ -10,13 +10,21 @@
 
 </head>
 <body class="d-flex flex-column min-vh-100 bg-body text-body position-relative w-100 h-100 bg-gradient-morado-blanco">
-<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-body-tertiary border-bottom sticky-top">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <form action="${contexto}/FrontController" method="post">
-            <button class="navbar-brand btn btn-refresh" name="accion" value="Refresh">EntreHobbies</button>
-        </form>
-    </div>
-</nav>
+<%--<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-body-tertiary border-bottom sticky-top">--%>
+<%--    <div class="container-fluid d-flex justify-content-between align-items-center">--%>
+<%--        <form action="${contexto}/FrontController" method="post">--%>
+<%--            <button class="navbar-brand btn btn-refresh" name="accion" value="Refresh">EntreHobbies</button>--%>
+<%--        </form>--%>
+<%--    </div>--%>
+<%--</nav>--%>
+<c:choose>
+    <c:when test="${sessionScope.usuario != null}">
+        <c:import url="/INC/navbarUsuario.jsp"/>
+    </c:when>
+    <c:otherwise>
+        <c:import url="/INC/navbarDefault.jsp"/>
+    </c:otherwise>
+</c:choose>
 
 <main class="flex-grow-1">
     <div class="container py-5">
