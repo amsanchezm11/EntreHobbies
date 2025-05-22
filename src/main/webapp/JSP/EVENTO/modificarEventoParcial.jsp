@@ -18,7 +18,7 @@
 
 <div class="d-flex h-100 justify-content-center align-items-start pt-5">
     <form id="multiStepForm" action="${contexto}/EventoController" method="post"
-          style="min-width: 600px; margin: 0 auto;" class="mt-3">
+          style="margin: 0 auto;" class="mt-3">
         <input type="hidden" class="is-valid" name="idEvento" value="${sessionScope.evento.idEvento}">
         <input type="hidden" class="is-valid" name="Modificacion" value="Parcial">
         <div class="step active">
@@ -184,8 +184,9 @@
 
             <div class="input-group mb-3">
                 <div class="form-floating flex-grow-1">
-                    <input type="text" class="form-control is-valid" id="provincia" name="provincia" maxlength="50"
-                           placeholder="Provincia" value="${sessionScope.evento.provincia}" readonly required>
+                    <input type="hidden" class="is-valid" name="idProvincia" value="${sessionScope.evento.provincia.idProvincia}">
+                    <input type="text" class="form-control is-valid" id="provincia" name="provinciaTexto" maxlength="50"
+                           placeholder="Provincia" value="${sessionScope.evento.provincia.nombre}" readonly required>
                     <label for="provincia">Provincia</label>
                 </div>
                 <span class="input-group-text bg-light" style="cursor: pointer;" role="button"

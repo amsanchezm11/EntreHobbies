@@ -17,7 +17,7 @@
             </button>
           </div>
           <div>
-            <button type="submit" name="accion" value="Contacto" class="btn text-decoration-none text-body-emphasis p-0">
+            <button type="submit" name="accion" value="Contacto" class="btn text-decoration-none text-body-emphasis p-0" disabled>
               Contacto
             </button>
           </div>

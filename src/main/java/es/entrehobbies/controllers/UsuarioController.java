@@ -1,8 +1,10 @@
 package es.entrehobbies.controllers;
 
 import es.entrehobbies.DAO.IGenericoDAO;
+import es.entrehobbies.DAO.IProvinciaDAO;
 import es.entrehobbies.DAO.IUsuarioDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
+import es.entrehobbies.beans.Provincia;
 import es.entrehobbies.beans.Usuario;
 import es.entrehobbies.models.EnumConverter;
 import es.entrehobbies.models.Utilities;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,13 +55,17 @@ public class UsuarioController extends HttpServlet {
         String confirmPassword = null;
         Usuario usuario = null;
         Usuario usuarioModificado = null;
-        DateConverter converter = null;
+        Provincia provincia = null;
+        int idProvincia;
+        List<Object[]> provincias = null;
+        DateConverter converter;
 
 
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IGenericoDAO daoG = daoF.getGenericoDAO();
         IUsuarioDAO daoU = daoF.getUsuarioDAO();
+        IProvinciaDAO daoP = daoF.getProvinciaDAO();
 
         // Avatar
         String dirImagen = request.getServletContext().getRealPath("/IMG/AVATARES/");
@@ -81,14 +89,22 @@ public class UsuarioController extends HttpServlet {
                 ConvertUtils.register(new EnumConverter(), Usuario.Rol.class);
                 ConvertUtils.register(new EnumConverter(), Usuario.Sexo.class);
 
+                idProvincia = Integer.parseInt(request.getParameter("idProvincia"));
+                provincia = (Provincia) daoG.getById(idProvincia, Provincia.class);
+
                 try {
                     usuario = new Usuario();
+
                     // Rellenamos los datos de usuario que vienen del formulario con BeansUtils
                     BeanUtils.populate(usuario, request.getParameterMap());
                     // Ciframos su contraseña con md5
                     usuario.setPassword(Utilities.md5(usuario.getPassword()));
                     // Le añadimos su rol correspondiente
                     usuario.setRol(Usuario.Rol.Colaborador);
+                    // Le añadimos la provincia
+                    usuario.setProvincia(provincia);
+                    // Le añadimos la fecha de hoy en su fecha de creación
+                    usuario.setFechaCreacion(new Date());
                     // Lo añadimos a la base de datos
                     daoG.insertOrUpdate(usuario);
                     // Gestionamos el enviar correo de bienvenida
@@ -135,7 +151,6 @@ public class UsuarioController extends HttpServlet {
                     // Notificamos que se ha hecho el registro correctamente
                     request.setAttribute("aviso", "Te has registrado correctamente");
 
-
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, e);
                 }
@@ -145,6 +160,9 @@ public class UsuarioController extends HttpServlet {
 
                 // Recuperamos el usuario de la sesión
                 usuario = (Usuario) request.getSession().getAttribute("usuario");
+                // Obtenemos su provincia
+                idProvincia = Integer.parseInt(request.getParameter("idProvincia"));
+                provincia = (Provincia) daoG.getById(idProvincia, Provincia.class);
                 // Convertimos la fecha y el enum antes de utilizar BeansUtils
                 converter = new DateConverter();
                 converter.setPattern("yyyy-MM-dd");
@@ -159,6 +177,10 @@ public class UsuarioController extends HttpServlet {
                     usuarioModificado.setIdUsuario(usuario.getIdUsuario());
                     // Añadimos la contraseña al usuario modificado
                     usuarioModificado.setPassword(usuario.getPassword());
+                    // Le añadimos su provincia
+                    usuarioModificado.setProvincia(provincia);
+                    // Le añadimos la fecha de hoy en su fecha de creación
+                    usuarioModificado.setFechaCreacion(usuario.getFechaCreacion());
                     // Le añadimos su rol correspondiente
                     usuarioModificado.setRol(usuario.getRol());
                     // Le añadimos su sexo
@@ -167,11 +189,15 @@ public class UsuarioController extends HttpServlet {
                     usuarioModificado.setAvatar(usuario.getAvatar());
                     // Lo añadimos a la base de datos
                     daoG.insertOrUpdate(usuarioModificado);
-                    // Añadimos el usuario a la sesión
-                    request.getSession().setAttribute("usuario", usuarioModificado);
+                    // Volvemos a obtener el usuario de la base de datos para el formato de fecha
+                    usuario = daoU.getUsuarioPorId(usuarioModificado.getIdUsuario());
+                    // Añadimos el usuario actual (de la base de datos) a la sesión
+                    request.getSession().setAttribute("usuario", usuario);
                     // Notificamos que se ha hecho el registro correctamente
                     request.setAttribute("aviso", "Datos modificados correctamente");
-                    // Actualizamos la url para redirigir al usuario a su perfil
+                    // Actualizamos la url para redirigir al usuario a su perfil pasando las provincias
+                    provincias = daoP.getAllProvinciasOrdenadas();
+                    request.setAttribute("provincias", provincias);
                     url = "/JSP/USUARIO/perfilUsuario.jsp";
 
                 } catch (IllegalAccessException | InvocationTargetException e) {

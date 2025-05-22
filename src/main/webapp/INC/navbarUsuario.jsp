@@ -46,7 +46,7 @@
                     </li>
                     <li>
                         <form action="${contexto}/FrontController" method="post">
-                            <button class="dropdown-item" name="accion" value="Eventos-Apuntados">Mis Participaciones</button>
+                            <button class="dropdown-item" name="accion" value="Mis-Participaciones">Mis Participaciones</button>
                         </form>
                     </li>
                     <li>

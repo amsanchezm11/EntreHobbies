@@ -2,11 +2,9 @@ package es.entrehobbies.controllers;
 
 import es.entrehobbies.DAO.IEventoDAO;
 import es.entrehobbies.DAO.IGenericoDAO;
+import es.entrehobbies.DAO.IProvinciaDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
-import es.entrehobbies.beans.Categoria;
-import es.entrehobbies.beans.Evento;
-import es.entrehobbies.beans.Subcategoria;
-import es.entrehobbies.beans.Usuario;
+import es.entrehobbies.beans.*;
 import es.entrehobbies.models.EnumConverter;
 import es.entrehobbies.models.Utilities;
 import org.apache.commons.beanutils.BeanUtils;
@@ -46,19 +44,25 @@ public class EventoController extends HttpServlet {
         Evento evento = null;
         Evento eventoModificado = null;
         Categoria categoria = null;
+        Provincia provincia = null;
         Subcategoria subcategoria = null;
         DateConverter converter = null;
         int idEvento;
+        int idProvincia;
         String modificarTipo = null;
 
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IGenericoDAO daoG = daoF.getGenericoDAO();
         IEventoDAO daoE = daoF.getEventoDAO();
+        IProvinciaDAO daoP = daoF.getProvinciaDAO();
 
         switch (accion) {
             case "Crear-Evento":
 
+                // Obtenemos la provincia indicada de la base de datos
+                idProvincia = Integer.parseInt(request.getParameter("idProvincia"));
+                provincia = (Provincia) daoG.getById(idProvincia, Provincia.class);
                 // Convertimos la fecha y el enum antes de utilizar BeansUtils
                 converter = new DateConverter();
                 converter.setPattern("yyyy-MM-dd");
@@ -88,6 +92,8 @@ public class EventoController extends HttpServlet {
                     // Añadimos la categoria y subcategoria al evento
                     subcategoria.setCategoria(categoria);
                     evento.setSubcategoria(subcategoria);
+                    // Le añadimos la provincia
+                    evento.setProvincia(provincia);
                     // Añadimos el evento a la base de datos
                     daoG.insertOrUpdate(evento);
                     // Notificamos al usuario que ha creado el evento correctamente
@@ -118,6 +124,11 @@ public class EventoController extends HttpServlet {
                 break;
 
             case "Modificar-Evento":
+
+                // Obtenemos la provincia indicada de la base de datos
+                idProvincia = Integer.parseInt(request.getParameter("idProvincia"));
+                provincia = (Provincia) daoG.getById(idProvincia, Provincia.class);
+                // Obtenemos el tipo de modificación
                 modificarTipo = request.getParameter("Modificacion");
                 // Obtenemos el evento original de la sesión
                 evento = (Evento) request.getSession().getAttribute("evento");
@@ -142,6 +153,8 @@ public class EventoController extends HttpServlet {
                     eventoModificado.setFechaCreacion(evento.getFechaCreacion());
                     // Le añadimos la subcategoría
                     eventoModificado.setSubcategoria(evento.getSubcategoria());
+                    // Le añadimos la provincia
+                    eventoModificado.setProvincia(provincia);
                     // Comprobamos el tipo de modificación (Parcial = tiene participantes)
                     if (modificarTipo.equals("Parcial")){
                         eventoModificado.setParticipantes(evento.getParticipantes());

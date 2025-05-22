@@ -1,7 +1,5 @@
 package es.entrehobbies.beans;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -62,8 +60,11 @@ public class Evento implements Serializable {
     @Column(name = "Localidad", length = 50, nullable = false)
     private String localidad;
 
-    @Column(name = "Provincia", length = 50, nullable = false)
-    private String provincia;
+    //    @Column(name = "Provincia", length = 50, nullable = false)
+//    private String provincia;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "IdProvincia", nullable = false)
+    private Provincia provincia;
 
     //@Column(name = "ModoEvento", columnDefinition = "VARCHAR(11) NOT NULL DEFAULT 'Comunitario'") ***Revisar
     @Column(name = "ModoEvento", length = 11, nullable = false)
@@ -76,10 +77,9 @@ public class Evento implements Serializable {
     private Estado estado;
 
     @ManyToMany(mappedBy = "eventosParticipados")
-    private List<Usuario> participantes= new ArrayList<>();
+    private List<Usuario> participantes = new ArrayList<>();
 
     // GETTERS AND SETTERS
-
 
     public Integer getIdEvento() {
         return idEvento;
@@ -169,11 +169,19 @@ public class Evento implements Serializable {
         this.localidad = localidad;
     }
 
-    public String getProvincia() {
+//    public String getProvincia() {
+//        return provincia;
+//    }
+//
+//    public void setProvincia(String provincia) {
+//        this.provincia = provincia;
+//    }
+
+    public Provincia getProvincia() {
         return provincia;
     }
 
-    public void setProvincia(String provincia) {
+    public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
     }
 

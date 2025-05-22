@@ -24,8 +24,12 @@ document.getElementById("localidad").addEventListener("input", e => {
     checkLocalidad(e.target);
     validarFormulario('enviar');
 });
-document.getElementById("provincia").addEventListener("input", e => {
-    checkProvincia(e.target);
+// document.getElementById("provincia").addEventListener("input", e => {
+//     checkProvincia(e.target);
+//     validarFormulario('enviar');
+// });
+document.getElementById("provincia").addEventListener("change", e => {
+    checkSelect(e.target);
     validarFormulario('enviar');
 });
 document.getElementById("categoria").addEventListener("change",e=>{
@@ -37,7 +41,9 @@ document.getElementById("subcategoria").addEventListener("change",e=>{
     validarFormulario('enviar');
 });
 document.getElementById("fechaInicio").addEventListener("change", e=> {
+    const fechaFin = document.getElementById("fechaFin");
     checkFechaInicio(e.target);
+    checkFechaFin(fechaFin);
     validarFormulario('enviar');
 });
 document.getElementById("fechaFin").addEventListener("change", e=> {

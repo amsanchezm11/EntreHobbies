@@ -1,4 +1,5 @@
 <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -211,30 +212,56 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="input-group mb-4 shadow">
-                        <div class="form-floating flex-grow-1">
-                            <input type="text"
-                                   class="form-control"
-                                   id="provincia"
-                                   name="provincia"
-                                   placeholder="Provincia"
-                                   required>
-                            <label for="provincia">Provincia</label>
-                        </div>
-                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
-                              title="Formato de provincia"
-                              data-bs-toggle="popover"
-                              data-bs-placement="bottom"
-                              data-bs-html="true"
-                              data-bs-trigger="hover focus"
-                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                          <li>Solo letras (may&uacute;sculas y min&uacute;sculas), incluyendo acentos y &ntilde;.</li>
-                          <li>Espacios solo entre palabras (no al principio, no al final, no dobles).</li>
-                          <li>Longitud m&aacute;xima: 50 caracteres.</li>
-                      </ul>">
+<%--                    <div class="input-group mb-4 shadow">--%>
+<%--                        <div class="form-floating flex-grow-1">--%>
+<%--                            <input type="text"--%>
+<%--                                   class="form-control"--%>
+<%--                                   id="provincia"--%>
+<%--                                   name="provincia"--%>
+<%--                                   placeholder="Provincia"--%>
+<%--                                   required>--%>
+<%--                            <label for="provincia">Provincia</label>--%>
+<%--                        </div>--%>
+<%--                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"--%>
+<%--                              title="Formato de provincia"--%>
+<%--                              data-bs-toggle="popover"--%>
+<%--                              data-bs-placement="bottom"--%>
+<%--                              data-bs-html="true"--%>
+<%--                              data-bs-trigger="hover focus"--%>
+<%--                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>--%>
+<%--                          <li>Solo letras (may&uacute;sculas y min&uacute;sculas), incluyendo acentos y &ntilde;.</li>--%>
+<%--                          <li>Espacios solo entre palabras (no al principio, no al final, no dobles).</li>--%>
+<%--                          <li>Longitud m&aacute;xima: 50 caracteres.</li>--%>
+<%--                      </ul>">--%>
+<%--        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>--%>
+<%--    </span>--%>
+<%--                    </div>--%>
+    <div class="input-group mb-4 shadow">
+        <div class="form-floating flex-grow-1">
+            <select class="form-select"
+                    id="provincia"
+                    name="idProvincia"
+                    required>
+                <option value="" disabled selected>Selecciona una provincia</option>
+                <c:forEach var="provincia" items="${requestScope.provincias}">
+                    <option value="${provincia[0]}">${provincia[1]}</option>
+                </c:forEach>
+            </select>
+            <label for="provincia">Provincia</label>
+        </div>
+        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
+              title="Formato de provincia"
+              data-bs-toggle="popover"
+              data-bs-placement="bottom"
+              data-bs-html="true"
+              data-bs-trigger="hover focus"
+              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+              <li>Selecciona la provincia en la que resides actualmente.</li>
+          </ul>">
         <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
     </span>
-                    </div>
+    </div>
+
                 </div>
 
                 <div class="col-12 text-center">

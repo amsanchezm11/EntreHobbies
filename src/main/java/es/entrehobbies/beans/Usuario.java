@@ -1,9 +1,6 @@
 package es.entrehobbies.beans;
 
 
-
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,25 +60,32 @@ public class Usuario implements Serializable {
     @Column(name = "Localidad", length = 50, nullable = false)
     private String localidad;
 
-    @Column(name = "Provincia", length = 50, nullable = false)
-    private String provincia;
+    //    @Column(name = "Provincia", length = 50, nullable = false)
+//    private String provincia;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "IdProvincia", nullable = false)
+    private Provincia provincia;
 
     // ***De momento este atributo queda pendiente de revisión con el tutor
-   // @Column(name = "UltimoAcceso", nullable = true)
-   //  @Temporal(TemporalType.DATE)
-   // private Date ultimoAcceso;
+    // @Column(name = "UltimoAcceso", nullable = true)
+    //  @Temporal(TemporalType.DATE)
+    // private Date ultimoAcceso;
+
+    @Column(name = "FechaCreacion", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaCreacion;
 
     @Column(name = "Avatar", length = 30, nullable = false)
     private String avatar = "avatar.svg";
 
     @OneToMany(mappedBy = "creador", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Evento> eventosCreados= new ArrayList<>();
+    private List<Evento> eventosCreados = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "participantes_eventos",
             joinColumns = @JoinColumn(name = "IdUsuario"),
             inverseJoinColumns = @JoinColumn(name = "IdEvento"))
-    private List<Evento> eventosParticipados= new ArrayList<>();
+    private List<Evento> eventosParticipados = new ArrayList<>();
 
     // GETTERS AND SETTERS
 
@@ -174,12 +178,27 @@ public class Usuario implements Serializable {
         this.localidad = localidad;
     }
 
-    public String getProvincia() {
+//    public String getProvincia() {
+//        return provincia;
+//    }
+//
+//    public void setProvincia(String provincia) {
+//        this.provincia = provincia;
+//    }
+    public Provincia getProvincia() {
         return provincia;
     }
 
-    public void setProvincia(String provincia) {
+    public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public String getAvatar() {

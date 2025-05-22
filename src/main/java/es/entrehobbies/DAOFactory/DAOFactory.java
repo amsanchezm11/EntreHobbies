@@ -19,6 +19,8 @@ public abstract class DAOFactory {
 
     public abstract ISubcategoriaDAO getSubcategoriaDAO();
 
+    public abstract IProvinciaDAO getProvinciaDAO();
+
     /**
      * Fábrica abstracta
      *

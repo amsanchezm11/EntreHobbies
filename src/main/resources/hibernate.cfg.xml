@@ -14,5 +14,6 @@
         <mapping class="es.entrehobbies.beans.Evento"/>
         <mapping class="es.entrehobbies.beans.Categoria"/>
         <mapping class="es.entrehobbies.beans.Subcategoria"/>
+        <mapping class="es.entrehobbies.beans.Provincia"/>
     </session-factory>
 </hibernate-configuration>

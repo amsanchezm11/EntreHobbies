@@ -1,4 +1,14 @@
-import {checkNombre, checkApellidos, checkFechaNacimiento, checkLocalidad, checkProvincia, checkAvatar, validarBoton, validarFormularioPassword} from "../regex.js";
+import {
+    checkNombre,
+    checkApellidos,
+    checkFechaNacimiento,
+    checkLocalidad,
+    checkProvincia,
+    checkAvatar,
+    validarBoton,
+    validarFormularioPassword,
+    checkSelect
+} from "../regex.js";
 
 //-----------------------------------------
 // Validación formulario de modificar datos de usuario
@@ -19,8 +29,12 @@ document.getElementById("localidad").addEventListener("input", e => {
     checkLocalidad(e.target);
     validarBoton('localidad','boton-datos');
 });
-document.getElementById("provincia").addEventListener("input", e => {
-    checkProvincia(e.target);
+// document.getElementById("provincia").addEventListener("input", e => {
+//     checkProvincia(e.target);
+//     validarBoton('provincia','boton-datos');
+// });
+document.getElementById("provincia").addEventListener("change", e => {
+    checkSelect(e.target);
     validarBoton('provincia','boton-datos');
 });
 
@@ -32,7 +46,9 @@ document.getElementById("avatar").addEventListener("change", e => {
     validarBoton('avatar','boton-avatar');
 });
 
-
+//-----------------------------------------
+// Validación formulario de modificar password de usuario
+//-----------------------------------------
 document.getElementById("nuevaPass").addEventListener("input", e => {
     validarFormularioPassword('boton-password');
 });

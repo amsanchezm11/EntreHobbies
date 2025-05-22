@@ -166,7 +166,7 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
 
             Query<Object[]> query = sesion.createQuery(
                     "SELECT u.idUsuario, u.nombre, u.apellidos, u.username, u.email, u.telefono, " +
-                            "u.fechaNacimiento, u.localidad, u.provincia, " +
+                            "u.fechaNacimiento, u.localidad, u.provincia.nombre, u.avatar, " +
                             "(SELECT COUNT(e1) FROM Evento e1 WHERE e1.creador.idUsuario = u.idUsuario), " +
                             "(SELECT COUNT(e2) FROM Evento e2 JOIN e2.participantes p WHERE p.idUsuario = u.idUsuario) " +
                             "FROM Usuario u",
@@ -181,6 +181,94 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
         }
         return resultados;
     }
+
+    @Override
+    public Usuario getUsuarioPorId(int idUsuario) {
+        Usuario user = null;
+        try {
+            startTransaction();
+
+            Query<Usuario> query = sesion.createQuery(
+                    "FROM Usuario u WHERE u.idUsuario = :idUsuario", Usuario.class);
+            query.setParameter("idUsuario", idUsuario);
+            user = query.uniqueResult();
+
+            if (user != null) {
+                System.out.println("Usuario encontrado: " + user.getEmail());
+            } else {
+                System.out.println("No se encontró ningún usuario con esos datos");
+            }
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return user;
+    }
+
+    @Override
+    public Object[] getUsuarioConMasEventosCreados() {
+        Object[] resultado = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.creador.username, e.creador.avatar, COUNT(e) as numEventos " +
+                            "FROM Evento e " +
+                            "GROUP BY e.creador.username, e.creador.avatar " +
+                            "ORDER BY numEventos DESC", Object[].class);
+            query.setMaxResults(1);
+
+            resultado = query.uniqueResult();
+
+            if (resultado != null) {
+                String username = (String) resultado[0];
+                String avatar = (String) resultado[1];
+                Long numEventos = (Long) resultado[2];
+                System.out.println("Usuario: " + username + ", Avatar: " + avatar + ", Eventos: " + numEventos);
+            } else {
+                System.out.println("No se encontraron eventos.");
+            }
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultado;
+    }
+
+    @Override
+    public Object[] getUsuarioConMasEventosParticipados() {
+        Object[] resultado = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT u.username, u.avatar, COUNT(e) as numParticipaciones " +
+                            "FROM Usuario u JOIN u.eventosParticipados e " +
+                            "GROUP BY u.username, u.avatar " +
+                            "ORDER BY numParticipaciones DESC", Object[].class);
+            query.setMaxResults(1);
+
+            resultado = query.uniqueResult();
+
+            if (resultado != null) {
+                String username = (String) resultado[0];
+                String avatar = (String) resultado[1];
+                Long numParticipaciones = (Long) resultado[2];
+                System.out.println("Usuario: " + username + ", Avatar: " + avatar + ", Participaciones: " + numParticipaciones);
+            } else {
+                System.out.println("No se encontraron participaciones.");
+            }
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultado;
+    }
+
+
 
 
 }

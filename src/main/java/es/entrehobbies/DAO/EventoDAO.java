@@ -24,7 +24,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
 
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
-                            "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.username, COUNT(p) " +
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes p " +
@@ -32,7 +32,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "AND e.estado = 'Por_Empezar' " +
                             "AND e.fechaInicio BETWEEN :primerDia AND :ultimoDia " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
-                            "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.username " +
                             "ORDER BY e.fechaCreacion DESC",
                     Object[].class
@@ -61,7 +61,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
             // Consulta HQL para obtener los eventos creados por el usuario, con la información solicitada y ordenados por fecha de creación
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
-                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre,e.direccion, e.localidad, e.provincia, e.estado, e.numParticipantes, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre,e.direccion, e.localidad, e.provincia.nombre, e.estado, e.numParticipantes, " +
                             "COUNT(ep) " +
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes ep " +
@@ -89,7 +89,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
 
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
-                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia, e.numParticipantes, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, e.numParticipantes, " +
                             "COUNT(ep) " +
                             "FROM Evento e " +
                             "JOIN e.participantes p " +
@@ -181,9 +181,9 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
             startTransaction();
 
             Query<Object[]> query = sesion.createQuery(
-                    "SELECT e.provincia, COUNT(e)\n" +
+                    "SELECT e.provincia.nombre, COUNT(e)\n" +
                             "FROM Evento e\n" +
-                            "GROUP BY e.provincia\n" +
+                            "GROUP BY e.provincia.nombre\n" +
                             "ORDER BY COUNT(e) DESC\n",
                     Object[].class
             ).setMaxResults(5); // LIMIT 5
@@ -306,7 +306,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
 
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
-                            "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
                             "e.subcategoria.nombre, e.creador.username, COUNT(p), e.creador.idUsuario " +
                             "FROM Evento e " +
@@ -315,7 +315,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "AND e.estado = 'Por_Empezar' " +
                             "AND e.fechaInicio BETWEEN :primerDia AND :ultimoDia " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
-                            "e.numParticipantes, e.direccion, e.localidad, e.provincia, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
                             "e.subcategoria.nombre, e.creador.username, e.creador.idUsuario " +
                             "ORDER BY e.fechaCreacion DESC",
@@ -370,7 +370,6 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         try {
             startTransaction();
 
-            // 1. Cargar el evento con sus relaciones principales
             Query<Evento> query = sesion.createQuery(
                     "SELECT e FROM Evento e " +
                             "JOIN FETCH e.creador " +
@@ -381,7 +380,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
             query.setParameter("idEvento", idEvento);
             evento = query.getSingleResult();
 
-            // 2. Inicializar colecciones lazy (participantes y subcategorías)
+            // Obtenemos las colecciones lazy (participantes y subcategorías)
             Hibernate.initialize(evento.getParticipantes());
             Hibernate.initialize(evento.getSubcategoria().getCategoria().getSubcategorias());
 
@@ -393,7 +392,33 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         return evento;
     }
 
+    @Override
+    public List<Object[]> getAllEventosResumen() {
+        List<Object[]> resultados = null;
+        try {
+            startTransaction();
 
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaInicio, e.fechaFin, " +
+                            "e.localidad, e.provincia.nombre, e.creador.username, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, " +
+                            "e.modo, e.estado, COUNT(p), e.numParticipantes " +
+                            "FROM Evento e LEFT JOIN e.participantes p " +
+                            "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaInicio, e.fechaFin, " +
+                            "e.localidad, e.provincia.nombre, e.creador.username, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, " +
+                            "e.modo, e.estado, e.numParticipantes",
+                    Object[].class
+            );
+
+            resultados = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultados;
+    }
 
 
 }

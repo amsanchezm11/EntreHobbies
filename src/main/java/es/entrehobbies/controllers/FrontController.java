@@ -1,8 +1,6 @@
 package es.entrehobbies.controllers;
 
-import es.entrehobbies.DAO.ICategoriaDAO;
-import es.entrehobbies.DAO.IEventoDAO;
-import es.entrehobbies.DAO.IGenericoDAO;
+import es.entrehobbies.DAO.*;
 import es.entrehobbies.DAOFactory.DAOFactory;
 import es.entrehobbies.beans.Evento;
 import es.entrehobbies.beans.Usuario;
@@ -35,18 +33,20 @@ public class FrontController extends HttpServlet {
 
         String url = ".";
         String accion = request.getParameter("accion");
-        ;
         Usuario user = null;
         Evento evento = null;
         List<Object[]> listaObjetos = null;
+        List<Object[]> listaProvincias = null;
         int idCategoria;
         int idEvento;
         String nombreCategoria;
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IGenericoDAO daoG = daoF.getGenericoDAO();
+        IUsuarioDAO daoU = daoF.getUsuarioDAO();
         ICategoriaDAO daoC = daoF.getCategoriaDAO();
         IEventoDAO daoE = daoF.getEventoDAO();
+        IProvinciaDAO daoP = daoF.getProvinciaDAO();
 
         switch (accion) {
             case "Refresh":
@@ -64,10 +64,24 @@ public class FrontController extends HttpServlet {
                 url = "/JSP/LOGIN/login.jsp";
                 break;
             case "Registro-usuario":
-                url = "/JSP/USUARIO/registroUsuario.jsp";
+                // Obtenemos las provincias para el select de provincias
+                listaProvincias = daoP.getAllProvinciasOrdenadas();
+                if (listaProvincias != null && !listaProvincias.isEmpty()) {
+                    request.setAttribute("provincias", listaProvincias);
+                    url = "/JSP/USUARIO/registroUsuario.jsp";
+                } else {
+                    url = "/JSP/AVISOS/noProvincias.jsp";
+                }
                 break;
             case "Mi-Cuenta":
-                url = "/JSP/USUARIO/perfilUsuario.jsp";
+                // Obtenemos las provincias para el select de provincias
+                listaProvincias = daoP.getAllProvinciasOrdenadas();
+                if (listaProvincias != null && !listaProvincias.isEmpty()) {
+                    request.setAttribute("provincias", listaProvincias);
+                    url = "/JSP/USUARIO/perfilUsuario.jsp";
+                } else {
+                    url = "/JSP/AVISOS/noProvincias.jsp";
+                }
                 break;
             case "Ver-Estadisticas":
                 url = "/JSP/ADMIN/estadisticasAdministrador.jsp";
@@ -95,9 +109,13 @@ public class FrontController extends HttpServlet {
             case "Crear-Evento":
                 // Obtenemos las categorias para los eventos
                 listaObjetos = daoC.getAllCategoriasOrdenadas();
+                // Obtenemos las provincias para el select de provincias
+                listaProvincias = daoP.getAllProvinciasOrdenadas();
                 // Comprobamos que la lista venga can datos y redireccionamos según el resultado obtenido
-                if (listaObjetos != null && !listaObjetos.isEmpty()) {
+                if (listaObjetos != null && !listaObjetos.isEmpty()
+                        && listaProvincias != null && !listaProvincias.isEmpty()) {
                     request.setAttribute("categorias", listaObjetos);
+                    request.setAttribute("provincias", listaProvincias);
                     url = "/JSP/EVENTO/crearEvento.jsp";
                 } else {
                     request.setAttribute("error", "No se han encontrado categorías");
@@ -146,6 +164,22 @@ public class FrontController extends HttpServlet {
             case "Ver-AllUsuarios":
                 url = "/JSP/ADMIN/verTodosUsuarios.jsp";
                 break;
+            case "Ver-AllEventos":
+                url = "/JSP/ADMIN/verTodosEventos.jsp";
+                break;
+            case "Ver-AllCategorias":
+                url = "/JSP/ADMIN/verTodasCategorias.jsp";
+                break;
+            case "Estadisticas-Usuario":
+                // Obtenemos el usuario con más eventos creados
+                Object[] usuarioCreador = daoU.getUsuarioConMasEventosCreados();
+                request.setAttribute("usuariocreador", usuarioCreador);
+                // Obtenemos el usuario con más participaciones
+                Object[] usuarioParticipante = daoU.getUsuarioConMasEventosParticipados();
+                request.setAttribute("usuarioparticipante", usuarioParticipante);
+                url = "/JSP/ADMIN/estadisticasUsuarios.jsp";
+
+                break;
 
             case "Ver-Eventos-Logueado":
                 // Obtenemos el usuario de la sesión
@@ -170,32 +204,41 @@ public class FrontController extends HttpServlet {
                 // Obtenemos el id del evento a modificar
                 idEvento = Integer.parseInt(request.getParameter("idEvento"));
                 evento = daoE.getEventoCompletoPorId(idEvento);
-                // Comprobamos que el evento exista en la base de datos
-                if (evento != null) {
-                    // Añadimos el evento a la sesión
-                    request.getSession().setAttribute("evento", evento);
-                    // Comprobamos si el evento tiene o no participantes
-                    if (!evento.getParticipantes().isEmpty()) {
-                    /* En caso de tener participantes lo llevamos a un formulario parcial donde
-                    solo modificará la dirección, fecha de inicio y fecha de fin */
-                        url = "/JSP/EVENTO/modificarEventoParcial.jsp";
-                    } else {
-                        // Obtenemos las categorias para los eventos
-                        listaObjetos = daoC.getAllCategoriasOrdenadas();
-                        // Comprobamos que la lista venga con datos y redireccionamos según el resultado obtenido
-                        if (listaObjetos != null && !listaObjetos.isEmpty()) {
-                            request.setAttribute("categorias", listaObjetos);
-                            url = "/JSP/EVENTO/modificarEvento.jsp";
+                // Obtenemos las provincias para el select de provincias
+                listaProvincias = daoP.getAllProvinciasOrdenadas();
+                // Comprobamos que la lista de provincias tenga datos
+                if (listaProvincias != null && !listaProvincias.isEmpty()) {
+                    // Pasamos la lista de provincias por petición
+                    request.setAttribute("provincias", listaProvincias);
+                    // Comprobamos que el evento exista en la base de datos
+                    if (evento != null) {
+                        // Añadimos el evento a la sesión
+                        request.getSession().setAttribute("evento", evento);
+                        // Comprobamos si el evento tiene o no participantes
+                        if (!evento.getParticipantes().isEmpty()) {
+                            /* En caso de tener participantes lo llevamos a un formulario parcial donde
+                            solo modificará la dirección, fecha de inicio y fecha de fin */
+                            url = "/JSP/EVENTO/modificarEventoParcial.jsp";
                         } else {
-                            request.setAttribute("error", "No se han encontrado categorías");
-                            url = "/JSP/AVISOS/error500.jsp";
+                            // Obtenemos las categorias para los eventos
+                            listaObjetos = daoC.getAllCategoriasOrdenadas();
+                            // Comprobamos que la lista venga con datos y redireccionamos según el resultado obtenido
+                            if (listaObjetos != null && !listaObjetos.isEmpty()) {
+                                request.setAttribute("categorias", listaObjetos);
+                                url = "/JSP/EVENTO/modificarEvento.jsp";
+                            } else {
+                                request.setAttribute("error", "No se han encontrado categorías");
+                                url = "/JSP/AVISOS/error500.jsp";
+                            }
                         }
+                    } else {
+                        request.setAttribute("error", "No se han encontrado el evento");
+                        url = "/JSP/AVISOS/noEventosCategoria.jsp";
                     }
                 } else {
-                    request.setAttribute("error", "No se han encontrado el evento");
-                    url = "/JSP/AVISOS/noEventosCategoria.jsp";
+                    request.setAttribute("error", "No se han encontrado provincias.");
+                    url = "/JSP/AVISOS/noProvincias.jsp";
                 }
-
                 break;
             case "Mis-Participaciones":
 

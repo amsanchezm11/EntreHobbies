@@ -34,4 +34,9 @@ public class MySQLDAOFactory extends DAOFactory{
     public ISubcategoriaDAO getSubcategoriaDAO() {
         return new SubcategoriaDAO();
     }
+
+    @Override
+    public IProvinciaDAO getProvinciaDAO() {
+        return new ProvinciaDAO();
+    }
 }

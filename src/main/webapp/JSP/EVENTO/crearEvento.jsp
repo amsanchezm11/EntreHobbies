@@ -11,14 +11,14 @@
     <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/validarEvento.js" defer></script>
 </head>
-<body class="body-custom bg-gradient-morado-blanco p-4" style="margin-top: 70px;">
+<body class="body-custom bg-gradient-morado-blanco p-4 mt-5">
 <c:import url="/INC/navbarCreate.jsp"/>
 
 <h1 class="text-light mb-3 position-relative text-footer" style="z-index: -10;">Nuevo Evento</h1>
 
 <div class="d-flex h-100 justify-content-center align-items-start pt-5">
     <form id="multiStepForm" action="${contexto}/EventoController" method="post"
-          style="min-width: 600px; margin: 0 auto;" class="mt-3">
+          style="margin: 0 auto;" class="mt-3">
         <div class="step active">
             <div class="form-floating mb-4">
                 <h3 class="text-light text-titulo">Paso 1: Informaci&oacute;n general del evento</h3>
@@ -28,7 +28,8 @@
                 <div class="col-md-6">
                     <div class="input-group mb-4">
                         <div class="form-floating flex-grow-1">
-                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="T&iacute;tulo"
+                            <input type="text" class="form-control" id="titulo" name="titulo"
+                                   placeholder="T&iacute;tulo"
                                    required>
                             <label for="titulo">T&iacute;tulo</label>
                         </div>
@@ -50,7 +51,7 @@
 
                     <div class="input-group mb-4">
                         <div class="form-floating flex-grow-1">
-                            <input type="number" class="form-control" id="numParticipantes" step="1" min="1"
+                            <input type="number" class="form-control" id="numParticipantes" step="1" min="1" max="5000"
                                    name="numParticipantes" placeholder="N&uacute;mero de participantes" required>
                             <label for="numParticipantes">N&uacute;mero de participantes</label>
                         </div>
@@ -62,7 +63,8 @@
                               data-bs-trigger="hover focus"
                               data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
                         <li>Indica cu&aacute;ntas personas pueden participar en el evento.</li>
-                        <li>Debe ser un n&uacute;mero entero mayor o igual a 1.</li>
+                        <li><strong>M&iacute;nimo:</strong>1 participante.</li>
+                        <li><strong>M&aacute;ximo:</strong>5000 participantes.</li>
                       </ul>">
                     <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
                 </span>
@@ -121,14 +123,36 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="form-floating mb-3">
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripci&oacute;n"
-                          maxlength="255"></textarea>
+                    <div class="form-floating mb-1">
+      <textarea class="form-control" id="descripcion" name="descripcion" rows="3"
+                placeholder="Descripci&oacute;n"
+                maxlength="255"></textarea>
                         <label for="descripcion">Descripci&oacute;n</label>
-                        <small id="charCount" class="form-text text-light d-block text-end">0/255 caracteres</small>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center text-light small">
+                        <span></span>
+                        <div class="d-flex align-items-center">
+                            <small id="charCount" class="form-text text-light fs-6 me-2">0/255 caracteres</small>
+                            <span class="input-group-text bg-light p-1" style="cursor: pointer;" role="button"
+                                  title="Descripci&oacute;n"
+                                  data-bs-toggle="popover"
+                                  data-bs-placement="top"
+                                  data-bs-html="true"
+                                  data-bs-trigger="hover focus"
+                                  data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                <li>Describe claramente en qué consiste tu evento.</li>
+                <li>Puedes incluir detalles como lugar, horario o recomendaciones.</li>
+                <li>Evita repetir el título en la descripción.</li>
+                <li>Longitud máxima: 255 caracteres.</li>
+              </ul>">
+          <i class="bi bi-info-circle" style="font-size: 1.1rem;"></i>
+        </span>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
             <button type="button" class="btn btn-main btn-lg" onclick="nextStep()">Siguiente</button>
         </div>
@@ -179,9 +203,21 @@
             </div>
 
             <div class="input-group mb-3">
+                <%--                <div class="form-floating flex-grow-1">--%>
+                <%--                    <input type="text" class="form-control" id="provincia" name="provincia" maxlength="50"--%>
+                <%--                           placeholder="Provincia" required>--%>
+                <%--                    <label for="provincia">Provincia</label>--%>
+                <%--                </div>--%>
                 <div class="form-floating flex-grow-1">
-                    <input type="text" class="form-control" id="provincia" name="provincia" maxlength="50"
-                           placeholder="Provincia" required>
+                    <select class="form-select"
+                            id="provincia"
+                            name="idProvincia"
+                            required>
+                        <option value="" disabled selected>Selecciona una provincia</option>
+                        <c:forEach var="provincia" items="${requestScope.provincias}">
+                            <option value="${provincia[0]}">${provincia[1]}</option>
+                        </c:forEach>
+                    </select>
                     <label for="provincia">Provincia</label>
                 </div>
                 <span class="input-group-text bg-light" style="cursor: pointer;" role="button"
@@ -192,7 +228,6 @@
                       data-bs-trigger="hover focus"
                       data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
                 <li>Especifica la provincia donde se desarrollar&aacute; el evento.</li>
-                <li>M&aacute;ximo 50 caracteres.</li>
               </ul>">
             <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
         </span>
@@ -247,7 +282,9 @@
             </div>
 
             <button type="button" class="btn btn-secondary btn-lg" onclick="prevStep()">Anterior</button>
-            <button type="submit" class="btn btn-login btn-lg" id="enviar" name="accion" value="Crear-Evento" disabled>Crear Evento</button>
+            <button type="submit" class="btn btn-login btn-lg" id="enviar" name="accion" value="Crear-Evento" disabled>
+                Crear Evento
+            </button>
         </div>
     </form>
 </div>

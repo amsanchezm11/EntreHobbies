@@ -31,5 +31,7 @@ public interface IEventoDAO {
 
     public Evento getEventoCompletoPorId(int idEvento);
 
+    public List<Object[]> getAllEventosResumen();
+
 
 }

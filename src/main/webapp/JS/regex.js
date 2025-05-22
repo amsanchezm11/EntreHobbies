@@ -278,7 +278,8 @@ export function checkCondiciones(element) {
 
 // Función para validar el titulo del evento
 export function checkTitulo(element) {
-    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s,]{1,40}$/;
+    // const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s,]{1,40}$/;
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s,.\-:]{1,40}$/;
     return comprobarRegex(element, regex, 40);
 }
 
@@ -286,7 +287,7 @@ export function checkTitulo(element) {
 export function checkNumParticipantes(element) {
     const numero = parseInt(element.value, 10);
 
-    if (!Number.isInteger(numero) || numero < 1) {
+    if (!Number.isInteger(numero) || numero < 1 || numero > 5000) {
         element.classList.remove("is-valid");
         element.classList.add("is-invalid");
         return false;
@@ -299,7 +300,8 @@ export function checkNumParticipantes(element) {
 
 // Función para validar la descripción de un evento
 export function checkDescripcion(element) {
-    let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,ºª°/#\-]+$/;
+    // let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,ºª°/#\-]+$/;
+    let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,ºª°/#:\-()¡!]+$/;
     return comprobarRegex(element, regex, 255);
 }
 

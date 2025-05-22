@@ -5,7 +5,6 @@ import {
     checkFechaInicio,
     checkLocalidad,
     checkNumParticipantes,
-    checkProvincia,
     checkSelect,
     checkTitulo,
     validarFormulario
@@ -34,8 +33,12 @@ document.getElementById("localidad").addEventListener("change", e => {
     checkLocalidad(e.target);
     validarFormulario('enviar');
 });
+// document.getElementById("provincia").addEventListener("change", e => {
+//     checkProvincia(e.target);
+//     validarFormulario('enviar');
+// });
 document.getElementById("provincia").addEventListener("change", e => {
-    checkProvincia(e.target);
+    checkSelect(e.target);
     validarFormulario('enviar');
 });
 document.getElementById("fechaInicio").addEventListener("change", e => {

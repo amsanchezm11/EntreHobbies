@@ -19,8 +19,12 @@ document.getElementById("localidad").addEventListener("input", e => {
     checkLocalidad(e.target);
     validarFormulario('enviar');
 });
-document.getElementById("provincia").addEventListener("input", e => {
-    checkProvincia(e.target);
+// document.getElementById("provincia").addEventListener("input", e => {
+//     checkProvincia(e.target);
+//     validarFormulario('enviar');
+// });
+document.getElementById("provincia").addEventListener("change", e => {
+    checkSelect(e.target);
     validarFormulario('enviar');
 });
 document.getElementById("password").addEventListener("input", e => {

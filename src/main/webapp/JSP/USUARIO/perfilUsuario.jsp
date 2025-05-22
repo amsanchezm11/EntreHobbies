@@ -149,9 +149,20 @@
                                     <label for="telefono">Tel&eacute;fono</label>
                                 </div>
 
+<%--                                <div class="form-floating mb-3">--%>
+<%--                                    <input type="text" name="provincia" class="form-control" id="provincia"--%>
+<%--                                           value="${sessionScope.usuario.provincia.nombre}">--%>
+<%--                                    <label for="provincia">Provincia</label>--%>
+<%--                                </div>--%>
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="provincia" class="form-control" id="provincia"
-                                           value="${sessionScope.usuario.provincia}">
+                                    <select name="idProvincia" class="form-select" id="provincia">
+                                        <c:forEach var="provincia" items="${requestScope.provincias}">
+                                            <option value="${provincia[0]}"
+                                                    <c:if test="${provincia[0] == sessionScope.usuario.provincia.idProvincia}">selected</c:if>>
+                                                    ${provincia[1]}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
                                     <label for="provincia">Provincia</label>
                                 </div>
                             </div>

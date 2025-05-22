@@ -34,4 +34,12 @@ public interface IUsuarioDAO {
 
     public List<Object[]> getAllUsuariosResumen();
 
+    public Usuario getUsuarioPorId(int idUsuario);
+
+    public Object[] getUsuarioConMasEventosCreados();
+
+    public Object[] getUsuarioConMasEventosParticipados();
+
+
+
 }
