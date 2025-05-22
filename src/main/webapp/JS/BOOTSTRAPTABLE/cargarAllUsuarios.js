@@ -13,6 +13,9 @@ $(function () {
         formatRecordsPerPage: function (pageNumber) {
             return `Usuarios por página: ${pageNumber}`;
         },
+        formatNoMatches: function () {
+            return 'No se encontraron categorías que coincidan con la búsqueda.';
+        },
         paginationHAlign: 'left',
         paginationDetailHAlign: 'right',
         showColumns: true,
