@@ -6,6 +6,7 @@ import es.entrehobbies.DAO.ISubcategoriaDAO;
 import es.entrehobbies.DAO.IUsuarioDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
 import es.entrehobbies.beans.Usuario;
+import es.entrehobbies.models.Utilities;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -138,6 +139,27 @@ public class Ajax extends HttpServlet {
 
                 break;
 
+            case "comprobar-password":
+                // Configuramos el tipo de contenido y la codificación de la respuesta
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                // Recibimos los parámetros del usuario y la contraseña actual
+                int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+                String password = request.getParameter("password");
+
+                // Comprobamos si la contraseña es correcta
+                boolean correcta = daoU.comprobarPassword(idUsuario, Utilities.md5(password));
+
+                // Creamos la respuesta JSON con el resultado
+                jsonResponse = new JSONObject();
+                jsonResponse.put("correcta", correcta);
+
+                // Escribimos la respuesta JSON al cliente
+                response.getWriter().write(jsonResponse.toString());
+                break;
+
+
             case "obtenerSubcategorias":
                 /* Configuramos el tipo de contenido y la codificación de la respuesta
                 para que admita caracteres especiales */
@@ -179,13 +201,13 @@ public class Ajax extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
-                // Obtener el año actual del sistema
+                // Obtenemos el año actual del sistema
                 int anioActual = Calendar.getInstance().get(Calendar.YEAR);
 
-                // Llamar al DAO para obtener el mapa con los 12 meses
+                // Llamamos al DAO para obtener el mapa con los 12 meses
                 Map<String, Long> mapaMeses = daoE.getNumeroEventosPorMes(anioActual);
 
-                // Devolver el JSON
+                // Devolvemos el JSON
                 response.getWriter().write(new Gson().toJson(mapaMeses));
                 break;
 

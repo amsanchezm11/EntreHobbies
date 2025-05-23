@@ -273,7 +273,6 @@
             </div>
         </div>
 
-
         <div id="paso2" class="paso">
             <h2 class="text-white mb-4">Paso 2: Acceso y perfil</h2>
 

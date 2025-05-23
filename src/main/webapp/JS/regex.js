@@ -47,14 +47,33 @@ export function validarBoton(idInput, idBoton) {
     boton.disabled = false;
 }
 
-export function validarFormularioPassword(idBoton) {
+// export function validarFormularioPassword(idBoton) {
+//
+//     const esNuevaValida = checkNuevaPassword(nuevaPassword);
+//     const esConfirmacionValida = confirmPasswordNueva(confirmarPassword);
+//     const boton = document.getElementById(idBoton);
+//
+//     // Habilitamos el botón si las 3 validaciones son correctas
+//     boton.disabled = !(esNuevaValida && esConfirmacionValida);
+// }
 
-    const esNuevaValida = checkNuevaPassword(nuevaPassword);
-    const esConfirmacionValida = confirmPasswordNueva(confirmarPassword);
+export function validarFormularioPassword(idFormulario, idBoton) {
+
+    const formulario = document.getElementById(idFormulario);
+    const campos = formulario.querySelectorAll('input');
     const boton = document.getElementById(idBoton);
 
-    // Habilitamos el botón si las 3 validaciones son correctas
-    boton.disabled = !(esNuevaValida && esConfirmacionValida);
+    console.log(campos);
+
+    for (let campo of campos) {
+        if (!campo.classList.contains('is-valid')) {
+            boton.disabled = true;
+            return;
+        }
+    }
+
+    boton.disabled = false;
+
 }
 
 //-------------------------------------------------------------------------------------------
@@ -215,7 +234,7 @@ export function checkAvatar(element) {
 export function checkNuevaPassword(element) {
     let password = document.getElementById("password");
 
-    if (element.value !== password.value) {
+    if (element.value !== password.value && element.value.length >= 6) {
         element.classList.remove("is-invalid");
         element.classList.add("is-valid");
         return true;
@@ -230,7 +249,7 @@ export function checkNuevaPassword(element) {
 export function confirmPasswordNueva(element) {
     let passwordNueva = document.getElementById("nuevaPass");
 
-    if (element.value === passwordNueva.value && element.value.length > 0) {
+    if (element.value === passwordNueva.value && element.value.length >= 6) {
         element.classList.remove("is-invalid");
         element.classList.add("is-valid");
         return true;

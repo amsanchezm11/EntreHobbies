@@ -268,6 +268,28 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
         return resultado;
     }
 
+    @Override
+    public boolean comprobarPassword(int idUsuario, String password) {
+        boolean coincide = false;
+        try {
+            startTransaction();
+
+            Query<String> query = sesion.createQuery(
+                    "SELECT u.password FROM Usuario u WHERE u.idUsuario = :idUsuario", String.class);
+            query.setParameter("idUsuario", idUsuario);
+
+            String passwordEnBBDD = query.uniqueResult();
+
+            if (passwordEnBBDD != null && passwordEnBBDD.equals(password)) {
+                coincide = true;
+            }
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return coincide;
+    }
 
 
 

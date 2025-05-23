@@ -40,6 +40,8 @@ public interface IUsuarioDAO {
 
     public Object[] getUsuarioConMasEventosParticipados();
 
+    public boolean comprobarPassword(int idUsuario, String password);
+
 
 
 }
