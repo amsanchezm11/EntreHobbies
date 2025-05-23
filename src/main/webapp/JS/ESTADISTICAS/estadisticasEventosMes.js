@@ -17,8 +17,8 @@ fetch('Ajax', {
             datasets: [{
                 label: 'Eventos creados',
                 data: values,
-                fill: false,
-                borderColor: '#6F42C1',
+                fill: true,
+                borderColor: '#5f27cd',
                 tension: 0.1
             }]
         };

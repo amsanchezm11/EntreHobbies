@@ -17,7 +17,7 @@ fetch('Ajax', {
             datasets: [{
                 label: 'Categorías más populares',
                 data: values,
-                backgroundColor: '#6f42c1',
+                backgroundColor: '#5f27cd',
                 borderColor: '#a78cde',
                 borderWidth: 1
             }]

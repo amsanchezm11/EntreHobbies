@@ -19,9 +19,12 @@
 <body class="bg-body text-body min-vh-100">
 
 <main class="estadisticas-layout d-flex">
+
     <c:import url="/INC/menuAdministrador.jsp"/>
 
     <div class="content container-fluid ms-250 py-4">
+
+        <h1 class="color-pm text-center text-footer mb-5">Estad&iacute;sticas Generales</h1>
 
         <div class="row justify-content-center mb-4 g-4">
             <div class="col-12 col-md-5">
@@ -43,8 +46,8 @@
             </div>
         </div>
 
-        <div class="row justify-content-center mb-4">
-            <div class="col-12 col-md-8">
+        <div class="row justify-content-center mb-4 py-5">
+            <div class="col-12 col-md-10">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title text-center">Eventos por Mes</h5>
@@ -55,7 +58,7 @@
         </div>
 
         <div class="row justify-content-center mb-4">
-            <div class="col-12 col-md-6 col-lg-5">
+            <div class="col-12 col-md-6 col-lg-5 mb-5">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h5 class="card-title text-center">Provincias con M&aacute;s Eventos</h5>
@@ -64,8 +67,7 @@
                 </div>
             </div>
 
-            <!-- Alineación de ambos canvas -->
-            <div class="col-12 col-md-6 col-lg-5">
+            <div class="col-12 col-md-6 col-lg-5 mb-5">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h5 class="card-title text-center">Usuarios con M&aacute;s Eventos</h5>

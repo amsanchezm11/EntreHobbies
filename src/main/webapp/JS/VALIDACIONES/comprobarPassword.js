@@ -6,9 +6,7 @@ document.getElementById("password").addEventListener("input", async () => {
     const passwordValor = inputPassword.value;
 
     if (!checkPassword(inputPassword)){
-
         validarFormularioPassword('formPassword','boton-password');
-        //validarFormulario('boton-password');
         return;
     }
 
@@ -41,7 +39,6 @@ document.getElementById("password").addEventListener("input", async () => {
             inputPassword.classList.add("is-invalid");
         }
 
-       // validarFormulario('boton-password');
         validarFormularioPassword('formPassword','boton-password');
 
     } catch (error) {

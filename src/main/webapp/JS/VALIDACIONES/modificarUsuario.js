@@ -3,11 +3,12 @@ import {
     checkApellidos,
     checkFechaNacimiento,
     checkLocalidad,
-    checkProvincia,
     checkAvatar,
     validarBoton,
     validarFormularioPassword,
-    checkSelect
+    checkSelect,
+    checkNuevaPassword,
+    confirmPasswordNueva
 } from "../regex.js";
 
 //-----------------------------------------
@@ -29,10 +30,6 @@ document.getElementById("localidad").addEventListener("input", e => {
     checkLocalidad(e.target);
     validarBoton('localidad','boton-datos');
 });
-// document.getElementById("provincia").addEventListener("input", e => {
-//     checkProvincia(e.target);
-//     validarBoton('provincia','boton-datos');
-// });
 document.getElementById("provincia").addEventListener("change", e => {
     checkSelect(e.target);
     validarBoton('provincia','boton-datos');
@@ -50,8 +47,10 @@ document.getElementById("avatar").addEventListener("change", e => {
 // Validación formulario de modificar password de usuario
 //-----------------------------------------
 document.getElementById("nuevaPass").addEventListener("input", e => {
-    validarFormularioPassword('boton-password');
+    checkNuevaPassword(e.target);
+    validarFormularioPassword('formPassword','boton-password');
 });
 document.getElementById("confirmPass").addEventListener("input", e => {
-    validarFormularioPassword('boton-password');
+    confirmPasswordNueva(e.target)
+    validarFormularioPassword('formPassword','boton-password');
 });
