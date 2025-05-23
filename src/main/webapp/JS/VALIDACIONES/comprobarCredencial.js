@@ -9,12 +9,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function comprobarCredencial() {
         const valor = input.value.trim();
-        if (valor === "") return;
+        if (valor === "") {
+            aviso.classList.add("invisible");
+            passwordContainer.classList.add("d-none");
+            btnEnviar.classList.add("d-none");
+            passwordInput.value = "";
+            credencialValida = false;
+            return;
+        }
 
         const esEmail = valor.includes("@");
         const data = new URLSearchParams();
         data.append("accion", "comprobar-credencial");
         data.append("credencial", valor);
+
+        aviso.innerHTML = "<i class='bi bi-hourglass-split text-light'></i> Comprobando credencial...";
+        aviso.classList.remove("invisible");
+        passwordContainer.classList.add("d-none");
+        btnEnviar.classList.add("d-none");
+        passwordInput.value = "";
+        credencialValida = false;
 
         try {
             const response = await fetch("Ajax", {
@@ -64,6 +78,15 @@ document.addEventListener("DOMContentLoaded", () => {
         btnEnviar.disabled = !(credencialValida && passwordInput.value.trim() !== "");
     }
 
-    input.addEventListener("change", comprobarCredencial);
+    input.addEventListener("input", esperarPausaEscritura(comprobarCredencial, 500));
     passwordInput.addEventListener("input", validarCampos);
 });
+
+
+function esperarPausaEscritura(func, delay) {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), delay);
+    };
+}
