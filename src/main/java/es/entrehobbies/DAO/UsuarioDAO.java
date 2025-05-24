@@ -269,6 +269,27 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
     }
 
     @Override
+    public Long getTotalUsuariosRegistrados() {
+        Long totalUsuarios = 0L;
+        try {
+            startTransaction();
+
+            Query<Long> query = sesion.createQuery(
+                    "SELECT COUNT(u) FROM Usuario u", Long.class);
+
+            totalUsuarios = query.uniqueResult();
+
+            System.out.println("Total usuarios registrados: " + totalUsuarios);
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return totalUsuarios;
+    }
+
+
+    @Override
     public boolean comprobarPassword(int idUsuario, String password) {
         boolean coincide = false;
         try {
@@ -291,6 +312,48 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
         return coincide;
     }
 
+    @Override
+    public Map<String, Long> getNumeroUsuariosPorMes(int anio) {
+        Map<String, Long> mapaMeses = new LinkedHashMap<>();
+        String[] nombresMeses = {
+                "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        };
+
+        // Inicializamos todos los meses con 0
+        for (int i = 0; i < 12; i++) {
+            String clave = nombresMeses[i] + " " + anio;
+            mapaMeses.put(clave, 0L);
+        }
+
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT MONTH(u.fechaCreacion), COUNT(u) " +
+                            "FROM Usuario u " +
+                            "WHERE YEAR(u.fechaCreacion) = :anio " +
+                            "GROUP BY MONTH(u.fechaCreacion) " +
+                            "ORDER BY MONTH(u.fechaCreacion)",
+                    Object[].class
+            );
+            query.setParameter("anio", anio);
+            List<Object[]> resultados = query.getResultList();
+
+            for (Object[] fila : resultados) {
+                Integer mes = (Integer) fila[0];
+                Long total = (Long) fila[1];
+                String clave = nombresMeses[mes - 1] + " " + anio;
+                mapaMeses.put(clave, total);
+            }
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+
+        return mapaMeses;
+    }
 
 
 }

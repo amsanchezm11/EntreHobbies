@@ -95,6 +95,9 @@ public class FrontController extends HttpServlet {
             case "Privacidad":
                 url = "/JSP/INFO/politicaPrivacidad.jsp";
                 break;
+            case "Informacion":
+                url = "/JSP/USUARIO/informacion.jsp";
+                break;
             case "Mis-Eventos":
                 user = (Usuario) request.getSession().getAttribute("usuario");
                 listaObjetos = daoE.getAllEventosUsuariosOrdenadosCrono(user.getIdUsuario());
@@ -177,6 +180,9 @@ public class FrontController extends HttpServlet {
                 // Obtenemos el usuario con más participaciones
                 Object[] usuarioParticipante = daoU.getUsuarioConMasEventosParticipados();
                 request.setAttribute("usuarioparticipante", usuarioParticipante);
+                Long totalUsuariosRegistrados = daoU.getTotalUsuariosRegistrados();
+                request.setAttribute("totalRegistrados", totalUsuariosRegistrados);
+
                 url = "/JSP/ADMIN/estadisticasUsuarios.jsp";
 
                 break;

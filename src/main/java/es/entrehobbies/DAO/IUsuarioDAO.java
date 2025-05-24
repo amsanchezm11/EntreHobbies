@@ -40,7 +40,11 @@ public interface IUsuarioDAO {
 
     public Object[] getUsuarioConMasEventosParticipados();
 
+    public Long getTotalUsuariosRegistrados();
+
     public boolean comprobarPassword(int idUsuario, String password);
+
+    public Map<String, Long> getNumeroUsuariosPorMes(int anio);
 
 
 

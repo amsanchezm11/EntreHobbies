@@ -211,6 +211,20 @@ public class Ajax extends HttpServlet {
                 response.getWriter().write(new Gson().toJson(mapaMeses));
                 break;
 
+            case "Usuarios-mes":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                // Obtenemos el año actual del sistema
+                int anioUsuarios = Calendar.getInstance().get(Calendar.YEAR);
+
+                // Llamamos al DAO de usuarios para obtener el mapa con los 12 meses
+                Map<String, Long> mapaUsuariosMes = daoU.getNumeroUsuariosPorMes(anioUsuarios);
+
+                // Devolvemos el JSON
+                response.getWriter().write(new Gson().toJson(mapaUsuariosMes));
+                break;
+
             case "Usuarios-sexo":
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
