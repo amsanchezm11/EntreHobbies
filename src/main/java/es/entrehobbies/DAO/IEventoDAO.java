@@ -2,6 +2,7 @@ package es.entrehobbies.DAO;
 
 import es.entrehobbies.beans.Evento;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,10 @@ public interface IEventoDAO {
     public Evento getEventoCompletoPorId(int idEvento);
 
     public List<Object[]> getAllEventosResumen();
+
+    public void actualizarEventosEnCurso(Date fecha);
+
+    public void actualizarEventosFinalizados(Date fecha);
 
 
 }

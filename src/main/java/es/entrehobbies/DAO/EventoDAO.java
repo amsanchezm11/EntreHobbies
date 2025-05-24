@@ -58,7 +58,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         try {
             startTransaction();
 
-            // Consulta HQL para obtener los eventos creados por el usuario, con la información solicitada y ordenados por fecha de creación
+            // Consulta HQL para obtener los eventos creados por el usuario, con la información solicitada y ordenados por fecha de inicio
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.nombre,e.direccion, e.localidad, e.provincia.nombre, e.estado, e.numParticipantes, " +
@@ -67,7 +67,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "LEFT JOIN e.participantes ep " +
                             "WHERE e.creador.idUsuario = :idUsuario " +
                             "GROUP BY e.idEvento " +
-                            "ORDER BY e.fechaCreacion DESC",
+                            "ORDER BY e.fechaInicio ASC",
                     Object[].class
             );
             query.setParameter("idUsuario", idUsuario);
@@ -419,6 +419,45 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         }
         return resultados;
     }
+
+    @Override
+    public void actualizarEventosEnCurso(Date fecha) {
+        try {
+            startTransaction();
+
+            Query query = sesion.createQuery(
+                    "UPDATE Evento e SET e.estado = 'En_Curso' " +
+                            "WHERE e.fechaInicio = :fecha AND e.estado = 'Por_Empezar'"
+            );
+            query.setParameter("fecha", fecha);
+
+            query.executeUpdate();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+    }
+
+    @Override
+    public void actualizarEventosFinalizados(Date fecha) {
+        try {
+            startTransaction();
+
+            Query query = sesion.createQuery(
+                    "UPDATE Evento e SET e.estado = 'Finalizado' " +
+                            "WHERE e.fechaFin = :fecha And e.estado = 'En_Curso'"
+            );
+            query.setParameter("fecha", fecha);
+
+            query.executeUpdate();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+    }
+
 
 
 }
