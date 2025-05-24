@@ -14,7 +14,7 @@
 
 <c:import url="/INC/navbarUsuario.jsp"/>
 
-<div style="position: fixed; top: 75px; right: 1rem; z-index: 1050;">
+<div style="position: fixed; top: 75px; right: 1rem; z-index: 1000;">
     <form action="${contexto}/FrontController" method="post">
         <button type="submit" class="btn btn-main" name="accion" value="Ver-Categorias">
             <i class="bi bi-arrow-left me-2"></i> Volver a categor&iacute;as
@@ -127,25 +127,38 @@
                             class="bi bi-geo me-2"></i><strong>Direcci&oacute;n:</strong> ${evento[7]}</p>
                     <p class="card-text small mb-1"><i
                             class="bi bi-globe me-2"></i><strong>Localidad:</strong> ${evento[8]}, ${evento[9]}</p>
-                    <p class="card-text small mb-3"><i
-                            class="bi bi-person me-2"></i><strong>Creador:</strong> ${evento[13]}</p>
-
+                    <p class="card-text small mb-1"><i
+                            class="bi bi-person me-2"></i><strong>Organizador:</strong> ${evento[13]}</p>
+                    <p class="card-text small mb-3">
+                        <i class="bi bi-info-circle me-2"></i><strong>Estado:</strong>
+                        <c:choose>
+                            <c:when test="${evento[15] == 'En_Curso'}">
+                                <span class="text-info fw-bold fst-italic">En Curso</span>
+                            </c:when>
+                            <c:when test="${evento[15] == 'Por_Empezar'}">
+                                <span class="text-success fw-bold fst-italic">Por Empezar</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span>${evento[15]}</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
                     <div class="d-flex flex-column gap-1">
                         <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
                             <c:choose>
-                                <c:when test="${evento[14] >= evento[6] && evento[16] != 'creador' && evento[16] != 'participante'}">
+                                <c:when test="${evento[14] >= evento[6] && evento[17] != 'creador' && evento[17] != 'participante'}">
                                     <div class="alert alert-completo text-center p-2 rounded-pill mb-0">
                                         <span>Evento completo</span>
                                     </div>
                                 </c:when>
 
-                                <c:when test="${evento[16] == 'creador'}">
+                                <c:when test="${evento[17] == 'creador'}">
                                     <div class="alert alert-creador text-center p-2 rounded-pill mb-0">
                                         <span>Eres el creador del evento</span>
                                     </div>
                                 </c:when>
 
-                                <c:when test="${evento[16] == 'participante'}">
+                                <c:when test="${evento[17] == 'participante'}">
                                     <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
                                         <input type="hidden" name="idEvento" value="${evento[0]}">
                                         <button class="btn btn-warning btn-sm rounded-pill w-100" name="accion"
@@ -154,7 +167,11 @@
                                         </button>
                                     </form>
                                 </c:when>
-
+                                <c:when test="${evento[15] == 'En_Curso'}">
+                                    <div class="alert alert-creador text-center p-2 rounded-pill mb-0">
+                                        <span>No puedes apuntarte a un evento en curso</span>
+                                    </div>
+                                </c:when>
                                 <c:otherwise>
                                     <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
                                         <input type="hidden" name="idEvento" value="${evento[0]}">
@@ -165,7 +182,6 @@
                                     </form>
                                 </c:otherwise>
                             </c:choose>
-
                         </form>
                         <button
                                 type="button"

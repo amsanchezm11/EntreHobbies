@@ -33,7 +33,7 @@
                          onerror="this.onerror=null; this.src='${contexto}/IMG/AVATARES/avatar.svg';">
                         ${sessionScope.usuario.username}
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end" style="z-index: 1050;">
                     <li>
                         <form action="${contexto}/FrontController" method="post">
                             <button class="dropdown-item" name="accion" value="Mi-Cuenta">Mi Cuenta</button>

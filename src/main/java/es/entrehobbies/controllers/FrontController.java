@@ -247,8 +247,18 @@ public class FrontController extends HttpServlet {
                 }
                 break;
             case "Mis-Participaciones":
+                user = (Usuario) request.getSession().getAttribute("usuario");
+                listaObjetos = daoE.getAllEventosParticipadosOrdenadosPorFechaInicio(user);
 
-                url = "/JSP/AVISOS/noParticipaciones.jsp";
+                if (listaObjetos != null && !listaObjetos.isEmpty()) {
+                    request.setAttribute("eventos", listaObjetos);
+                    url = "/JSP/USUARIO/eventoParticipaciones.jsp";
+                }else{
+                    request.setAttribute("error", "No se han encontrado el evento");
+                    url = "/JSP/AVISOS/noParticipaciones.jsp";
+                }
+
+
                 break;
         }
 

@@ -1,6 +1,7 @@
 package es.entrehobbies.DAO;
 
 import es.entrehobbies.beans.Evento;
+import es.entrehobbies.beans.Usuario;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
@@ -61,15 +62,17 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
             // Consulta HQL para obtener los eventos creados por el usuario, con la información solicitada y ordenados por fecha de inicio
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
-                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre,e.direccion, e.localidad, e.provincia.nombre, e.estado, e.numParticipantes, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, e.estado, e.numParticipantes, " +
                             "COUNT(ep) " +
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes ep " +
                             "WHERE e.creador.idUsuario = :idUsuario " +
-                            "GROUP BY e.idEvento " +
-                            "ORDER BY e.fechaInicio ASC",
+                            "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, e.estado, e.numParticipantes " +
+                            "ORDER BY CASE WHEN e.estado = 'En_Curso' THEN 1 WHEN e.estado = 'Por_Empezar' THEN 2 ELSE 3 END, e.fechaInicio DESC",
                     Object[].class
             );
+
             query.setParameter("idUsuario", idUsuario);
 
             eventos = query.getResultList();
@@ -299,38 +302,38 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
             startTransaction();
 
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            Date primerDia = calendar.getTime();
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-            Date ultimoDia = calendar.getTime();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            Date hoy = calendar.getTime();
 
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
-                            "e.subcategoria.nombre, e.creador.username, COUNT(p), e.creador.idUsuario " +
+                            "e.subcategoria.nombre, e.creador.username, COUNT(p),e.estado, e.creador.idUsuario " +
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes p " +
                             "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
-                            "AND e.estado = 'Por_Empezar' " +
-                            "AND e.fechaInicio BETWEEN :primerDia AND :ultimoDia " +
+                            "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
+                            "AND e.fechaInicio >= :hoy " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
                             "e.subcategoria.nombre, e.creador.username, e.creador.idUsuario " +
-                            "ORDER BY e.fechaCreacion DESC",
+                            "ORDER BY e.fechaInicio DESC",
                     Object[].class
             );
 
             query.setParameter("idCategoria", idCategoria);
-            query.setParameter("primerDia", primerDia);
-            query.setParameter("ultimoDia", ultimoDia);
+            query.setParameter("hoy", hoy);
 
             List<Object[]> resultados = query.getResultList();
 
             for (Object[] row : resultados) {
                 Integer idEvento = (Integer) row[0];
-                Integer idCreador = (Integer) row[15];
+                Integer idCreador = (Integer) row[16];
 
                 String rol;
 
@@ -456,6 +459,37 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         } catch (HibernateException he) {
             handleExcepcion(he);
         }
+    }
+
+    @Override
+    public List<Object[]> getAllEventosParticipadosOrdenadosPorFechaInicio(Usuario usuario) {
+        List<Object[]> eventos = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, " +
+                            "e.estado, e.numParticipantes, COUNT(ep), e.creador.username " +
+                            "FROM Evento e " +
+                            "LEFT JOIN e.participantes ep " +
+                            "WHERE :usuario MEMBER OF e.participantes " +
+                            "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, " +
+                            "e.estado, e.numParticipantes, e.creador.username " +
+                            "ORDER BY CASE WHEN e.estado = 'En_Curso' THEN 1 WHEN e.estado = 'Por_Empezar' THEN 2 ELSE 3 END, e.fechaInicio DESC",
+                    Object[].class
+            );
+
+            query.setParameter("usuario", usuario);
+
+            eventos = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return eventos;
     }
 
 

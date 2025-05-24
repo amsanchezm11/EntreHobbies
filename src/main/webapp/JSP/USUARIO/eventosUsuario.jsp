@@ -8,6 +8,7 @@
         <jsp:param name="titulo" value="Mis Eventos"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
+    <script type="module" src="${contexto}/JS/BOOTSTRAPTABLE/cargarParticipantes.js" defer></script>
 </head>
 <body class="body-custom position-relative bg-gradient-morado-blanco">
 
@@ -23,14 +24,15 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card card-eventos shadow-sm d-flex flex-column carta p-3 h-100">
                     <div class="card-body-eventos flex-grow-1 d-flex flex-column">
-                        <h5 class="card-title text-bold">${evento[1]} - <strong class="fst-italic"><fmt:formatDate
-                                value="${evento[3]}" pattern="dd/MM/yyyy"/></strong></h5>
-                        <p class="card-text"><strong>Fecha de inicio:</strong> <fmt:formatDate value="${evento[4]}"
+                        <h5 class="card-title fw-bold ms-2">${evento[1]}</h5>
+                        <p class="card-text ms-2"><strong>Fecha de creación:</strong> <fmt:formatDate
+                                value="${evento[3]}" pattern="dd/MM/yyyy"/></p>
+                        <p class="card-text ms-2"><strong>Fecha de inicio:</strong> <fmt:formatDate value="${evento[4]}"
                                                                                                pattern="dd/MM/yyyy"/>
                         </p>
-                        <p class="card-text"><strong>Categor&iacute;a:</strong> ${evento[6]}</p>
-                        <p class="card-text"><strong>Localidad:</strong> ${evento[9]}</p>
-                        <p class="card-text">
+                        <p class="card-text ms-2"><strong>Categor&iacute;a:</strong> ${evento[6]}</p>
+                        <p class="card-text ms-2"><strong>Localidad:</strong> ${evento[9]}</p>
+                        <p class="card-text ms-2">
                             <c:choose>
                                 <c:when test="${evento[11] == 'Por_Empezar'}">
                                     <strong>Estado:</strong> <span
@@ -104,6 +106,11 @@
                             </p>
                         </div>
                         <div class="modal-footer d-flex justify-content-end">
+                            <c:if test="${evento[13] > 0}">
+                                <button type="button" class="btn btn-outline-green" data-bs-toggle="modal" data-bs-target="#modalParticipantes" data-id-evento="${evento[0]}">
+                                    Participantes
+                                </button>
+                            </c:if>
                             <form action="${contexto}/FrontController" method="post">
                                 <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado'}">
                                     <input type="hidden" name="idEvento" value="${evento[0]}">
@@ -113,13 +120,13 @@
                                 </c:if>
                             </form>
                             <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado' && evento[13] == 0}">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#confirmarEliminacion${evento[0]}">
                                     Eliminar Evento
                                 </button>
                             </c:if>
                             <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado' && evento[13] > 0}">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#confirmarCancelacion${evento[0]}">
                                     Cancelar Evento
                                 </button>
@@ -147,7 +154,7 @@
                         <div class="modal-footer">
                             <form action="${contexto}/EventoController" method="post">
                                 <input type="hidden" name="idEvento" value="${evento[0]}"/>
-                                <button class="btn btn-danger" name="accion" value="Cancelar-Evento">S&iacute;,
+                                <button class="btn btn-outline-danger" name="accion" value="Cancelar-Evento">S&iacute;,
                                     cancelar
                                 </button>
                             </form>
@@ -172,7 +179,7 @@
                         <div class="modal-footer">
                             <form action="${contexto}/EventoController" method="post">
                                 <input type="hidden" name="idEvento" value="${evento[0]}"/>
-                                <button class="btn btn-danger" name="accion" value="Eliminar-Evento">S&iacute;, eliminar</button>
+                                <button class="btn btn-outline-danger" name="accion" value="Eliminar-Evento">S&iacute;, eliminar</button>
                             </form>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, volver</button>
                         </div>
@@ -195,6 +202,21 @@
         </button>
     </form>
 </c:if>
+
+<div class="modal fade" id="modalParticipantes" tabindex="-1" aria-labelledby="modalParticipantesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalParticipantesLabel">Participantes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <table id="tablaParticipantes" data-bs-toggle="table" data-search="false" data-pagination="false"
+                       class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <c:if test="${requestScope.aviso != null}">
     <div id="aviso"

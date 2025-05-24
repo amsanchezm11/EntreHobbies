@@ -95,7 +95,7 @@
             </div>
 
             <div class="col-md-4 mb-4">
-                <button type="submit" name="accion" value="Buscar-Eventos" title="Buscar eventos"
+                <button type="submit" name="accion" value="Ver-Categorias" title="Buscar eventos"
                         class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
                     <img src="${contexto}/IMG/GENERAL/buscar.svg" alt="Buscar eventos"
                          class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">

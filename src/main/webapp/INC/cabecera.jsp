@@ -1,6 +1,6 @@
 <jsp:include page="metas.inc"/>
 <title>${param.titulo}</title>
-<%--<link rel="icon" type="image/x-icon" href="${applicationScope.logo}">--%>
+<link rel="icon" type="image/x-icon" href="${applicationScope.logo}">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- BOOTSTRAP -->
