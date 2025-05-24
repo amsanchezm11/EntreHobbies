@@ -15,7 +15,8 @@
 <c:import url="/INC/navbarUsuario.jsp"/>
 
 <section class="bloque d-flex flex-column gap-4 bg-gradient-morado-blanco text-light">
-    <h2 class="text-center mb-4 text-footer text-light">¡Bienvenido a EntreHobbies!</h2>
+    <h2 class="text-center mb-4 text-footer">¡Bienvenido a EntreHobbies!</h2>
+
     <c:if test="${requestScope.aviso != null}">
         <div id="aviso"
              class="notification"
@@ -41,52 +42,87 @@
             </div>
         </div>
     </c:if>
-    <div class="row">
-        <div class="col-md-6 mb-3 d-flex flex-column gap-3">
-            <div class="card card-user h-100 d-flex flex-column justify-content-between p-4">
-                <div>
-                    <h5 class="fw-bold">¡Bienvenido de nuevo!</h5>
-                    <p>Nos alegra verte nuevamente. Disfruta de todas las funcionalidades.</p>
-                </div>
-                <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-main btn-lg w-50" name="accion" value="Mi-Cuenta">Ir a mi perfil</button>
-                </form>
+
+    <form class="container" action="${contexto}/FrontController" method="post">
+        <div class="row text-center justify-content-center">
+
+            <div class="col-md-4 mb-4">
+                <button type="submit" name="accion" value="Mi-Cuenta" title="Acceder a mi cuenta"
+                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
+                    <img src="${contexto}/IMG/GENERAL/perfilusuario.svg" alt="Perfil"
+                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
+                    <div class="card-body p-2">
+                        <h5 class="fw-bold">Mi Cuenta</h5>
+                        <p>Accede a tu perfil para gestionar tu información, eventos y participaciones.</p>
+                    </div>
+                </button>
             </div>
 
-            <div class="card card-user h-100 d-flex flex-column justify-content-between p-4">
-                <div>
-                    <h5 class="fw-bold">Ver mis eventos</h5>
-                    <p>Consulta los eventos que has organizado.</p>
-                </div>
-                <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-main btn-lg w-50" name="accion" value="Mis-Eventos">Ver eventos</button>
-                </form>
+            <div class="col-md-4 mb-4">
+                <button type="submit" name="accion" value="Mis-Eventos" title="Acceder a mis eventos"
+                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
+                    <img src="${contexto}/IMG/GENERAL/eventos.svg" alt="Eventos organizados"
+                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
+                    <div class="card-body p-2">
+                        <h5 class="fw-bold">Mis Eventos</h5>
+                        <p>Consulta los eventos que has organizado.</p>
+                    </div>
+                </button>
             </div>
+
+            <div class="col-md-4 mb-4">
+                <button type="submit" name="accion" value="Crear-Evento" title="Crear nuevo evento"
+                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
+                    <img src="${contexto}/IMG/GENERAL/nuevoevento.svg" alt="Crear evento"
+                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
+                    <div class="card-body p-2">
+                        <h5 class="fw-bold">Crear Evento</h5>
+                        <p>¿Tienes un plan en mente? Compártelo con la comunidad.</p>
+                    </div>
+                </button>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <button type="submit" name="accion" value="Mis-Participaciones" title="Ver mis participaciones"
+                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
+                    <img src="${contexto}/IMG/GENERAL/participaciones.svg" alt="Participaciones"
+                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
+                    <div class="card-body p-2">
+                        <h5 class="fw-bold">Mis Participaciones</h5>
+                        <p>Consulta los eventos a los que te has unido.</p>
+                    </div>
+                </button>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <button type="submit" name="accion" value="Buscar-Eventos" title="Buscar eventos"
+                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
+                    <img src="${contexto}/IMG/GENERAL/buscar.svg" alt="Buscar eventos"
+                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
+                    <div class="card-body p-2">
+                        <h5 class="fw-bold">Buscar eventos</h5>
+                        <p>Explora y encuentra eventos que te interesen.</p>
+                    </div>
+                </button>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <button type="submit" name="accion" value="Informacion" title="Informaci&oacute;n"
+                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
+                    <img src="${contexto}/IMG/GENERAL/informacion.svg" alt="Información"
+                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
+                    <div class="card-body p-2">
+                        <h5 class="fw-bold">Información</h5>
+                        <p>Obtén más detalles y ayuda sobre la plataforma.</p>
+                    </div>
+                </button>
+            </div>
+
         </div>
+    </form>
 
-        <div class="col-md-6 mb-3 d-flex flex-column gap-3">
-            <div class="card card-user h-100 d-flex flex-column justify-content-between p-4">
-                <div>
-                    <h5 class="fw-bold">¡Organiza tu evento!</h5>
-                    <p>¿Tienes un plan en mente? Comp&aacute;rtelo con la comunidad.</p>
-                </div>
-                <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-main btn-lg w-50" name="accion" value="Crear-Evento">Crear evento</button>
-                </form>
-            </div>
-
-            <div class="card card-user h-100 d-flex flex-column justify-content-between p-4">
-                <div>
-                    <h5 class="fw-bold">Ver mis participaciones</h5>
-                    <p>Consulta los eventos a los que te has unido.</p>
-                </div>
-                <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-main btn-lg w-50" name="accion" value="Mis-Participaciones">Ver participaciones</button>
-                </form>
-            </div>
-        </div>
-    </div>
 </section>
+
 
 <section class="bloque d-flex flex-column gap-5">
     <h1 class="fw-bold text-titulo">Explora, comparte y vive tu hobby</h1>

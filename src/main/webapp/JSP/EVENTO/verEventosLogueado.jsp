@@ -76,7 +76,7 @@
 </div>
 
 <div class="mb-5 ps-3 my-3">
-    <h1 class="text-light text-titulo mt-5">Eventos de ${requestScope.categoria}</h1>
+    <h1 class="text-light text-titulo mt-5 text-center">Eventos de ${requestScope.categoria}</h1>
 </div>
 
 <div class="container my-5">

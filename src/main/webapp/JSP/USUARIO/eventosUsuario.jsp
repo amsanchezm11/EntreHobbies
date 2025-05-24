@@ -14,7 +14,7 @@
 <c:import url="/INC/navbarUsuario.jsp"/>
 
 <div class="mb-5 ps-3 my-3">
-    <h1 class="text-light text-login">Mis Eventos</h1>
+    <h1 class="text-light text-footer text-center">Mis Eventos</h1>
 </div>
 
 <main class="container pb-5">

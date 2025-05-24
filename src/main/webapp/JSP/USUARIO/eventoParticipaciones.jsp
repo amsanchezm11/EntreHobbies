@@ -14,7 +14,7 @@
 
 <main class="flex-grow-1">
     <div class="container py-5">
-        <h1 class="text-center text-light fw-bold sobre-nosotros">Mis Participaciones</h1>
+        <h1 class="text-center text-light text-footer">Mis Participaciones</h1>
     </div>
 </main>
 

@@ -179,7 +179,10 @@ export function checkFechaNacimiento(element) {
     const fechaActual = new Date();
     fechaActual.setHours(0, 0, 0, 0);
 
-    if (fechaNacimientoDate > fechaActual) {
+    const fechaMinima = new Date("1900-01-01");
+
+    // Comprobamos que no sea fecha futura o anterior a 1900
+    if (fechaNacimientoDate > fechaActual || fechaNacimientoDate < fechaMinima) {
         element.classList.remove("is-valid");
         element.classList.add("is-invalid");
         return false;

@@ -4,7 +4,7 @@
 <head>
     <jsp:include page="/INC/cabecera.jsp">
         <jsp:param name="titulo" value="Mi cuenta"/>
-        <jsp:param name="estilo" value="perfil.css"/>
+        <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
     <script type="module" src="${contexto}/JS/perfilUsuario.js" defer></script>
@@ -346,7 +346,7 @@
                 <div class="card-body">
                     <h5 class="text-center mb-4">Cambiar avatar</h5>
                     <form action="${contexto}/UsuarioController" method="post" enctype="multipart/form-data"
-                          class="d-flex flex-column justify-content-center">
+                          class="d-flex flex-column justify-content-center align-items-center">
                         <input type="hidden" name="idUsuario" value="${sessionScope.usuario.idUsuario}"/>
 
                         <div class="mb-3 text-center">

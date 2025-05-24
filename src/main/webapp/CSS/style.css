@@ -659,6 +659,31 @@ input[type='checkbox']:checked {
     box-shadow: 0 1.2rem 2.8rem rgba(0, 0, 0, 0.45);
 }
 
+.card-btn {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(95, 39, 205, 0.2) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 0.5rem 1.5rem rgba(95, 39, 205, 0.15) !important;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out !important;
+    color: #2c2c2c;
+}
+
+.card-btn:hover {
+    text-decoration: none !important;
+    color: #212529 !important;
+}
+
+.sombra-morada-btn {
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out !important;
+}
+
+.sombra-morada-btn:hover {
+    box-shadow: 0 1rem 3rem rgba(95, 39, 205, 0.4) !important;
+    transform: scale(1.05);
+    text-decoration: none;
+    outline: none;
+}
+
 /*------[ ANIMACIONES ]-------*/
 
 @keyframes fadeInSlide {

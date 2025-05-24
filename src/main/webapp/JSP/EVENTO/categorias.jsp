@@ -19,7 +19,7 @@
 </c:choose>
 
 <div class="mb-5 ps-3 my-3">
-    <h1 class="text-light text-login">Categor&iacute;as</h1>
+    <h1 class="text-light text-footer text-center">Categor&iacute;as</h1>
 </div>
 
 <div class="row justify-content-center m-5 py-5">
