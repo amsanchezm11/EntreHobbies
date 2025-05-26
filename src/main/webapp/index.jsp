@@ -24,7 +24,7 @@
     </c:otherwise>
 </c:choose>
 
-<section class="bloque bg-gradient-morado-blanco">
+<section class="bloque bg-gradient-morado-dinamico">
     <div class="text-center">
         <h1 class="text-login text-light">EntreHobbies</h1>
         <h2 class="fw-normal mt-2 text-light">Haz amigos haciendo lo que te apasiona</h2>

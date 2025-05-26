@@ -9,16 +9,14 @@
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/BOOTSTRAPTABLE/cargarParticipantes.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/buscadorNoUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/obtenerSubcategorias.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/filtroEventoNoUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/pintarEventos.js" defer></script>
 </head>
-<body class="body-custom position-relative bg-gradient-morado-blanco">
-<c:choose>
-    <c:when test="${sessionScope.usuario != null}">
-        <c:import url="/INC/navbarUsuario.jsp"/>
-    </c:when>
-    <c:otherwise>
-        <c:import url="/INC/navbarDefault.jsp"/>
-    </c:otherwise>
-</c:choose>
+<body class="body-custom position-relative bg-gradient-morado-blanco" data-contexto="${contexto}">
+
+<c:import url="/INC/navbarBusqueda.jsp"/>
 
 <div style="position: fixed; top: 75px; right: 1rem; z-index: 1050;">
     <form action="${contexto}/FrontController" method="post">
@@ -40,36 +38,25 @@
             <div>
                 <div class="mb-3">
                     <label for="categoria" class="form-label fw-bold mb-2">Categor&iacute;a</label>
-                    <select class="form-select" id="categoria" name="categoria">
-                        <option value="" disabled selected>Selecciona una categor&iacute;a</option>
-                        <option value="deportes">Deportes</option>
-                        <option value="videojuegos">Videojuegos</option>
-                        <option value="lectura">Lectura y Literatura</option>
+                    <select class="form-select" id="categoria" name="categoria" data-cargar-inicial="true">
+                        <option value="${requestScope.categoriaId}" selected>${requestScope.categoria}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="subcategoria" class="form-label fw-bold mb-2">Subcategor&iacute;a</label>
+                    <select class="form-select" id="subcategoria" name="subcategoria">
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="provincia" class="form-label fw-bold mb-2">Provincia</label>
-                    <select class="form-select" id="provincia" name="provincia">
+                    <select class="form-select" id="provincia" name="provincia" required>
                         <option value="" disabled selected>Selecciona una provincia</option>
-                        <option value="badajoz">Badajoz</option>
-                        <option value="caceres">Cáceres</option>
-                        <option value="sevilla">Sevilla</option>
+                        <c:forEach var="provincia" items="${provincias}">
+                            <option value="${provincia[0]}">${provincia[1]}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-bold mb-2">Rango de fechas</label>
-                    <div class="d-flex flex-column flex-md-row gap-2">
-                        <div class="flex-fill">
-                            <label for="fechaInicio" class="form-label">Desde</label>
-                            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
-                        </div>
-                        <div class="flex-fill">
-                            <label for="fechaLimite" class="form-label">Hasta</label>
-                            <input type="date" class="form-control" id="fechaLimite" name="fechaLimite">
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="mt-4 align-self-bottom">
@@ -85,7 +72,7 @@
     <h1 class="text-light text-titulo mt-5 text-center">Eventos de ${requestScope.categoria}</h1>
 </div>
 
-<div class="container my-5">
+<div class="container my-5" id="contenedorEventos">
     <c:forEach var="evento" items="${requestScope.eventos}" varStatus="status">
         <c:if test="${status.index % 2 == 0}">
             <div class="row justify-content-center mb-4">
@@ -131,9 +118,22 @@
                             class="bi bi-geo me-2"></i><strong>Direcci&oacute;n:</strong> ${evento[7]}</p>
                     <p class="card-text small mb-1"><i
                             class="bi bi-globe me-2"></i><strong>Localidad:</strong> ${evento[8]}, ${evento[9]}</p>
-                    <p class="card-text small mb-3"><i
+                    <p class="card-text small mb-1"><i
                             class="bi bi-person me-2"></i><strong>Creador:</strong> ${evento[13]}</p>
-
+                    <p class="card-text small mb-3">
+                        <i class="bi bi-info-circle me-2"></i><strong>Estado:</strong>
+                        <c:choose>
+                            <c:when test="${evento[15] == 'En_Curso'}">
+                                <span class="text-info fw-bold fst-italic">En Curso</span>
+                            </c:when>
+                            <c:when test="${evento[15] == 'Por_Empezar'}">
+                                <span class="text-success fw-bold fst-italic">Por Empezar</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span>${evento[15]}</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
                     <div class="d-flex flex-column gap-1">
                         <div class="alert alert-creador text-center p-2 rounded-pill mb-0">
                             <span>Reg&iacute;strate para poder unirte</span>

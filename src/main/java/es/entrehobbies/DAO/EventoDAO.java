@@ -16,32 +16,31 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
             startTransaction();
 
             Calendar calendar = Calendar.getInstance();
-            // Primer día del mes actual
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            Date primerDia = calendar.getTime();
-            // Último día del mes actual
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-            Date ultimoDia = calendar.getTime();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            Date hoy = calendar.getTime();
 
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
-                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.username, COUNT(p) " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.username, COUNT(p), e.estado " +
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes p " +
                             "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
-                            "AND e.estado = 'Por_Empezar' " +
-                            "AND e.fechaInicio BETWEEN :primerDia AND :ultimoDia " +
+                            "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
+                            "AND e.fechaInicio >= :hoy " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
-                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.username " +
-                            "ORDER BY e.fechaCreacion DESC",
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.username, e.estado " +
+                            "ORDER BY e.fechaInicio DESC",
                     Object[].class
             );
 
             query.setParameter("idCategoria", idCategoria);
-            query.setParameter("primerDia", primerDia);
-            query.setParameter("ultimoDia", ultimoDia);
+            query.setParameter("hoy", hoy);
+
 
             eventos = query.getResultList();
 
@@ -59,20 +58,18 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         try {
             startTransaction();
 
-            // Consulta HQL para obtener los eventos creados por el usuario, con la información solicitada y ordenados por fecha de inicio
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, e.estado, e.numParticipantes, " +
                             "COUNT(ep) " +
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes ep " +
-                            "WHERE e.creador.idUsuario = :idUsuario " +
+                            "WHERE e.creador.idUsuario = :idUsuario AND (e.estado = 'En_Curso' OR e.estado = 'Por_Empezar') " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, e.estado, e.numParticipantes " +
                             "ORDER BY CASE WHEN e.estado = 'En_Curso' THEN 1 WHEN e.estado = 'Por_Empezar' THEN 2 ELSE 3 END, e.fechaInicio DESC",
                     Object[].class
             );
-
             query.setParameter("idUsuario", idUsuario);
 
             eventos = query.getResultList();
@@ -366,7 +363,6 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         return eventos;
     }
 
-
     @Override
     public Evento getEventoCompletoPorId(int idEvento) {
         Evento evento = null;
@@ -474,6 +470,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "FROM Evento e " +
                             "LEFT JOIN e.participantes ep " +
                             "WHERE :usuario MEMBER OF e.participantes " +
+                            "AND (e.estado = 'En_Curso' OR e.estado = 'Por_Empezar') " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.estado, e.numParticipantes, e.creador.username " +
@@ -492,6 +489,299 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         return eventos;
     }
 
+    @Override
+    public List<Object[]> getEventosResumenPorUsuario(int idUsuario) {
+        List<Object[]> resultados = null;
+        try {
+            startTransaction();
 
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaInicio, e.fechaFin, " +
+                            "e.localidad, e.provincia.nombre, e.creador.username, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, " +
+                            "e.modo, e.estado, COUNT(p), e.numParticipantes " +
+                            "FROM Evento e LEFT JOIN e.participantes p " +
+                            "WHERE e.creador.id = :idUsuario " +
+                            "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaInicio, e.fechaFin, " +
+                            "e.localidad, e.provincia.nombre, e.creador.username, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, " +
+                            "e.modo, e.estado, e.numParticipantes",
+                    Object[].class
+            );
+
+            query.setParameter("idUsuario", idUsuario);
+
+            resultados = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultados;
+    }
+
+    @Override
+    public List<Object[]> getEventosResumenPorUsuarioParticipados(int idUsuario) {
+        List<Object[]> resultados = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaInicio, e.fechaFin, " +
+                            "e.localidad, e.provincia.nombre, e.creador.username, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, " +
+                            "e.modo, e.estado, COUNT(p), e.numParticipantes " +
+                            "FROM Evento e LEFT JOIN e.participantes p " +
+                            "WHERE :idUsuario IN (SELECT u.idUsuario FROM e.participantes u) " +
+                            "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaInicio, e.fechaFin, " +
+                            "e.localidad, e.provincia.nombre, e.creador.username, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.nombre, " +
+                            "e.modo, e.estado, e.numParticipantes",
+                    Object[].class
+            );
+
+            query.setParameter("idUsuario", idUsuario);
+
+            resultados = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultados;
+    }
+
+    public List<Object[]> buscarEventosPorTextoYCategoria(String texto, int idCategoria, int idUsuario) {
+        List<Object[]> eventos = new ArrayList<>();
+
+        try {
+            startTransaction();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            Date hoy = calendar.getTime();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                            "e.subcategoria.nombre, e.creador.username, COUNT(p), e.estado, e.creador.idUsuario " +
+                            "FROM Evento e " +
+                            "LEFT JOIN e.participantes p " +
+                            "WHERE (LOWER(e.titulo) LIKE :filtro OR LOWER(e.descripcion) LIKE :filtro) " +
+                            "AND e.subcategoria.categoria.idCategoria = :idCategoria " +
+                            "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
+                            "AND e.fechaInicio >= :hoy " +
+                            "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                            "e.subcategoria.nombre, e.creador.username, e.creador.idUsuario " +
+                            "ORDER BY e.fechaInicio DESC", Object[].class
+            );
+
+            query.setParameter("filtro", "%" + texto.toLowerCase() + "%");
+            query.setParameter("hoy", hoy);
+            query.setParameter("idCategoria", idCategoria);
+
+            List<Object[]> resultados = query.getResultList();
+
+            for (Object[] row : resultados) {
+                Integer idEvento = (Integer) row[0];
+                Integer idCreador = (Integer) row[16];
+
+                String rol;
+                if (idUsuario == idCreador) {
+                    rol = "creador";
+                } else {
+                    Query<Long> subquery = sesion.createQuery(
+                            "SELECT COUNT(u) FROM Evento e JOIN e.participantes u " +
+                                    "WHERE e.idEvento = :idEvento AND u.idUsuario = :idUsuario", Long.class
+                    );
+                    subquery.setParameter("idEvento", idEvento);
+                    subquery.setParameter("idUsuario", idUsuario);
+                    Long count = subquery.uniqueResult();
+                    rol = (count != null && count > 0) ? "participante" : "libre";
+                }
+
+                Object[] rowConRol = Arrays.copyOf(row, row.length + 1);
+                rowConRol[row.length] = rol;
+                eventos.add(rowConRol);
+            }
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+
+        return eventos;
+    }
+
+    @Override
+    public List<Object[]> buscarEventosPublicosPorTextoYCategoria(String texto, int idCategoria) {
+        List<Object[]> eventos = new ArrayList<>();
+        try {
+            startTransaction();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            Date hoy = calendar.getTime();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                            "e.subcategoria.nombre, e.creador.username, COUNT(p), e.estado " +
+                            "FROM Evento e " +
+                            "LEFT JOIN e.participantes p " +
+                            "WHERE (LOWER(e.titulo) LIKE :filtro OR LOWER(e.descripcion) LIKE :filtro) " +
+                            "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
+                            "AND e.fechaInicio >= :hoy " +
+                            "AND e.subcategoria.categoria.idCategoria = :idCategoria " +
+                            "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                            "e.subcategoria.nombre, e.creador.username, e.estado " +
+                            "ORDER BY e.fechaInicio DESC",
+                    Object[].class
+            );
+
+            query.setParameter("filtro", "%" + texto.toLowerCase() + "%");
+            query.setParameter("hoy", hoy);
+            query.setParameter("idCategoria", idCategoria);
+
+            eventos = query.getResultList();
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+
+        return eventos;
+    }
+
+    public List<Object[]> filtrarEventosPublicos(int idCategoria, Integer idSubcategoria, String provincia) {
+        List<Object[]> eventos = new ArrayList<>();
+        try {
+            startTransaction();
+
+            StringBuilder hql = new StringBuilder(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                            "e.subcategoria.nombre, e.creador.username, COUNT(p), e.estado " +
+                            "FROM Evento e LEFT JOIN e.participantes p " +
+                            "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
+                            "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
+                            "AND e.fechaInicio >= CURRENT_DATE ");
+
+            if (idSubcategoria != null) {
+                hql.append("AND e.subcategoria.idSubcategoria = :idSubcategoria ");
+            }
+            if (provincia != null && !provincia.trim().isEmpty()) {
+                hql.append("AND LOWER(e.provincia.nombre) = :provincia ");
+            }
+
+            hql.append("GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                    "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
+                    "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                    "e.subcategoria.nombre, e.creador.username, e.estado " +
+                    "ORDER BY e.fechaInicio DESC");
+
+            Query<Object[]> query = sesion.createQuery(hql.toString(), Object[].class);
+            query.setParameter("idCategoria", idCategoria);
+
+            if (idSubcategoria != null) {
+                query.setParameter("idSubcategoria", idSubcategoria);
+            }
+            if (provincia != null && !provincia.trim().isEmpty()) {
+                query.setParameter("provincia", provincia.trim().toLowerCase());
+            }
+
+            eventos = query.getResultList();
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+
+        return eventos;
+    }
+
+    @Override
+    public List<Object[]> filtrarEventosPorSubcategoriaYProvinciaLogueado(int idCategoria, Integer idSubcategoria, Integer idProvincia, int idUsuario) {
+        List<Object[]> eventos = new ArrayList<>();
+        try {
+            startTransaction();
+
+            StringBuilder hql = new StringBuilder(
+                    "SELECT e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                            "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
+                            "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                            "e.subcategoria.nombre, e.creador.username, COUNT(p), e.estado, e.creador.idUsuario " +
+                            "FROM Evento e LEFT JOIN e.participantes p " +
+                            "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
+                            "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
+                            "AND e.fechaInicio >= CURRENT_DATE ");
+
+            if (idSubcategoria != null) {
+                hql.append("AND e.subcategoria.idSubcategoria = :idSubcategoria ");
+            }
+            if (idProvincia != null) {
+                hql.append("AND e.provincia.idProvincia = :idProvincia ");
+            }
+
+            hql.append("GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
+                    "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
+                    "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
+                    "e.subcategoria.nombre, e.creador.username, e.creador.idUsuario, e.estado " +
+                    "ORDER BY e.fechaInicio DESC");
+
+            Query<Object[]> query = sesion.createQuery(hql.toString(), Object[].class);
+            query.setParameter("idCategoria", idCategoria);
+
+            if (idSubcategoria != null) {
+                query.setParameter("idSubcategoria", idSubcategoria);
+            }
+            if (idProvincia != null) {
+                query.setParameter("idProvincia", idProvincia);
+            }
+
+            List<Object[]> resultados = query.getResultList();
+
+            for (Object[] row : resultados) {
+                Integer idEvento = (Integer) row[0];
+                Integer idCreador = (Integer) row[16];
+
+                String rol;
+                if (idUsuario == idCreador) {
+                    rol = "creador";
+                } else {
+                    Query<Long> subquery = sesion.createQuery(
+                            "SELECT COUNT(u) FROM Evento e JOIN e.participantes u " +
+                                    "WHERE e.idEvento = :idEvento AND u.idUsuario = :idUsuario", Long.class
+                    );
+                    subquery.setParameter("idEvento", idEvento);
+                    subquery.setParameter("idUsuario", idUsuario);
+                    Long count = subquery.uniqueResult();
+                    rol = (count != null && count > 0) ? "participante" : "libre";
+                }
+
+                Object[] rowConRol = Arrays.copyOf(row, row.length + 1);
+                rowConRol[row.length] = rol;
+                eventos.add(rowConRol);
+            }
+
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+
+        return eventos;
+    }
 
 }

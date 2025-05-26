@@ -9,6 +9,7 @@ import es.entrehobbies.beans.Usuario;
 import es.entrehobbies.models.Utilities;
 import org.json.JSONObject;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +38,10 @@ public class Ajax extends HttpServlet {
         String accion = request.getParameter("accion");
         Usuario usuario = null;
         String credencial = null;
+        List<Object[]> eventosFiltrados = null;
+        String provincia;
+        String idSubcategoriaStr;
+        Integer idSubcategoria;
         // Variables DAO
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IUsuarioDAO daoU = daoF.getUsuarioDAO();
@@ -301,6 +306,72 @@ public class Ajax extends HttpServlet {
                 }
 
                 response.getWriter().write(new Gson().toJson(listaSubcategorias));
+                break;
+
+            case "buscarEventosPorTextoJSON":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                String filtro = request.getParameter("filtro");
+                idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+                usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+                eventosFiltrados = daoE.buscarEventosPorTextoYCategoria(filtro, idCategoria, usuario.getIdUsuario());
+
+                Gson gson = new Gson();
+                String json = gson.toJson(eventosFiltrados);
+                response.getWriter().write(json);
+                break;
+
+            case "buscarEventosPublicosPorTextoJSON":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                String textoBusqueda = request.getParameter("filtro");
+                int idCategoriaPublica = Integer.parseInt(request.getParameter("idCategoria"));
+
+                List<Object[]> eventosPublicosFiltrados = daoE.buscarEventosPublicosPorTextoYCategoria(textoBusqueda, idCategoriaPublica);
+
+                Gson gsonPublico = new Gson();
+                String jsonPublico = gsonPublico.toJson(eventosPublicosFiltrados);
+                response.getWriter().write(jsonPublico);
+                break;
+
+            case "filtrarEventosPublicos":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+                provincia = request.getParameter("provincia");
+                idSubcategoriaStr = request.getParameter("idSubcategoria");
+                idSubcategoria = (idSubcategoriaStr == null || idSubcategoriaStr.isEmpty()) ? null : Integer.parseInt(idSubcategoriaStr);
+
+                eventosFiltrados = daoE.filtrarEventosPublicos(idCategoria, idSubcategoria, provincia);
+
+                String jsonFiltrado = new Gson().toJson(eventosFiltrados);
+                response.getWriter().write(jsonFiltrado);
+                break;
+
+            case "filtrarEventosUsuario":
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+                idSubcategoriaStr = request.getParameter("idSubcategoria");
+                Integer idProvincia = (request.getParameter("provincia") != null && !request.getParameter("provincia").trim().isEmpty())
+                        ? Integer.parseInt(request.getParameter("provincia"))
+                        : null;
+
+                usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+
+                idSubcategoria = (idSubcategoriaStr != null && !idSubcategoriaStr.trim().isEmpty())
+                        ? Integer.parseInt(idSubcategoriaStr)
+                        : null;
+
+                List<Object[]> eventosFiltradosUsuario = daoE.filtrarEventosPorSubcategoriaYProvinciaLogueado(idCategoria,idSubcategoria,idProvincia,usuario.getIdUsuario());
+                String jsonEventosUsuario = new Gson().toJson(eventosFiltradosUsuario);
+                response.getWriter().write(jsonEventosUsuario);
                 break;
 
         }

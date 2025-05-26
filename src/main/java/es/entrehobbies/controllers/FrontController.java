@@ -37,6 +37,7 @@ public class FrontController extends HttpServlet {
         Evento evento = null;
         List<Object[]> listaObjetos = null;
         List<Object[]> listaProvincias = null;
+        List<Object[]> listaCategorias = null;
         int idCategoria;
         int idEvento;
         String nombreCategoria;
@@ -98,6 +99,12 @@ public class FrontController extends HttpServlet {
             case "Informacion":
                 url = "/JSP/USUARIO/informacion.jsp";
                 break;
+            case "Gestor-Eventos":
+                url = "/JSP/USUARIO/gestionEventos.jsp";
+                break;
+            case "Gestor-Participaciones":
+                url = "/JSP/USUARIO/gestionParticipaciones.jsp";
+                break;
             case "Mis-Eventos":
                 user = (Usuario) request.getSession().getAttribute("usuario");
                 listaObjetos = daoE.getAllEventosUsuariosOrdenadosCrono(user.getIdUsuario());
@@ -134,7 +141,7 @@ public class FrontController extends HttpServlet {
                     url = "/JSP/EVENTO/categorias.jsp";
                 } else {
                     request.setAttribute("error", "No se han encontrado categorías");
-                    url = "/JSP/ERRORES/error500.jsp";
+                    url = "/JSP/AVISOS/noCategorias.jsp";
                 }
                 break;
             case "Ver-Eventos":
@@ -144,9 +151,13 @@ public class FrontController extends HttpServlet {
                 nombreCategoria = daoC.getNombreCategoriaPorId(idCategoria);
                 // Recogemos todos los eventos de dicha categoría
                 listaObjetos = daoE.getAllEventosPorCategoriaOrdenados(idCategoria);
+                // Obtenemos las provincias
+                listaProvincias = daoP.getAllProvinciasOrdenadas();
                 if (listaObjetos != null && !listaObjetos.isEmpty()) {
                     request.setAttribute("categoria", nombreCategoria);
                     request.setAttribute("eventos", listaObjetos);
+                    request.setAttribute("provincias", listaProvincias);
+                    request.setAttribute("categoriaId", idCategoria);
                     url = "/JSP/EVENTO/verEventos.jsp";
                 } else {
                     request.setAttribute("categoria", nombreCategoria);
@@ -196,9 +207,13 @@ public class FrontController extends HttpServlet {
                 nombreCategoria = daoC.getNombreCategoriaPorId(idCategoria);
                 // Recogemos todos los eventos de dicha categoría
                 listaObjetos = daoE.getAllEventosPorCategoriaOrdenadosUserLogueado(idCategoria, user.getIdUsuario());
+                // Obtenemos las provincias
+                listaProvincias = daoP.getAllProvinciasOrdenadas();
                 if (listaObjetos != null && !listaObjetos.isEmpty()) {
                     request.setAttribute("categoria", nombreCategoria);
+                    request.setAttribute("categoriaId", idCategoria);
                     request.setAttribute("eventos", listaObjetos);
+                    request.setAttribute("provincias", listaProvincias);
                     url = "/JSP/EVENTO/verEventosLogueado.jsp";
                 } else {
                     request.setAttribute("categoria", nombreCategoria);

@@ -9,10 +9,14 @@
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/BOOTSTRAPTABLE/cargarParticipantes.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/buscadorUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/obtenerSubcategorias.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/pintarEventosLogueado.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/filtroEventoUsuario.js" defer></script>
 </head>
-<body class="body-custom position-relative bg-gradient-morado-blanco">
+<body class="body-custom position-relative bg-gradient-morado-blanco" data-contexto="${contexto}">
 
-<c:import url="/INC/navbarUsuario.jsp"/>
+<c:import url="/INC/navbarBusquedaUsuario.jsp"/>
 
 <div style="position: fixed; top: 75px; right: 1rem; z-index: 1000;">
     <form action="${contexto}/FrontController" method="post">
@@ -34,36 +38,25 @@
             <div>
                 <div class="mb-3">
                     <label for="categoria" class="form-label fw-bold mb-2">Categor&iacute;a</label>
-                    <select class="form-select" id="categoria" name="categoria">
-                        <option value="" disabled selected>Selecciona una categor&iacute;a</option>
-                        <option value="deportes">Deportes</option>
-                        <option value="videojuegos">Videojuegos</option>
-                        <option value="lectura">Lectura y Literatura</option>
+                    <select class="form-select" id="categoria" name="categoria" data-cargar-inicial="true">
+                        <option value="${requestScope.categoriaId}" selected>${requestScope.categoria}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="subcategoria" class="form-label fw-bold mb-2">Subcategor&iacute;a</label>
+                    <select class="form-select" id="subcategoria" name="subcategoria">
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="provincia" class="form-label fw-bold mb-2">Provincia</label>
-                    <select class="form-select" id="provincia" name="provincia">
+                    <select class="form-select" id="provincia" name="provincia" required>
                         <option value="" disabled selected>Selecciona una provincia</option>
-                        <option value="badajoz">Badajoz</option>
-                        <option value="caceres">Cáceres</option>
-                        <option value="sevilla">Sevilla</option>
+                        <c:forEach var="provincia" items="${provincias}">
+                            <option value="${provincia[0]}">${provincia[1]}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-bold mb-2">Rango de fechas</label>
-                    <div class="d-flex flex-column flex-md-row gap-2">
-                        <div class="flex-fill">
-                            <label for="fechaInicio" class="form-label">Desde</label>
-                            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
-                        </div>
-                        <div class="flex-fill">
-                            <label for="fechaLimite" class="form-label">Hasta</label>
-                            <input type="date" class="form-control" id="fechaLimite" name="fechaLimite">
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="mt-4 align-self-bottom">
@@ -79,7 +72,7 @@
     <h1 class="text-light text-titulo mt-5 text-center">Eventos de ${requestScope.categoria}</h1>
 </div>
 
-<div class="container my-5">
+<div class="container my-5" id="contenedorEventos">
     <c:forEach var="evento" items="${requestScope.eventos}" varStatus="status">
         <c:if test="${status.index % 2 == 0}">
             <div class="row justify-content-center mb-4">
@@ -202,7 +195,6 @@
         </c:if>
     </c:forEach>
 </div>
-
 
 <c:if test="${sessionScope.usuario != null}">
     <form action="${contexto}/FrontController" method="post">

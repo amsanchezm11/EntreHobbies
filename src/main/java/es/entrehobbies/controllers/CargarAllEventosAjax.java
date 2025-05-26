@@ -62,6 +62,6 @@ public class CargarAllEventosAjax extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Devuelve el resumen de todos los eventos en formato JSON";
+        return "Short description";
     }
 }

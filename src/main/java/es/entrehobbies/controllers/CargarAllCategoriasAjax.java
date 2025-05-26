@@ -37,6 +37,6 @@ public class CargarAllCategoriasAjax extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Devuelve resumen de todas las categorías con subcategorías.";
+        return "Short description";
     }
 }

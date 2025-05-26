@@ -62,24 +62,41 @@ section.bloque-footer {
     padding: 4rem 1rem;
 }
 
-.bg-white {
-    background-color: #fff;
-}
+/*.bg-white {*/
+/*    background-color: #fff;*/
+/*}*/
 
 .bg-morado {
     background-color: #5f27cd !important;
 }
 
-.bg-gradient-morado {
-    background: linear-gradient(to bottom, #5f27cd, #a29bfe);
-    color: white;
-}
+/*.bg-gradient-morado {*/
+/*    background: linear-gradient(to bottom, #5f27cd, #a29bfe);*/
+/*    color: white;*/
+/*}*/
 
 .bg-gradient-morado-blanco {
-    /*background: linear-gradient(308deg, rgba(111, 66, 193, 1) 0%, rgba(75, 30, 138, 1) 50%);*/
     background: linear-gradient(to bottom, #5f27cd, #a29bfe);
-    /*color: white;*/
 }
+
+.bg-gradient-morado-dinamico {
+    background: linear-gradient(-45deg, #5f27cd, #a29bfe, #5f27cd, #a29bfe);
+    background-size: 400% 400%;
+    animation: cambioGradiente 10s ease infinite;
+}
+
+@keyframes cambioGradiente {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 
 /*body.landing-page section:nth-child(odd) {*/
 /*    background-color: #ffffff;*/
@@ -631,6 +648,10 @@ footer span:hover {
 
 .page-list {
     color: #000 !important;
+}
+
+#tablaEventosUsuario.page-list {
+    color: var(--color-texto) !important;
 }
 
 .page-link {

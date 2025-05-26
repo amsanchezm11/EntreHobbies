@@ -6,6 +6,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO/crearEvento.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO/modificarEventoParcial.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO/verEventos.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO/verEventosLogueado.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/LOGIN/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/LOGIN" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/USUARIO/eventosUsuario.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/USUARIO" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/USUARIO/menuUsuario.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/USUARIO" />

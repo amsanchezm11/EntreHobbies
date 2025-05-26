@@ -41,5 +41,17 @@ public interface IEventoDAO {
 
     public List<Object[]> getAllEventosParticipadosOrdenadosPorFechaInicio(Usuario usuario);
 
+    public List<Object[]> getEventosResumenPorUsuario(int idUsuario);
+
+    public List<Object[]> getEventosResumenPorUsuarioParticipados(int idUsuario);
+
+    public List<Object[]> buscarEventosPorTextoYCategoria(String texto, int idCategoria, int idUsuario);
+
+    public List<Object[]> buscarEventosPublicosPorTextoYCategoria(String texto, int idCategoria);
+
+    public List<Object[]> filtrarEventosPublicos(int idCategoria, Integer idSubcategoria, String provincia);
+
+    public List<Object[]> filtrarEventosPorSubcategoriaYProvinciaLogueado(int idCategoria, Integer idSubcategoria, Integer idProvincia, int idUsuario);
+
 
 }

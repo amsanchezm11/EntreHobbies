@@ -7,7 +7,7 @@
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/formularioEvento.js" defer></script>
-    <script type="module" src="${contexto}/JS/obtenerSubcategorias.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/obtenerSubcategorias.js" defer></script>
     <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/validarEvento.js" defer></script>
 </head>
@@ -100,7 +100,7 @@
                     <div class="input-group mb-3">
                         <div class="form-floating flex-grow-1">
                             <select class="form-control" id="subcategoria" name="idSubcategoria" required>
-                                <option value="" disabled selected hidden>Selecciona una subcategor&iacute;a</option>
+                                <option value="" disabled selected>Selecciona una subcategor&iacute;a</option>
                             </select>
                             <label for="subcategoria">Subcategor&iacute;a</label>
                         </div>
