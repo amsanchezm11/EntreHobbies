@@ -16,6 +16,7 @@
 
 <div class="mb-5 ps-3 my-3">
     <h1 class="text-light text-footer text-center">Mis Participaciones</h1>
+    <p class="mb-4 text-light fs-4 text-center">Consulta tus participaciones a eventos actuales</p>
 </div>
 
 <main class="container pb-5">

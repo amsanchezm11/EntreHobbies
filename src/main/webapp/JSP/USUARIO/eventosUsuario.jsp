@@ -16,15 +16,16 @@
 
 <div class="mb-5 ps-3 my-3">
     <h1 class="text-light text-footer text-center">Mis Eventos</h1>
+    <p class="mb-4 text-light fs-4 text-center">Consulta tus eventos actuales</p>
 </div>
 
 <main class="container pb-5">
-    <div class="row">
+    <div class="row" id="container-eventos">
         <c:forEach var="evento" items="${requestScope.eventos}">
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card card-eventos shadow-sm d-flex flex-column carta p-3 h-100">
                     <div class="card-body-eventos flex-grow-1 d-flex flex-column">
-                        <h5 class="card-title fw-bold ms-2">${evento[1]}</h5>
+                        <h5 class="card-title fw-bold ms-2 mb-4">${evento[1]}</h5>
                         <p class="card-text ms-2"><strong>Fecha de creación:</strong> <fmt:formatDate
                                 value="${evento[3]}" pattern="dd/MM/yyyy"/></p>
                         <p class="card-text ms-2"><strong>Fecha de inicio:</strong> <fmt:formatDate value="${evento[4]}"
@@ -189,6 +190,7 @@
 
         </c:forEach>
     </div>
+    <div id="modales-eventos"></div>
 </main>
 
 <c:if test="${sessionScope.usuario != null}">

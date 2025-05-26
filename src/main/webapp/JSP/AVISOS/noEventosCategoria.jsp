@@ -18,7 +18,7 @@
     </c:otherwise>
 </c:choose>
 
-<div style="position: fixed; top: 75px; right: 1rem; z-index: 1050;">
+<div style="position: fixed; top: 75px; right: 1rem; z-index: 1000;">
     <form action="${contexto}/FrontController" method="post">
         <button type="submit" class="btn btn-main" name="accion" value="Ver-Categorias">
             <i class="bi bi-arrow-left me-2"></i> Volver a categor&iacute;as
@@ -33,10 +33,12 @@
 <div class="container d-flex justify-content-center align-items-center"
      style="min-height: 60vh;">
 
+
     <div class="container d-flex justify-content-center align-items-start mt-5 pt-5" style="min-height: 60vh;">
         <div class="text-center">
 
-            <h1 class="mb-3 text-light fw-bold fs-2 texto-titulo">Ups! No hay eventos este mes en esta categor&iacute;a</h1>
+            <h1 class="mb-3 text-light fw-bold fs-2 text-titulo">Ups! Aun no hay eventos este en esta
+                categor&iacute;a</h1>
             <p class="mb-4 text-light fs-4">Para ser el primero en crear un evento, por favor reg&iacute;strate o inicia sesi&oacute;n.</p>
 
             <form action="${contexto}/FrontController" method="post"

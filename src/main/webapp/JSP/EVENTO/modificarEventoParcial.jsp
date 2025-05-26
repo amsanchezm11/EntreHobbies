@@ -7,7 +7,7 @@
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/formularioEvento.js" defer></script>
-    <script type="module" src="${contexto}/JS/obtenerSubcategorias.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/obtenerSubcategorias.js" defer></script>
     <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/modificarEventoParcial.js" defer></script>
 </head>
