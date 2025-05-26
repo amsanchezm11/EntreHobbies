@@ -12,7 +12,7 @@
 
 <c:import url="/INC/navbarUsuario.jsp"/>
 
-<div style="position: fixed; top: 75px; right: 1rem; z-index: 1050;">
+<div style="position: fixed; top: 75px; right: 1rem; z-index: 1000;">
     <form action="${contexto}/FrontController" method="post">
         <button type="submit" class="btn btn-main" name="accion" value="Ver-Categorias">
             <i class="bi bi-arrow-left me-2"></i> Volver a categor&iacute;as

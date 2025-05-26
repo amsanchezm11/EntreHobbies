@@ -665,7 +665,8 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         return eventos;
     }
 
-    public List<Object[]> filtrarEventosPublicos(int idCategoria, Integer idSubcategoria, String provincia) {
+    @Override
+    public List<Object[]> filtrarEventosPublicos(int idCategoria, Integer idSubcategoria, Integer idProvincia) {
         List<Object[]> eventos = new ArrayList<>();
         try {
             startTransaction();
@@ -683,12 +684,12 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
             if (idSubcategoria != null) {
                 hql.append("AND e.subcategoria.idSubcategoria = :idSubcategoria ");
             }
-            if (provincia != null && !provincia.trim().isEmpty()) {
-                hql.append("AND LOWER(e.provincia.nombre) = :provincia ");
+            if (idProvincia != null) {
+                hql.append("AND e.provincia.idProvincia = :idProvincia ");
             }
 
             hql.append("GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
-                    "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
+                    "e.numParticipantes, e.direccion, e.localidad, e.provincia.idProvincia, " +
                     "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
                     "e.subcategoria.nombre, e.creador.username, e.estado " +
                     "ORDER BY e.fechaInicio DESC");
@@ -699,8 +700,8 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
             if (idSubcategoria != null) {
                 query.setParameter("idSubcategoria", idSubcategoria);
             }
-            if (provincia != null && !provincia.trim().isEmpty()) {
-                query.setParameter("provincia", provincia.trim().toLowerCase());
+            if (idProvincia != null) {
+                query.setParameter("idProvincia", idProvincia);
             }
 
             eventos = query.getResultList();
@@ -711,6 +712,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
 
         return eventos;
     }
+
 
     @Override
     public List<Object[]> filtrarEventosPorSubcategoriaYProvinciaLogueado(int idCategoria, Integer idSubcategoria, Integer idProvincia, int idUsuario) {

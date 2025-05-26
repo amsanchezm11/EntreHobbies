@@ -49,7 +49,7 @@ public interface IEventoDAO {
 
     public List<Object[]> buscarEventosPublicosPorTextoYCategoria(String texto, int idCategoria);
 
-    public List<Object[]> filtrarEventosPublicos(int idCategoria, Integer idSubcategoria, String provincia);
+    public List<Object[]> filtrarEventosPublicos(int idCategoria, Integer idSubcategoria, Integer idProvincia);
 
     public List<Object[]> filtrarEventosPorSubcategoriaYProvinciaLogueado(int idCategoria, Integer idSubcategoria, Integer idProvincia, int idUsuario);
 

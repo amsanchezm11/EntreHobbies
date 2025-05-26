@@ -60,7 +60,7 @@
             </div>
 
             <div class="mt-4 align-self-bottom">
-                <button type="submit" class="btn btn-main w-100">Aplicar filtros</button>
+<%--                <button type="submit" class="btn btn-main w-100">Aplicar filtros</button>--%>
                 <button type="reset" class="btn btn-main w-100">Limpiar filtros</button>
             </div>
 

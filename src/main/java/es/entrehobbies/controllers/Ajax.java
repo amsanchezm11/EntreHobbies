@@ -42,6 +42,7 @@ public class Ajax extends HttpServlet {
         String provincia;
         String idSubcategoriaStr;
         Integer idSubcategoria;
+        Integer idProvincia;
         // Variables DAO
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IUsuarioDAO daoU = daoF.getUsuarioDAO();
@@ -342,11 +343,15 @@ public class Ajax extends HttpServlet {
                 response.setCharacterEncoding("UTF-8");
 
                 idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
-                provincia = request.getParameter("provincia");
+                idProvincia = (request.getParameter("provincia") != null && !request.getParameter("provincia").trim().isEmpty())
+                        ? Integer.parseInt(request.getParameter("provincia"))
+                        : null;
                 idSubcategoriaStr = request.getParameter("idSubcategoria");
-                idSubcategoria = (idSubcategoriaStr == null || idSubcategoriaStr.isEmpty()) ? null : Integer.parseInt(idSubcategoriaStr);
+                idSubcategoria = (idSubcategoriaStr != null && !idSubcategoriaStr.trim().isEmpty())
+                        ? Integer.parseInt(idSubcategoriaStr)
+                        : null;
 
-                eventosFiltrados = daoE.filtrarEventosPublicos(idCategoria, idSubcategoria, provincia);
+                eventosFiltrados = daoE.filtrarEventosPublicos(idCategoria, idSubcategoria, idProvincia);
 
                 String jsonFiltrado = new Gson().toJson(eventosFiltrados);
                 response.getWriter().write(jsonFiltrado);
@@ -358,12 +363,11 @@ public class Ajax extends HttpServlet {
 
                 idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
                 idSubcategoriaStr = request.getParameter("idSubcategoria");
-                Integer idProvincia = (request.getParameter("provincia") != null && !request.getParameter("provincia").trim().isEmpty())
+                idProvincia = (request.getParameter("provincia") != null && !request.getParameter("provincia").trim().isEmpty())
                         ? Integer.parseInt(request.getParameter("provincia"))
                         : null;
 
                 usuario = (Usuario) request.getSession().getAttribute("usuario");
-
 
                 idSubcategoria = (idSubcategoriaStr != null && !idSubcategoriaStr.trim().isEmpty())
                         ? Integer.parseInt(idSubcategoriaStr)
