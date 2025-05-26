@@ -172,7 +172,7 @@ public class FrontController extends HttpServlet {
                     url = "/JSP/USUARIO/verEventosParticipado.jsp";
                 } else {
                     request.setAttribute("error", "No se han encontrado eventos");
-                    url = "/JSP/ERRORES/error500.jsp";
+                    url = "/JSP/AVISOS/noParticipaciones.jsp";
                 }
                 break;
             case "Ver-AllUsuarios":
@@ -197,6 +197,20 @@ public class FrontController extends HttpServlet {
                 url = "/JSP/ADMIN/estadisticasUsuarios.jsp";
 
                 break;
+
+            case "Estadisticas-Evento":
+                Object[] eventoPopular = daoE.getEventoMasPopular();
+                request.setAttribute("eventoPopular", eventoPopular);
+
+                Object[] eventoReciente = daoE.getEventoMasReciente();
+                request.setAttribute("eventoReciente", eventoReciente);
+
+                Long totalEventos = daoE.getTotalEventos();
+                request.setAttribute("totalEventos", totalEventos);
+
+                url = "/JSP/ADMIN/estadisticasEventos.jsp";
+                break;
+
 
             case "Ver-Eventos-Logueado":
                 // Obtenemos el usuario de la sesión

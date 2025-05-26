@@ -786,4 +786,60 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         return eventos;
     }
 
+    @Override
+    public Object[] getEventoMasPopular() {
+        Object[] resultado = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.titulo, e.subcategoria.categoria.imagen, COUNT(p) " +
+                            "FROM Evento e LEFT JOIN e.participantes p " +
+                            "GROUP BY e.idEvento, e.titulo, e.subcategoria.categoria.imagen " +
+                            "ORDER BY COUNT(p) DESC", Object[].class
+            ).setMaxResults(1);
+
+            resultado = query.uniqueResult();
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultado;
+    }
+
+    @Override
+    public Object[] getEventoMasReciente() {
+        Object[] resultado = null;
+        try {
+            startTransaction();
+
+            Query<Object[]> query = sesion.createQuery(
+                    "SELECT e.titulo, e.subcategoria.categoria.imagen, e.fechaCreacion " +
+                            "FROM Evento e " +
+                            "ORDER BY e.fechaCreacion DESC", Object[].class
+            ).setMaxResults(1);
+
+            resultado = query.uniqueResult();
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return resultado;
+    }
+
+    @Override
+    public Long getTotalEventos() {
+        Long total = 0L;
+        try {
+            startTransaction();
+            total = sesion.createQuery("SELECT COUNT(e) FROM Evento e", Long.class).uniqueResult();
+            endTransaction();
+        } catch (HibernateException he) {
+            handleExcepcion(he);
+        }
+        return total;
+    }
+
+
+
 }

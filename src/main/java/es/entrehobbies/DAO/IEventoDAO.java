@@ -53,5 +53,9 @@ public interface IEventoDAO {
 
     public List<Object[]> filtrarEventosPorSubcategoriaYProvinciaLogueado(int idCategoria, Integer idSubcategoria, Integer idProvincia, int idUsuario);
 
+    public Object[] getEventoMasPopular();
 
+    public Object[] getEventoMasReciente();
+
+    public Long getTotalEventos();
 }

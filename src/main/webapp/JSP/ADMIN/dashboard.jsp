@@ -36,7 +36,7 @@
                         <p class="card-text flex-grow-1">Revisa los eventos registrados y su estado actual.</p>
                         <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center gap-3 mt-3">
                             <button type="submit" name="accion" value="Ver-AllEventos" class="btn btn-main">Ver todos los eventos</button>
-                            <button type="submit" name="accion" value="Estadisticas-Eventos" class="btn btn-main">Estad&iacute;sticas Eventos</button>
+                            <button type="submit" name="accion" value="Estadisticas-Evento" class="btn btn-main">Estad&iacute;sticas Eventos</button>
                         </form>
                     </div>
                 </div>
