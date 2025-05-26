@@ -53,43 +53,7 @@
                          class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
                     <div class="card-body p-2">
                         <h5 class="fw-bold">Mi Cuenta</h5>
-                        <p>Accede a tu perfil para gestionar tu información, eventos y participaciones.</p>
-                    </div>
-                </button>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <button type="submit" name="accion" value="Mis-Eventos" title="Acceder a mis eventos"
-                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
-                    <img src="${contexto}/IMG/GENERAL/eventos.svg" alt="Eventos organizados"
-                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
-                    <div class="card-body p-2">
-                        <h5 class="fw-bold">Mis Eventos</h5>
-                        <p>Consulta los eventos que has organizado.</p>
-                    </div>
-                </button>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <button type="submit" name="accion" value="Crear-Evento" title="Crear nuevo evento"
-                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
-                    <img src="${contexto}/IMG/GENERAL/nuevoevento.svg" alt="Crear evento"
-                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
-                    <div class="card-body p-2">
-                        <h5 class="fw-bold">Crear Evento</h5>
-                        <p>¿Tienes un plan en mente? Compártelo con la comunidad.</p>
-                    </div>
-                </button>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <button type="submit" name="accion" value="Mis-Participaciones" title="Ver mis participaciones"
-                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
-                    <img src="${contexto}/IMG/GENERAL/participaciones.svg" alt="Participaciones"
-                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
-                    <div class="card-body p-2">
-                        <h5 class="fw-bold">Mis Participaciones</h5>
-                        <p>Consulta los eventos a los que te has unido.</p>
+                        <p>Accede a tu perfil para gestionar tu informaci&oacute;n, eventos y participaciones.</p>
                     </div>
                 </button>
             </div>
@@ -107,13 +71,49 @@
             </div>
 
             <div class="col-md-4 mb-4">
-                <button type="submit" name="accion" value="Informacion" title="Informaci&oacute;n"
+                <button type="submit" name="accion" value="Crear-Evento" title="Crear nuevo evento"
                         class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
-                    <img src="${contexto}/IMG/GENERAL/informacion.svg" alt="Información"
+                    <img src="${contexto}/IMG/GENERAL/nuevoevento.svg" alt="Crear evento"
                          class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
                     <div class="card-body p-2">
-                        <h5 class="fw-bold">Información</h5>
-                        <p>Obtén más detalles y ayuda sobre la plataforma.</p>
+                        <h5 class="fw-bold">Crear Evento</h5>
+                        <p>¿Tienes un plan en mente? Comp&aacute;rtelo con la comunidad.</p>
+                    </div>
+                </button>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <button type="submit" name="accion" value="Mis-Eventos" title="Acceder a mis eventos"
+                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
+                    <img src="${contexto}/IMG/GENERAL/eventos.svg" alt="Eventos organizados"
+                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
+                    <div class="card-body p-2">
+                        <h5 class="fw-bold">Mis Eventos</h5>
+                        <p>Consulta los eventos que has organizado recientemente.</p>
+                    </div>
+                </button>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <button type="submit" name="accion" value="Mis-Participaciones" title="Ver mis participaciones"
+                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
+                    <img src="${contexto}/IMG/GENERAL/participaciones.svg" alt="Participaciones"
+                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
+                    <div class="card-body p-2">
+                        <h5 class="fw-bold">Mis Participaciones</h5>
+                        <p>Consulta los eventos a los que te has unido recientemente.</p>
+                    </div>
+                </button>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <button type="submit" name="accion" value="Informacion" title="Informaci&oacute;n"
+                        class="card-btn h-100 rounded-3 p-2 sombra-morada-btn text-dark w-100 d-flex flex-column align-items-center">
+                    <img src="${contexto}/IMG/GENERAL/informacion.svg" alt="Informaci&oacute;n"
+                         class="card-img-top img-fluid mx-auto" style="max-width: 50%; height: 150px;">
+                    <div class="card-body p-2">
+                        <h5 class="fw-bold">Informaci&oacute;n</h5>
+                        <p>Obt&eacute;n m&aacute;s detalles y ayuda sobre la plataforma.</p>
                     </div>
                 </button>
             </div>
@@ -181,7 +181,7 @@
 </section>
 
 <%--<section class="bloque d-flex flex-column gap-5">--%>
-<%--    <h1 class="fw-bold text-titulo">Encuentra eventos, únete a la comunidad y disfruta</h1>--%>
+<%--    <h1 class="fw-bold text-titulo">Encuentra eventos, &úacute;nete a la comunidad y disfruta</h1>--%>
 <%--    <div class="container">--%>
 <%--        <div class="row justify-content-center text-center">--%>
 <%--            <div class="col-md-5 mb-4">--%>

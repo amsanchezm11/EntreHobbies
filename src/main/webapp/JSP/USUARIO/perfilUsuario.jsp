@@ -11,7 +11,7 @@
     <script type="module" src="${contexto}/JS/VALIDACIONES/comprobarPassword.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/modificarUsuario.js" defer></script>
     <script type="module" src="${contexto}/JS/alertas.js" defer></script>
-    <script type="module" src="${contexto}/JS/vistaPreviaIMG.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/vistaPreviaIMG.js" defer></script>
 </head>
 <body class="bg-light h-100">
 <div class="container-fluid">
@@ -51,8 +51,8 @@
                         <button type="submit"
                                 class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
                                 name="accion"
-                                value="Mis-Eventos">
-                            <i class="bi bi-calendar-event me-2"></i>Mis eventos
+                                value="Gestor-Eventos">
+                            <i class="bi bi-calendar-event me-2"></i>Todos mis eventos
                         </button>
                     </form>
 
@@ -60,8 +60,8 @@
                         <button type="submit"
                                 class="nav-link py-2 text-dark border-bottom bg-transparent border-0 text-start w-100"
                                 name="accion"
-                                value="Mis-Participaciones">
-                            <i class="bi bi-person-check me-2"></i>Mis Participaciones
+                                value="Gestor-Participaciones">
+                            <i class="bi bi-person-check me-2"></i>Todas mis Participaciones
                         </button>
                     </form>
 
