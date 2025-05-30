@@ -113,20 +113,20 @@
                                 </button>
                             </c:if>
                             <form action="${contexto}/FrontController" method="post">
-                                <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado'}">
+                                <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado' && evento[11] != 'En_Curso'}">
                                     <input type="hidden" name="idEvento" value="${evento[0]}">
                                     <button class="btn btn-main" name="accion" value="Modificar-Evento">Modificar
                                         Evento
                                     </button>
                                 </c:if>
                             </form>
-                            <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado' && evento[13] == 0}">
+                            <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado' && evento[13] == 0 && evento[11] != 'En_Curso'}">
                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#confirmarEliminacion${evento[0]}">
                                     Eliminar Evento
                                 </button>
                             </c:if>
-                            <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado' && evento[13] > 0}">
+                            <c:if test="${evento[11] != 'Cancelado' && evento[11] != 'Finalizado' && evento[13] > 0 && evento[11] != 'En_Curso'}">
                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#confirmarCancelacion${evento[0]}">
                                     Cancelar Evento

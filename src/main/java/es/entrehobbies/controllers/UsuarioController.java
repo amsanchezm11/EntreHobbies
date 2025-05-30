@@ -59,6 +59,7 @@ public class UsuarioController extends HttpServlet {
         int idProvincia;
         List<Object[]> provincias = null;
         DateConverter converter;
+        String error;
 
 
         // DAOs
@@ -94,67 +95,78 @@ public class UsuarioController extends HttpServlet {
 
                 try {
                     usuario = new Usuario();
-
                     // Rellenamos los datos de usuario que vienen del formulario con BeansUtils
                     BeanUtils.populate(usuario, request.getParameterMap());
-                    // Ciframos su contraseña con md5
-                    usuario.setPassword(Utilities.md5(usuario.getPassword()));
-                    // Le añadimos su rol correspondiente
-                    usuario.setRol(Usuario.Rol.Colaborador);
-                    // Le añadimos la provincia
-                    usuario.setProvincia(provincia);
-                    // Le añadimos la fecha de hoy en su fecha de creación
-                    usuario.setFechaCreacion(new Date());
-                    // Lo añadimos a la base de datos
-                    daoG.insertOrUpdate(usuario);
-                    // Gestionamos el enviar correo de bienvenida
-                    // Obtenemos el email del nuevo usuario
-                    destinatario = usuario.getEmail();
-                    // Configuramos el asunto del mensaje
-                    asunto = "Bienvenido a EntreHobbies";
-                    // Configuramos el cuerpo del mensaje
-                    cuerpo = generarMensajeBienvenida(usuario.getNombre(), usuario.getUsername(), usuario.getEmail(), usuario.getSexo());
-                    EnviarCorreos.enviar(destinatario, asunto, cuerpo);
-                    // Gestionamos el avatar del usuario
-                    // Obtenemos la imagen de avatar del input type file
-                    filePart = request.getPart("avatar");
-                    // Comprobamos que la imagen cumpla con el formato correcto
-                    if (filePart.getContentType().equals("image/png") || filePart.getContentType().equals("image/jpg") || filePart.getContentType().equals("image/jpeg")) {
-                        // Comprobamos que la imagen no sea mayor de 100KB(Tamaño permitido en la aplicación)
-                        if (filePart.getSize() < 102400) {
-                            // Obtenemos la extensión de la imagen
-                            extension = ".jpeg";
-                            if (filePart.getContentType().equals("image/jpg")) {
-                                extension = ".jpg";
-                            }
-                            if (filePart.getContentType().equals("image/png")) {
-                                extension = ".png";
-                            }
-                            // Obtenemos el nombre del fichero
-                            nombreFichero.append("AvatarN").append(String.valueOf(usuario.getIdUsuario())).append(extension);
-                            filePath = dirImagen + nombreFichero.toString();
-                            // Escribimos el fichero en el servidor
-                            filePart.write(filePath);
-
-                            // Modificamos el avatar en el usuario de sesión
-                            usuario.setAvatar(nombreFichero.toString());
-                            daoG.insertOrUpdate(usuario);
-                        } else {
-                            request.setAttribute("error", "Tamaño de imagen demasiado grande");
-                        }
+                    // Comprobamos que las longuitudes de los campos sean correctas
+                    error = Utilities.validarLongitudesUsuario(usuario);
+                    if (error != null) {
+                        request.setAttribute("error", error);
+                        url = ".";
                     } else {
-                        request.setAttribute("error", "Formato de imagen no permitido");
+                        // Ciframos su contraseña con md5
+                        usuario.setPassword(Utilities.md5(usuario.getPassword()));
+                        // Le añadimos su rol correspondiente
+                        usuario.setRol(Usuario.Rol.Colaborador);
+                        // Le añadimos la provincia
+                        usuario.setProvincia(provincia);
+                        // Le añadimos la fecha de hoy en su fecha de creación
+                        usuario.setFechaCreacion(new Date());
+                        // Lo añadimos a la base de datos
+                        daoG.insertOrUpdate(usuario);
+                        // Gestionamos el enviar correo de bienvenida
+                        // Obtenemos el email del nuevo usuario
+                        destinatario = usuario.getEmail();
+                        // Configuramos el asunto del mensaje
+                        asunto = "Bienvenido a EntreHobbies";
+                        // Configuramos el cuerpo del mensaje
+                        cuerpo = generarMensajeBienvenida(usuario.getNombre(), usuario.getUsername(), usuario.getEmail(), usuario.getSexo());
+                        EnviarCorreos.enviar(destinatario, asunto, cuerpo);
+                        // Gestionamos el avatar del usuario
+                        // Obtenemos la imagen de avatar del input type file
+                        filePart = request.getPart("avatar");
+                        // Comprobamos que la imagen cumpla con el formato correcto
+                        if (filePart.getContentType().equals("image/png") || filePart.getContentType().equals("image/jpg") || filePart.getContentType().equals("image/jpeg")) {
+                            // Comprobamos que la imagen no sea mayor de 100KB(Tamaño permitido en la aplicación)
+                            if (filePart.getSize() < 102400) {
+                                // Obtenemos la extensión de la imagen
+                                extension = ".jpeg";
+                                if (filePart.getContentType().equals("image/jpg")) {
+                                    extension = ".jpg";
+                                }
+                                if (filePart.getContentType().equals("image/png")) {
+                                    extension = ".png";
+                                }
+                                // Obtenemos el nombre del fichero
+                                nombreFichero.append("AvatarN").append(String.valueOf(usuario.getIdUsuario())).append(extension);
+                                filePath = dirImagen + nombreFichero.toString();
+                                // Escribimos el fichero en el servidor
+                                filePart.write(filePath);
+
+                                // Modificamos el avatar en el usuario de sesión
+                                usuario.setAvatar(nombreFichero.toString());
+                                daoG.insertOrUpdate(usuario);
+                            } else {
+                                request.setAttribute("error", "Tamaño de imagen demasiado grande");
+                            }
+                        } else {
+                            request.setAttribute("error", "Formato de imagen no permitido");
+                        }
+
+                        // Volvemos a obtener el usuario de la base de datos para el formato de fecha
+                        usuario = daoU.getUsuarioPorId(usuario.getIdUsuario());
+                        // Añadimos el usuario actual (de la base de datos) a la sesión
+                        request.getSession().setAttribute("usuario", usuario);
+                        // Notificamos que se ha hecho el registro correctamente
+                        request.setAttribute("aviso", "Te has registrado correctamente");
+                        // Modificamos la url
+                        url = "/JSP/USUARIO/menuUsuario.jsp";
                     }
-
-                    // Añadimos el usuario a la sesión
-                    request.getSession().setAttribute("usuario", usuario);
-                    // Notificamos que se ha hecho el registro correctamente
-                    request.setAttribute("aviso", "Te has registrado correctamente");
-
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, e);
+                    request.setAttribute("error", "Se produjo un error al registrar el usuario.");
+                    url = ".";
                 }
-                url = "/JSP/USUARIO/menuUsuario.jsp";
+
                 break;
             case "Actualizar-datos":
 
@@ -173,36 +185,44 @@ public class UsuarioController extends HttpServlet {
                     usuarioModificado = new Usuario();
                     // Rellenamos los datos de usuario que vienen del formulario con BeansUtils
                     BeanUtils.populate(usuarioModificado, request.getParameterMap());
-                    // Añadimos el id al usuario modificado
-                    usuarioModificado.setIdUsuario(usuario.getIdUsuario());
-                    // Añadimos la contraseña al usuario modificado
-                    usuarioModificado.setPassword(usuario.getPassword());
-                    // Le añadimos su provincia
-                    usuarioModificado.setProvincia(provincia);
-                    // Le añadimos la fecha de hoy en su fecha de creación
-                    usuarioModificado.setFechaCreacion(usuario.getFechaCreacion());
-                    // Le añadimos su rol correspondiente
-                    usuarioModificado.setRol(usuario.getRol());
-                    // Le añadimos su sexo
-                    usuarioModificado.setSexo(usuario.getSexo());
-                    // Aplicamos el avatar que ya tenía el usuario
-                    usuarioModificado.setAvatar(usuario.getAvatar());
-                    // Lo añadimos a la base de datos
-                    daoG.insertOrUpdate(usuarioModificado);
-                    // Volvemos a obtener el usuario de la base de datos para el formato de fecha
-                    usuario = daoU.getUsuarioPorId(usuarioModificado.getIdUsuario());
-                    // Añadimos el usuario actual (de la base de datos) a la sesión
-                    request.getSession().setAttribute("usuario", usuario);
-                    // Notificamos que se ha hecho el registro correctamente
-                    request.setAttribute("aviso", "Datos modificados correctamente");
-                    // Actualizamos la url para redirigir al usuario a su perfil pasando las provincias
-                    provincias = daoP.getAllProvinciasOrdenadas();
-                    request.setAttribute("provincias", provincias);
-                    url = "/JSP/USUARIO/perfilUsuario.jsp";
-
+                    // Comprobamos que las longuitudes de los campos sean correctas
+                    error = Utilities.validarLongitudesUsuario(usuarioModificado);
+                    if (error != null) {
+                        request.setAttribute("error", error);
+                        url = ".";
+                    } else {
+                        // Añadimos el id al usuario modificado
+                        usuarioModificado.setIdUsuario(usuario.getIdUsuario());
+                        // Añadimos la contraseña al usuario modificado
+                        usuarioModificado.setPassword(usuario.getPassword());
+                        // Le añadimos su provincia
+                        usuarioModificado.setProvincia(provincia);
+                        // Le añadimos la fecha de hoy en su fecha de creación
+                        usuarioModificado.setFechaCreacion(usuario.getFechaCreacion());
+                        // Le añadimos su rol correspondiente
+                        usuarioModificado.setRol(usuario.getRol());
+                        // Le añadimos su sexo
+                        usuarioModificado.setSexo(usuario.getSexo());
+                        // Aplicamos el avatar que ya tenía el usuario
+                        usuarioModificado.setAvatar(usuario.getAvatar());
+                        // Lo añadimos a la base de datos
+                        daoG.insertOrUpdate(usuarioModificado);
+                        // Volvemos a obtener el usuario de la base de datos para el formato de fecha
+                        usuario = daoU.getUsuarioPorId(usuarioModificado.getIdUsuario());
+                        // Añadimos el usuario actual (de la base de datos) a la sesión
+                        request.getSession().setAttribute("usuario", usuario);
+                        // Notificamos que se ha hecho el registro correctamente
+                        request.setAttribute("aviso", "Datos modificados correctamente");
+                        // Pasamos las provincias por petición para cuando se redirija al usuario a su perfil
+                        provincias = daoP.getAllProvinciasOrdenadas();
+                        request.setAttribute("provincias", provincias);
+                    }
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, e);
+                    request.setAttribute("error", "No se pudieron actualizar los datos.");
                 }
+                // Modificamos la url
+                url = "/JSP/USUARIO/perfilUsuario.jsp";
                 break;
 
             case "Actualizar-password":
@@ -214,28 +234,33 @@ public class UsuarioController extends HttpServlet {
                 passwordNueva = request.getParameter("nuevaPassword");
                 confirmPassword = request.getParameter("confirmPassword");
 
-                // Comprobamos que la contraseña actual proporcionada sea la misma que la de la base de datos
-                if (usuario.getPassword().equals(Utilities.md5(passwordActual))) {
-                    // Comprobamos que la nueva contraseña sea distinta a la contraseña actual
-                    if (!passwordNueva.equals(passwordActual)) {
-                        // Comprobamos que el confirmar contraseña sea igual a la contraseña nueva
-                        if (confirmPassword.equals(passwordNueva)) {
-                            // Aplicamos la nueva contraseña cifrada con md5 al usuario
-                            usuario.setPassword(Utilities.md5(passwordNueva));
-                            // Modificamos el usuario en la base de datos
-                            daoG.insertOrUpdate(usuario);
-                            request.setAttribute("aviso", "Contraseña modificada correctamente");
+                try {
+                    // Comprobamos que la contraseña actual proporcionada sea la misma que la de la base de datos
+                    if (usuario.getPassword().equals(Utilities.md5(passwordActual))) {
+                        // Comprobamos que la nueva contraseña sea distinta a la contraseña actual
+                        if (!passwordNueva.equals(passwordActual)) {
+                            // Comprobamos que el confirmar contraseña sea igual a la contraseña nueva
+                            if (confirmPassword.equals(passwordNueva)) {
+                                // Aplicamos la nueva contraseña cifrada con md5 al usuario
+                                usuario.setPassword(Utilities.md5(passwordNueva));
+                                // Modificamos el usuario en la base de datos
+                                daoG.insertOrUpdate(usuario);
+                                request.setAttribute("aviso", "Contraseña modificada correctamente");
+                            } else {
+                                request.setAttribute("error", "Confirmar contraseña no coincide con la contraseña nueva");
+                            }
+
                         } else {
-                            request.setAttribute("error", "Confirmar contraseña no coincide con la contraseña nueva");
+                            request.setAttribute("error", "La contraseña nueva debe ser distinta a la actual");
                         }
-
                     } else {
-                        request.setAttribute("error", "La contraseña nueva debe ser distinta a la actual");
+                        request.setAttribute("error", "La contraseña actual no es correcta");
                     }
-                } else {
-                    request.setAttribute("error", "La contraseña actual no es correcta");
-                }
 
+                } catch (Exception e) {
+                    Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, "Error al actualizar la contraseña", e);
+                    request.setAttribute("error", "No se pudo actualizar la contraseña. Inténtalo más tarde.");
+                }
                 url = "/JSP/USUARIO/perfilUsuario.jsp";
                 break;
 
@@ -243,31 +268,39 @@ public class UsuarioController extends HttpServlet {
 
                 // Recuperamos el usuario de la sesión
                 usuario = (Usuario) request.getSession().getAttribute("usuario");
-                // Obtenemos el nuevo avatar
-                filePart = request.getPart("avatar");
-                // Comprobamos que la imagen cumpla con el formato correcto
-                if (filePart.getContentType().equals("image/png") || filePart.getContentType().equals("image/jpg") || filePart.getContentType().equals("image/jpeg")) {
-                    // Comprobamos que la imagen no sea mayor de 100KB(Tamaño permitido en la aplicación)
-                    if (filePart.getSize() < 102400) {
-                        // Obtenemos la extensión de la imagen
-                        extension = ".jpeg";
-                        if (filePart.getContentType().equals("image/jpg")) {
-                            extension = ".jpg";
+
+                try {
+                    // Obtenemos el nuevo avatar
+                    filePart = request.getPart("avatar");
+                    // Comprobamos que la imagen cumpla con el formato correcto
+                    if (filePart.getContentType().equals("image/png") || filePart.getContentType().equals("image/jpg") || filePart.getContentType().equals("image/jpeg")) {
+                        // Comprobamos que la imagen no sea mayor de 100KB(Tamaño permitido en la aplicación)
+                        if (filePart.getSize() < 102400) {
+                            // Obtenemos la extensión de la imagen
+                            extension = ".jpeg";
+                            if (filePart.getContentType().equals("image/jpg")) {
+                                extension = ".jpg";
+                            }
+                            if (filePart.getContentType().equals("image/png")) {
+                                extension = ".png";
+                            }
+                            // Obtenemos el nombre del fichero
+                            nombreFichero.append("AvatarN").append(String.valueOf(usuario.getIdUsuario())).append(extension);
+                            filePath = dirImagen + nombreFichero.toString();
+                            // Escribimos el fichero en el servidor
+                            filePart.write(filePath);
+                            // Modificamos el avatar en el usuario de sesión
+                            usuario.setAvatar(nombreFichero.toString());
+                            // Modificamos el avatar en la base de datos
+                            daoG.insertOrUpdate(usuario);
+                            request.setAttribute("aviso", "Avatar actualizado correctamente");
                         }
-                        if (filePart.getContentType().equals("image/png")) {
-                            extension = ".png";
-                        }
-                        // Obtenemos el nombre del fichero
-                        nombreFichero.append("AvatarN").append(String.valueOf(usuario.getIdUsuario())).append(extension);
-                        filePath = dirImagen + nombreFichero.toString();
-                        // Escribimos el fichero en el servidor
-                        filePart.write(filePath);
-                        // Modificamos el avatar en el usuario de sesión
-                        usuario.setAvatar(nombreFichero.toString());
-                        // Modificamos el avatar en la base de datos
-                        daoG.insertOrUpdate(usuario);
-                        request.setAttribute("aviso", "Avatar actualizado correctamente");
+                    } else {
+                        request.setAttribute("error", "Formato de imagen no permitido o tamaño excedido.");
                     }
+                } catch (IOException | ServletException e) {
+                    Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, "Error al actualizar avatar", e);
+                    request.setAttribute("error", "No se pudo actualizar el avatar.");
                 }
                 url = "/JSP/USUARIO/perfilUsuario.jsp";
                 break;

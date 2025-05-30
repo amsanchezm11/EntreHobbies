@@ -6,11 +6,11 @@
         <jsp:param name="titulo" value="Mi cuenta"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
-    <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
-    <script type="module" src="${contexto}/JS/perfilUsuario.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/inicializarPopovers.js" defer></script>
+    <script type="module" src="${contexto}/JS/VISTAS/perfilUsuario.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/comprobarPassword.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/modificarUsuario.js" defer></script>
-    <script type="module" src="${contexto}/JS/alertas.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/alertas.js" defer></script>
     <script type="module" src="${contexto}/JS/COMPONENTES/vistaPreviaIMG.js" defer></script>
 </head>
 <body class="bg-light h-100">
@@ -94,7 +94,7 @@
                             <img src="${contexto}/IMG/AVATARES/${empty sessionScope.usuario.avatar ? 'avatar.svg' : sessionScope.usuario.avatar}"
                                  alt="Avatar"
                                  class="rounded-circle ${sessionScope.usuario.avatar eq 'avatar.svg' ? '' : 'border-img'}"
-                                 style="width: 150px; height: 150px; object-fit: cover;"
+                                 style="width: 150px; height: 150px; object-fit: contain;"
                                  onerror="this.onerror=null; this.src='${contexto}/IMG/AVATARES/avatar.svg';">
                             <h3 class="mt-3 align-self-center color-pm">${sessionScope.usuario.username}</h3>
                         </div>
@@ -119,11 +119,12 @@
                                           data-bs-html="true"
                                           data-bs-trigger="hover focus"
                                           data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                      <li>No puede tener n&uacute;meros.</li>
-                      <li>Debe empezar con may&uacute;scula.</li>
-                      <li>Solo letras y espacios.</li>
-                      <li>Est&aacute; permitido los acentos.</li>
-                      <li>Longitud m&aacute;xima 30 caracteres.</li>
+                          <li>No puede tener n&uacute;meros.</li>
+                          <li>Debe empezar con may&uacute;scula.</li>
+                          <li>Solo letras y espacios.</li>
+                          <li>Est&aacute; permitido los acentos.</li>
+                          <li>Longitud m&aacute;xima 30 caracteres.</li>
+                          <li>Ej: Jos&eacute; Manuel</li>
                   </ul>">
                 <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
             </span>
@@ -157,7 +158,10 @@
                                           data-bs-toggle="popover"
                                           data-bs-placement="bottom"
                                           data-bs-trigger="hover focus"
-                                          data-bs-content="Debe ser una fecha v&aacute;lida. Se requiere para calcular tu edad.">
+                                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>El usuario debe ser mayor de <strong>18</strong> a&ntilde;os.</li>
+                          <li>No se permiten fechas futuras.</li>
+                      </ul>">
                 <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
             </span>
                                 </div>
@@ -174,7 +178,12 @@
                                           data-bs-placement="bottom"
                                           data-bs-html="true"
                                           data-bs-trigger="hover focus"
-                                          data-bs-content="Nombre de la ciudad o pueblo donde resides. Solo letras y espacios.">
+                                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>Solo letras (may&uacute;sculas y min&uacute;sculas), incluyendo acentos y &ntilde;.</li>
+                          <li>Espacios solo entre palabras (no al principio, no al final, no dobles).</li>
+                          <li>Longitud m&aacute;xima: 50 caracteres.</li>
+                          <li>Ej: M&eacute;rida</li>
+                      </ul>">
                 <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
             </span>
                                 </div>
@@ -195,11 +204,12 @@
                                           data-bs-html="true"
                                           data-bs-trigger="hover focus"
                                           data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                      <li>No puede tener n&uacute;meros.</li>
-                      <li>Debe empezar con may&uacute;scula.</li>
-                      <li>Solo letras y espacios.</li>
-                      <li>Est&aacute; permitido los acentos.</li>
-                      <li>Longitud m&aacute;xima 50 caracteres.</li>
+                          <li>No puede tener n&uacute;meros.</li>
+                          <li>Debe empezar con may&uacute;scula.</li>
+                          <li>Solo letras y espacios.</li>
+                          <li>Est&aacute; permitido los acentos.</li>
+                          <li>Longitud m&aacute;xima 40 caracteres.</li>
+                          <li>Ej: P&eacute;rez P&eacute;rez</li>
                   </ul>">
                 <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
             </span>
@@ -232,7 +242,11 @@
                                           data-bs-toggle="popover"
                                           data-bs-placement="bottom"
                                           data-bs-trigger="hover focus"
-                                          data-bs-content="Debe contener 9 d&iacute;gitos. Solo n&uacute;meros, sin espacios ni guiones.">
+                                          data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
+                          <li>El n&uacute;mero compuesto por <strong>9</strong> d&iacute;gitos, sin espacios ni guiones.</li>
+                          <li>Debe empezar por 6, 7 o 9.</li>
+                          <li>El n&uacute;mero no debe estar ya registrado en nuestra base de datos</li>
+                      </ul>">
                 <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
             </span>
                                 </div>
@@ -305,8 +319,8 @@
                                   data-bs-trigger="hover focus"
                                   data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
                   <li>M&iacute;nimo 6 caracteres.</li>
-                  <li>Debe incluir may&uacute;sculas y min&uacute;sculas.</li>
-                  <li>Al menos un n&uacute;mero.</li>
+                  <li>Cualquier carácter.</li>
+                  <li>No se permiten espacios en blanco.</li>
                   <li>Se recomienda incluir un s&iacute;mbolo (!@#$%).</li>
               </ul>">
             <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
@@ -354,7 +368,7 @@
                                  id="vista-previa-avatar"
                                  alt="Avatar actual"
                                  class="rounded-circle ${sessionScope.usuario.avatar eq 'avatar.svg' ? '' : 'border-img'}"
-                                 style="width: 150px; height: 150px; object-fit: cover;"
+                                 style="width: 150px; height: 150px; object-fit: contain;"
                                  onerror="this.onerror=null; this.src='${contexto}/IMG/AVATARES/avatar.svg';">
                         </div>
                         <div class="input-group mb-3 d-flex justify-content-center w-50">

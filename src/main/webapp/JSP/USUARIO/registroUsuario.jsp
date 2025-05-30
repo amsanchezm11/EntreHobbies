@@ -7,8 +7,8 @@
         <jsp:param name="titulo" value="Registro de Usuario"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
-    <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
-    <script type="module" src="${contexto}/JS/regex.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/inicializarPopovers.js" defer></script>
+    <script type="module" src="${contexto}/JS/VALIDACIONES/regex.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/validarUsuario.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/comprobarEmail.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/comprobarUsername.js" defer></script>
@@ -24,7 +24,6 @@
 </nav>
 <main class="position-relative bg-gradient-morado-blanco w-100 d-flex justify-content-center align-items-center flex-column flex-grow-1 pt-5">
     <h1 class="position-absolute top-0 start-0 text-light m-4 text-login">Registro</h1>
-
 
     <form id="miFormulario" action="${contexto}/UsuarioController" method="post" class="container w-75 mb-4 pt-5"
           enctype="multipart/form-data">
@@ -56,6 +55,7 @@
                           <li>Solo letras y espacios.</li>
                           <li>Est&aacute; permitido los acentos.</li>
                           <li>Longitud m&aacute;xima 30 caracteres.</li>
+                          <li>Ej: Jos&eacute; Manuel</li>
                       </ul>">
         <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
     </span>
@@ -85,6 +85,7 @@
                           <li>Solo letras y espacios.</li>
                           <li>Est&aacute; permitido los acentos.</li>
                           <li>Longitud m&aacute;xima 40 caracteres.</li>
+                          <li>Ej: P&eacute;rez P&eacute;rez</li>
                       </ul>">
         <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
     </span>
@@ -113,6 +114,8 @@
                           <li>No puede tener caracteres especiales.</li>
                           <li>Est&aacute; permitido los acentos.</li>
                           <li>Longitud entre 3-20 caracteres.</li>
+                          <li>⚠️<strong>Debe ser un nombre de usuario &uacute;nico. No puede estar ya registrado.</strong></li>
+                          <li>Ej: Jose23</li>
                       </ul>">
         <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
     </span>
@@ -176,8 +179,10 @@
                               data-bs-html="true"
                               data-bs-trigger="hover focus"
                               data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                          <li>El n&uacute;mero compuesto por <strong>9</strong> d&iacute;gitos.</li>
+                          <li>El n&uacute;mero compuesto por <strong>9</strong> d&iacute;gitos, sin espacios ni guiones.</li>
                           <li>Debe empezar por 6, 7 o 9.</li>
+                          <li>⚠️ <strong>El n&uacute;mero no debe estar ya registrado en nuestra base de datos.</strong></li>
+                          <li>Ej: 600101010</li>
                       </ul>">
         <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
     </span>
@@ -205,6 +210,7 @@
                           <li>Solo letras (may&uacute;sculas y min&uacute;sculas), incluyendo acentos y &ntilde;.</li>
                           <li>Espacios solo entre palabras (no al principio, no al final, no dobles).</li>
                           <li>Longitud m&aacute;xima: 50 caracteres.</li>
+                          <li>Ej: M&eacute;rida</li>
                       </ul>">
         <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
     </span>
@@ -212,30 +218,7 @@
                 </div>
 
                 <div class="col-md-6">
-<%--                    <div class="input-group mb-4 shadow">--%>
-<%--                        <div class="form-floating flex-grow-1">--%>
-<%--                            <input type="text"--%>
-<%--                                   class="form-control"--%>
-<%--                                   id="provincia"--%>
-<%--                                   name="provincia"--%>
-<%--                                   placeholder="Provincia"--%>
-<%--                                   required>--%>
-<%--                            <label for="provincia">Provincia</label>--%>
-<%--                        </div>--%>
-<%--                        <span class="input-group-text bg-light" style="cursor: pointer;" role="button"--%>
-<%--                              title="Formato de provincia"--%>
-<%--                              data-bs-toggle="popover"--%>
-<%--                              data-bs-placement="bottom"--%>
-<%--                              data-bs-html="true"--%>
-<%--                              data-bs-trigger="hover focus"--%>
-<%--                              data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>--%>
-<%--                          <li>Solo letras (may&uacute;sculas y min&uacute;sculas), incluyendo acentos y &ntilde;.</li>--%>
-<%--                          <li>Espacios solo entre palabras (no al principio, no al final, no dobles).</li>--%>
-<%--                          <li>Longitud m&aacute;xima: 50 caracteres.</li>--%>
-<%--                      </ul>">--%>
-<%--        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>--%>
-<%--    </span>--%>
-<%--                    </div>--%>
+
     <div class="input-group mb-4 shadow">
         <div class="form-floating flex-grow-1">
             <select class="form-select"
@@ -298,6 +281,8 @@
                                   <li>Debe contener '@'.</li>
                                   <li>Solo se permiten correos terminados en '.com' o '.es'.</li>
                                   <li>Longitud m&aacute;xima 60 caracteres.</li>
+                                  <li>⚠️ <strong>El email no debe estar ya registrado en nuestra base de datos.</strong></li>
+                                  <li>Ej: jose.manuel11@gmail.com</li>
                               </ul>">
           <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
         </span>
@@ -391,7 +376,7 @@
                 <div class="form-check check-custom">
                     <input class="form-check-input" type="checkbox" value="true" id="aceptoCondiciones" name="aceptoCondiciones" required>
                     <label class="form-check-label text-white" for="aceptoCondiciones">
-                        Acepto los <a href="${contexto}/condiciones.jsp" target="_blank">t&eacute;rminos y condiciones</a>
+                        Acepto los <a href="${contexto}/JSP/INFO/politicaPrivacidad.jsp" class="link-terminos" target="_blank">t&eacute;rminos y condiciones</a>
                     </label>
                 </div>
                 <span class="ms-2 text-white" style="cursor: pointer;" role="button"
@@ -414,14 +399,10 @@
             </div>
 
             <div class="col-12">
-                <p class="text-center text-danger m-0 invisible" id="aviso">Mensaje</p>
+                <p class="text-center text-light m-0 invisible" id="aviso">Mensaje</p>
             </div>
-
         </div>
-
     </form>
-
-
 
 </main>
 </body>

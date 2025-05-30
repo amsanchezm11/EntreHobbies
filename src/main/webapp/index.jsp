@@ -10,8 +10,8 @@
         <jsp:param name="titulo" value="EntreHobbies"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
-    <script type="module" src="${contexto}/JS/alertas.js" defer></script>
-    <script type="module" src="${contexto}/JS/index.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/alertas.js" defer></script>
+    <script type="module" src="${contexto}/JS/VISTAS/index.js" defer></script>
 </head>
 <body class="landing-page position-relative w-100">
 

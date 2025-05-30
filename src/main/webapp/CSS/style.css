@@ -1,5 +1,4 @@
 :root {
-    /*--color-primario: #6F42C1;*/
     --color-primario: #5f27cd;
     --color-secundario: #4B1E8A;
     --color-fondo: #a78cde;
@@ -84,29 +83,6 @@ section.bloque-footer {
     background-size: 400% 400%;
     animation: cambioGradiente 10s ease infinite;
 }
-
-@keyframes cambioGradiente {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-
-/*body.landing-page section:nth-child(odd) {*/
-/*    background-color: #ffffff;*/
-/*    color: black;*/
-/*}*/
-
-/*body.landing-page section:nth-child(even) {*/
-/*    background: linear-gradient(to bottom, #5f27cd, #a29bfe);*/
-/*    color: var(--color-texto) !important;*/
-/*}*/
 
 .card-user {
     min-height: 220px;
@@ -197,6 +173,14 @@ footer span:hover {
     -webkit-backdrop-filter: blur(8px);
 }
 
+.link-terminos {
+    color: #d6d3da !important;
+    transition: color 0.3s ease;
+}
+
+.link-terminos:hover {
+    color: var(--color-texto) !important;
+}
 
 /*----- [ NAVBAR ] -----*/
 
@@ -557,7 +541,7 @@ footer span:hover {
 .avatar-estadistica {
     width: 120px;
     height: 120px;
-    object-fit: cover;
+    object-fit: contain;
     border: 3px solid var(--color-primario);
     border-radius: 50%;
     display: block;
@@ -776,6 +760,18 @@ input[type='checkbox']:checked {
     }
     60% {
         transform: translateY(5px);
+    }
+}
+
+@keyframes cambioGradiente {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
     }
 }
 

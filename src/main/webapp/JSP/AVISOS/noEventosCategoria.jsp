@@ -27,7 +27,7 @@
 </div>
 
 <div class="mb-5 ps-3 my-3">
-    <h1 class="text-light">Eventos de ${requestScope.categoria}</h1>
+    <h1 class="text-light text-titulo mt-5 text-center">Eventos de ${requestScope.categoria}</h1>
 </div>
 
 <div class="container d-flex justify-content-center align-items-center"
@@ -37,7 +37,7 @@
     <div class="container d-flex justify-content-center align-items-start mt-5 pt-5" style="min-height: 60vh;">
         <div class="text-center">
 
-            <h1 class="mb-3 text-light fw-bold fs-2 text-titulo">Ups! Aun no hay eventos este en esta
+            <h1 class="mb-3 text-light fw-bold fs-2 text-titulo">Ups! Aun no hay eventos en esta
                 categor&iacute;a</h1>
             <p class="mb-4 text-light fs-4">Para ser el primero en crear un evento, por favor reg&iacute;strate o inicia sesi&oacute;n.</p>
 

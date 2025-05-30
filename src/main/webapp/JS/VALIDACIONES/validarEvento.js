@@ -1,4 +1,4 @@
-import {checkTitulo, checkNumParticipantes, checkDescripcion, checkDireccion, checkLocalidad, checkProvincia, checkSelect, checkFechaInicio,checkFechaFin, validarFormulario} from "../regex.js";
+import {checkTitulo, checkNumParticipantes, checkDescripcion, checkDireccion, checkLocalidad, checkProvincia, checkSelect, checkFechaInicio,checkFechaFin, validarFormulario} from "./regex.js";
 
 
 //-----------------------------------------

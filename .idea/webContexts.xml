@@ -3,6 +3,7 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/ADMIN/estadisticasEventos.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/ADMIN" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO/crearEvento.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO/modificarEventoParcial.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO/verEventos.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/EVENTO" />

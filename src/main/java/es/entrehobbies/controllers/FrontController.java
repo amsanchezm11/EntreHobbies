@@ -140,7 +140,6 @@ public class FrontController extends HttpServlet {
                     request.setAttribute("categorias", listaObjetos);
                     url = "/JSP/EVENTO/categorias.jsp";
                 } else {
-                    request.setAttribute("error", "No se han encontrado categorías");
                     url = "/JSP/AVISOS/noCategorias.jsp";
                 }
                 break;

@@ -60,7 +60,6 @@
             </div>
 
             <div class="mt-4 align-self-bottom">
-<%--                <button type="submit" class="btn btn-main w-100">Aplicar filtros</button>--%>
                 <button type="reset" class="btn btn-main w-100">Limpiar filtros</button>
             </div>
 
@@ -151,7 +150,7 @@
                                     </div>
                                 </c:when>
 
-                                <c:when test="${evento[17] == 'participante'}">
+                                <c:when test="${evento[17] == 'participante' && evento[15] == 'Por_Empezar'}">
                                     <form action="${contexto}/UsuarioEventoController" method="post" class="mt-auto">
                                         <input type="hidden" name="idEvento" value="${evento[0]}">
                                         <button class="btn btn-warning btn-sm rounded-pill w-100" name="accion"
@@ -160,7 +159,12 @@
                                         </button>
                                     </form>
                                 </c:when>
-                                <c:when test="${evento[15] == 'En_Curso'}">
+                                <c:when test="${evento[15] == 'En_Curso' && evento[17] == 'participante'}">
+                                    <div class="alert alert-creador text-center p-2 rounded-pill mb-0">
+                                        <span>No puedes desapuntarte de un evento en curso</span>
+                                    </div>
+                                </c:when>
+                                <c:when test="${evento[15] == 'En_Curso' && evento[17] != 'participante' && evento[17] != 'creador'}">
                                     <div class="alert alert-creador text-center p-2 rounded-pill mb-0">
                                         <span>No puedes apuntarte a un evento en curso</span>
                                     </div>

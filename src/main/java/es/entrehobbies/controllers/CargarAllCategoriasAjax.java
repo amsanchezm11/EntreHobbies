@@ -2,6 +2,7 @@ package es.entrehobbies.controllers;
 
 import com.google.gson.Gson;
 import es.entrehobbies.DAO.CategoriaDAO;
+import es.entrehobbies.DAO.ICategoriaDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ public class CargarAllCategoriasAjax extends HttpServlet {
             throws ServletException, IOException {
 
         DAOFactory daoF = DAOFactory.getDAOFactory();
-        CategoriaDAO daoC = (CategoriaDAO) daoF.getCategoriaDAO();
+        ICategoriaDAO daoC = daoF.getCategoriaDAO();
 
         List<Map<String, Object>> lista = daoC.getAllCategoriasResumen();
 

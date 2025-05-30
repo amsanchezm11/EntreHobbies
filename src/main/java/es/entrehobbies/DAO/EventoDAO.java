@@ -30,11 +30,11 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "LEFT JOIN e.participantes p " +
                             "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
                             "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
-                            "AND e.fechaInicio >= :hoy " +
+                            "AND e.fechaFin >= :hoy " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, e.subcategoria.nombre, e.creador.username, e.estado " +
-                            "ORDER BY e.fechaInicio DESC",
+                            "ORDER BY e.fechaInicio ASC",
                     Object[].class
             );
 
@@ -67,7 +67,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "WHERE e.creador.idUsuario = :idUsuario AND (e.estado = 'En_Curso' OR e.estado = 'Por_Empezar') " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, e.estado, e.numParticipantes " +
-                            "ORDER BY CASE WHEN e.estado = 'En_Curso' THEN 1 WHEN e.estado = 'Por_Empezar' THEN 2 ELSE 3 END, e.fechaInicio DESC",
+                            "ORDER BY CASE WHEN e.estado = 'En_Curso' THEN 1 WHEN e.estado = 'Por_Empezar' THEN 2 ELSE 3 END, e.fechaInicio ASC",
                     Object[].class
             );
             query.setParameter("idUsuario", idUsuario);
@@ -96,7 +96,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "LEFT JOIN e.participantes ep " +
                             "WHERE p.idUsuario = :idUsuario " +
                             "GROUP BY e.idEvento " +
-                            "ORDER BY e.fechaInicio DESC",
+                            "ORDER BY e.fechaInicio ASC",
                     Object[].class
             );
             query.setParameter("idUsuario", idUsuario);
@@ -314,12 +314,12 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "LEFT JOIN e.participantes p " +
                             "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
                             "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
-                            "AND e.fechaInicio >= :hoy " +
+                            "AND e.fechaFin >= :hoy " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
                             "e.subcategoria.nombre, e.creador.username, e.creador.idUsuario " +
-                            "ORDER BY e.fechaInicio DESC",
+                            "ORDER BY e.fechaInicio ASC",
                     Object[].class
             );
 
@@ -474,7 +474,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.nombre, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.estado, e.numParticipantes, e.creador.username " +
-                            "ORDER BY CASE WHEN e.estado = 'En_Curso' THEN 1 WHEN e.estado = 'Por_Empezar' THEN 2 ELSE 3 END, e.fechaInicio DESC",
+                            "ORDER BY CASE WHEN e.estado = 'En_Curso' THEN 1 WHEN e.estado = 'Por_Empezar' THEN 2 ELSE 3 END, e.fechaInicio ASC",
                     Object[].class
             );
 
@@ -574,12 +574,12 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "WHERE (LOWER(e.titulo) LIKE :filtro OR LOWER(e.descripcion) LIKE :filtro) " +
                             "AND e.subcategoria.categoria.idCategoria = :idCategoria " +
                             "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
-                            "AND e.fechaInicio >= :hoy " +
+                            "AND e.fechaFin >= :hoy " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
                             "e.subcategoria.nombre, e.creador.username, e.creador.idUsuario " +
-                            "ORDER BY e.fechaInicio DESC", Object[].class
+                            "ORDER BY e.fechaInicio ASC", Object[].class
             );
 
             query.setParameter("filtro", "%" + texto.toLowerCase() + "%");
@@ -641,13 +641,13 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "LEFT JOIN e.participantes p " +
                             "WHERE (LOWER(e.titulo) LIKE :filtro OR LOWER(e.descripcion) LIKE :filtro) " +
                             "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
-                            "AND e.fechaInicio >= :hoy " +
+                            "AND e.fechaFin >= :hoy " +
                             "AND e.subcategoria.categoria.idCategoria = :idCategoria " +
                             "GROUP BY e.idEvento, e.titulo, e.descripcion, e.fechaCreacion, e.fechaInicio, e.fechaFin, " +
                             "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                             "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
                             "e.subcategoria.nombre, e.creador.username, e.estado " +
-                            "ORDER BY e.fechaInicio DESC",
+                            "ORDER BY e.fechaInicio ASC",
                     Object[].class
             );
 
@@ -679,7 +679,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "FROM Evento e LEFT JOIN e.participantes p " +
                             "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
                             "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
-                            "AND e.fechaInicio >= CURRENT_DATE ");
+                            "AND e.fechaFin >= CURRENT_DATE ");
 
             if (idSubcategoria != null) {
                 hql.append("AND e.subcategoria.idSubcategoria = :idSubcategoria ");
@@ -692,7 +692,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                     "e.numParticipantes, e.direccion, e.localidad, e.provincia.idProvincia, " +
                     "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
                     "e.subcategoria.nombre, e.creador.username, e.estado " +
-                    "ORDER BY e.fechaInicio DESC");
+                    "ORDER BY e.fechaInicio ASC");
 
             Query<Object[]> query = sesion.createQuery(hql.toString(), Object[].class);
             query.setParameter("idCategoria", idCategoria);
@@ -728,7 +728,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "FROM Evento e LEFT JOIN e.participantes p " +
                             "WHERE e.subcategoria.categoria.idCategoria = :idCategoria " +
                             "AND (e.estado = 'Por_Empezar' OR e.estado = 'En_Curso') " +
-                            "AND e.fechaInicio >= CURRENT_DATE ");
+                            "AND e.fechaFin >= CURRENT_DATE ");
 
             if (idSubcategoria != null) {
                 hql.append("AND e.subcategoria.idSubcategoria = :idSubcategoria ");
@@ -741,7 +741,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                     "e.numParticipantes, e.direccion, e.localidad, e.provincia.nombre, " +
                     "e.subcategoria.categoria.nombre, e.subcategoria.categoria.imagen, " +
                     "e.subcategoria.nombre, e.creador.username, e.creador.idUsuario, e.estado " +
-                    "ORDER BY e.fechaInicio DESC");
+                    "ORDER BY e.fechaInicio ASC");
 
             Query<Object[]> query = sesion.createQuery(hql.toString(), Object[].class);
             query.setParameter("idCategoria", idCategoria);

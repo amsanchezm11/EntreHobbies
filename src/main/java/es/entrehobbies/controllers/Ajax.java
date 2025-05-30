@@ -146,7 +146,8 @@ public class Ajax extends HttpServlet {
                 break;
 
             case "comprobar-password":
-                // Configuramos el tipo de contenido y la codificación de la respuesta
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
@@ -188,6 +189,8 @@ public class Ajax extends HttpServlet {
                 break;
 
             case "estadisticas-categorias":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
@@ -204,13 +207,15 @@ public class Ajax extends HttpServlet {
                 break;
 
             case "Eventos-mes":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
                 // Obtenemos el año actual del sistema
                 int anioActual = Calendar.getInstance().get(Calendar.YEAR);
 
-                // Llamamos al DAO para obtener el mapa con los 12 meses
+                // Llamamos al DAO  de Eventos para obtener los datos junto al mapa con los 12 meses
                 Map<String, Long> mapaMeses = daoE.getNumeroEventosPorMes(anioActual);
 
                 // Devolvemos el JSON
@@ -218,13 +223,15 @@ public class Ajax extends HttpServlet {
                 break;
 
             case "Usuarios-mes":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
                 // Obtenemos el año actual del sistema
                 int anioUsuarios = Calendar.getInstance().get(Calendar.YEAR);
 
-                // Llamamos al DAO de usuarios para obtener el mapa con los 12 meses
+                // Llamamos al DAO  de usuarios para obtener los datos junto al mapa con los 12 meses
                 Map<String, Long> mapaUsuariosMes = daoU.getNumeroUsuariosPorMes(anioUsuarios);
 
                 // Devolvemos el JSON
@@ -232,6 +239,8 @@ public class Ajax extends HttpServlet {
                 break;
 
             case "Usuarios-sexo":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
@@ -258,6 +267,8 @@ public class Ajax extends HttpServlet {
                 break;
 
             case "Top-usuarios-eventos":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 

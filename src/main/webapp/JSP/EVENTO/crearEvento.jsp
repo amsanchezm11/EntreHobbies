@@ -6,9 +6,9 @@
         <jsp:param name="titulo" value="Nuevo evento"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
-    <script type="module" src="${contexto}/JS/formularioEvento.js" defer></script>
+    <script type="module" src="${contexto}/JS/VISTAS/formularioEvento.js" defer></script>
     <script type="module" src="${contexto}/JS/COMPONENTES/obtenerSubcategorias.js" defer></script>
-    <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/inicializarPopovers.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/validarEvento.js" defer></script>
 </head>
 <body class="body-custom bg-gradient-morado-blanco p-4 mt-5">
@@ -40,13 +40,13 @@
                               data-bs-html="true"
                               data-bs-trigger="hover focus"
                               data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                        <li>Añade un t&iacute;tulo descriptivo a tu evento para que el resto de usuarios puedan encontrarlo f&aacute;cilmente</li>
-                        <li>Debe empezar con may&uacute;scula.</li>
-                        <li>Solo letras, n&uacute;meros y espacios.</li>
-                        <li>Longitud m&aacute;xima 40 caracteres.</li>
-                      </ul>">
-                    <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-                </span>
+                                <li>Añade un t&iacute;tulo descriptivo a tu evento para que el resto de usuarios puedan encontrarlo f&aacute;cilmente</li>
+                                <li>Debe empezar con may&uacute;scula.</li>
+                                <li>Solo letras, n&uacute;meros y espacios.</li>
+                                <li>Longitud m&aacute;xima 40 caracteres.</li>
+                              </ul>">
+                            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+                        </span>
                     </div>
 
                     <div class="input-group mb-4">
@@ -62,12 +62,12 @@
                               data-bs-html="true"
                               data-bs-trigger="hover focus"
                               data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                        <li>Indica cu&aacute;ntas personas pueden participar en el evento.</li>
-                        <li><strong>M&iacute;nimo:</strong>1 participante.</li>
-                        <li><strong>M&aacute;ximo:</strong>5000 participantes.</li>
-                      </ul>">
-                    <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-                </span>
+                                <li>Indica cu&aacute;ntas personas pueden participar en el evento.</li>
+                                <li><strong>M&iacute;nimo:</strong>1 participante.</li>
+                                <li><strong>M&aacute;ximo:</strong>5000 participantes.</li>
+                              </ul>">
+                            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+                        </span>
                     </div>
                 </div>
 
@@ -89,12 +89,12 @@
                               data-bs-html="true"
                               data-bs-trigger="hover focus"
                               data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-            <li>Selecciona la categor&iacute;a principal a la que pertenece tu evento.</li>
-            <li>Esto ayuda a los usuarios a encontrar eventos relacionados.</li>
-            <li><i class='bi bi-exclamation-triangle-fill text-warning'></i> <strong>No podr&aacute;s modificar la categor&iacute;a una vez creado el evento.</strong></li>
-          </ul>">
-        <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-    </span>
+                                <li>Selecciona la categor&iacute;a principal a la que pertenece tu evento.</li>
+                                <li>Esto ayuda a los usuarios a encontrar eventos relacionados.</li>
+                                <li><i class='bi bi-exclamation-triangle-fill text-warning'></i> <strong>No podr&aacute;s modificar la categor&iacute;a una vez creado el evento.</strong></li>
+                              </ul>">
+                            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+                        </span>
                     </div>
 
                     <div class="input-group mb-3">
@@ -115,8 +115,8 @@
                                 <li>Selecciona la subcategor&iacute;a espec&iacute;fica para detallar mejor el tipo de evento.</li>
                                 <li><i class='bi bi-exclamation-triangle-fill text-warning'></i> <strong>No podr&aacute;s modificar la subcategor&iacute;a una vez creado el evento.</strong></li>
                               </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
+                            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -141,18 +141,17 @@
                                   data-bs-html="true"
                                   data-bs-trigger="hover focus"
                                   data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                <li>Describe claramente en qué consiste tu evento.</li>
-                <li>Puedes incluir detalles como lugar, horario o recomendaciones.</li>
-                <li>Evita repetir el título en la descripción.</li>
-                <li>Longitud máxima: 255 caracteres.</li>
-              </ul>">
-          <i class="bi bi-info-circle" style="font-size: 1.1rem;"></i>
-        </span>
+                                    <li>Describe claramente en qu&eacute; consiste tu evento.</li>
+                                    <li>Puedes incluir detalles como lugar, horario o recomendaciones.</li>
+                                    <li>Evita repetir el t&iacute;tulo en la descripci&oacute;n.</li>
+                                    <li>Longitud m&aacute;xima: 255 caracteres.</li>
+                                  </ul>">
+                              <i class="bi bi-info-circle" style="font-size: 1.1rem;"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <button type="button" class="btn btn-main btn-lg" onclick="nextStep()">Siguiente</button>
         </div>
@@ -175,11 +174,12 @@
                       data-bs-html="true"
                       data-bs-trigger="hover focus"
                       data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                <li>Introduce la direcci&oacute;n exacta donde se realizar&aacute; el evento.</li>
-                <li>M&aacute;ximo 50 caracteres.</li>
-              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
+                        <li>Introduce la direcci&oacute;n exacta donde se realizar&aacute; el evento.</li>
+                        <li>M&aacute;ximo 50 caracteres.</li>
+                        <li>Ej: C/ Benito Nº13 Portal 3 2ºH</li>
+                      </ul>">
+                    <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+                </span>
             </div>
 
             <div class="input-group mb-3">
@@ -195,19 +195,14 @@
                       data-bs-html="true"
                       data-bs-trigger="hover focus"
                       data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                <li>Indica la localidad o ciudad donde se ubicar&aacute; el evento.</li>
-                <li>M&aacute;ximo 50 caracteres.</li>
-              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
+                        <li>Indica la localidad o ciudad donde se ubicar&aacute; el evento.</li>
+                        <li>M&aacute;ximo 50 caracteres.</li>
+                      </ul>">
+                    <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+                </span>
             </div>
 
             <div class="input-group mb-3">
-                <%--                <div class="form-floating flex-grow-1">--%>
-                <%--                    <input type="text" class="form-control" id="provincia" name="provincia" maxlength="50"--%>
-                <%--                           placeholder="Provincia" required>--%>
-                <%--                    <label for="provincia">Provincia</label>--%>
-                <%--                </div>--%>
                 <div class="form-floating flex-grow-1">
                     <select class="form-select"
                             id="provincia"
@@ -227,10 +222,10 @@
                       data-bs-html="true"
                       data-bs-trigger="hover focus"
                       data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                <li>Especifica la provincia donde se desarrollar&aacute; el evento.</li>
-              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
+                        <li>Especifica la provincia donde se desarrollar&aacute; el evento.</li>
+                      </ul>">
+                    <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+                </span>
             </div>
 
             <button type="button" class="btn btn-secondary btn-lg" onclick="prevStep()">Anterior</button>
@@ -255,11 +250,11 @@
                       data-bs-html="true"
                       data-bs-trigger="hover focus"
                       data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
-                <li>Selecciona la fecha en que comenzar&aacute; el evento.</li>
-                <li>No puede ser anterior a la fecha actual.</li>
-              </ul>">
-            <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
-        </span>
+                        <li>Selecciona la fecha en que comenzar&aacute; el evento.</li>
+                        <li>No puede ser anterior a la fecha actual.</li>
+                      </ul>">
+                    <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
+                </span>
             </div>
 
             <div class="input-group mb-3">

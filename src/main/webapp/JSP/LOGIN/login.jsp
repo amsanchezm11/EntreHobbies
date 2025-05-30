@@ -8,7 +8,7 @@
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script src="${contexto}/JS/VALIDACIONES/comprobarCredencial.js" defer></script>
-    <script src="${contexto}/JS/inicializarPopovers.js" defer></script>
+    <script src="${contexto}/JS/COMPONENTES/inicializarPopovers.js" defer></script>
 </head>
 <body class="bg-body text-body min-vh-100">
 <nav class="navbar bg-body-tertiary border-bottom">

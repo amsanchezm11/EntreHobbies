@@ -1,4 +1,4 @@
-import {checkNombre, checkApellidos, checkFechaNacimiento, checkLocalidad, checkProvincia, checkPassword, confirmPassword, checkAvatar, checkSelect,checkCondiciones, validarFormulario} from "../regex.js";
+import {checkNombre, checkApellidos, checkFechaNacimiento, checkLocalidad, checkProvincia, checkPassword, confirmPassword, checkAvatar, checkSelect,checkCondiciones, validarFormulario} from "./regex.js";
 
 //-----------------------------------------
 // Añadimos los eventos de comprobación de regex a los inputs del formulario
@@ -28,7 +28,9 @@ document.getElementById("provincia").addEventListener("change", e => {
     validarFormulario('enviar');
 });
 document.getElementById("password").addEventListener("input", e => {
+    const confirmPass = document.getElementById("passwordRepe");
     checkPassword(e.target);
+    confirmPassword(confirmPass);
     validarFormulario('enviar');
 });
 document.getElementById("passwordRepe").addEventListener("input", e => {

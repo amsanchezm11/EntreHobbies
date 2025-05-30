@@ -14,7 +14,7 @@
     <c:import url="/INC/menuAdministrador.jsp"/>
     <div class="content">
         <h1 class="fw-bold">Estad&iacute;sticas Usuarios</h1>
-        <p>Panel de control del administrador para consultar y supervisar datos del sistema.</p>
+        <p>Panel permite al administrador revisar el rendimiento y la actividad de los usuarios en la plataforma.</p>
 
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 mx-auto mt-5 p-5">
@@ -39,14 +39,15 @@
                     <div class="col-12 col-md-4 my-3">
                         <div class="card estadistica-card card-btn sombra-morada text-center rounded-4 h-100">
                             <div class="card-body">
-                                <img src="${requestScope.usuarioparticipante[1]}"
+                                <img src="${contexto}/IMG/AVATARES/${requestScope.usuarioparticipante[1]}"
                                      alt="Avatar de ${requestScope.usuarioparticipante[0]}"
                                      class="avatar-estadistica mb-3"
                                      onerror="this.onerror=null; this.src='${contexto}/IMG/AVATARES/avatar.svg';">
 
                                 <h4 class="card-title fw-bold color-pm mb-2">${requestScope.usuarioparticipante[0]}</h4>
                                 <p class="card-text text-muted">
-                                    Eventos participados: <span class="fw-semibold">${requestScope.usuarioparticipante[2]}</span>
+                                    Eventos participados: <span class="fw-semibold">
+                                    ${requestScope.usuarioparticipante[2] != null ? requestScope.usuarioparticipante[2] : 'Aun no hay datos'}</span>
                                 </p>
                             </div>
                         </div>

@@ -17,16 +17,20 @@
 </div>
 
 <div class="container d-flex justify-content-center align-items-start mt-5 pt-5">
-    <div class="mx-auto card-btn text-center p-4">
-        <h1 class="mb-3 color-pm fw-bold fs-2 text-titulo">Ups! Aun no te has unido a ning&uacute;n evento</h1>
-        <p class="mb-4 text-dark fs-4">Visita nuestras categor&iacute;as y encuentra el evento perfecto para ti.</p>
-        <form action="${contexto}/FrontController" method="post">
-            <button type="submit" name="accion" value="Ver-Categorias" class="btn btn-main btn-lg px-4">
-                Categor&iacute;as
-            </button>
-        </form>
-    </div>
 
+    <div class="container d-flex justify-content-center align-items-start mt-5 pt-5" style="min-height: 60vh;">
+        <div class="text-center">
+
+            <h1 class="mb-3 text-light fw-bold fs-2 text-titulo">Ups! Aun no te has unido a ning&uacute;n evento</h1>
+            <p class="mb-4 text-light fs-4">Visita nuestras categor&iacute;as y encuentra el evento perfecto para ti.</p>
+
+            <form action="${contexto}/FrontController" method="post">
+                <button type="submit" name="accion" value="Ver-Categorias" class="btn btn-main btn-lg px-4">
+                    Categor&iacute;as
+                </button>
+            </form>
+        </div>
+    </div>
 
     <c:if test="${sessionScope.usuario != null}">
         <form action="${contexto}/FrontController" method="post">

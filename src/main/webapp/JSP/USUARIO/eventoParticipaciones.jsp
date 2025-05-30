@@ -120,8 +120,8 @@
                                             data-id-evento="${evento[0]}">
                                         <i class="bi bi-people me-2"></i>Ver participantes
                                     </button>
-                                    <div class="alert alert-creador text-center p-2 rounded-pill mb-0 mt-2">
-                                        <span>No puedes desapuntarte</span>
+                                    <div class="alert alert-creador text-center p-2 rounded-pill mb-0 mt-2 w-100">
+                                        <span>No puedes desapuntarte de un evento en curso</span>
                                     </div>
                                 </c:when>
 
@@ -133,7 +133,7 @@
 
                                 <c:when test="${evento[11] == 'Finalizado'}">
                                     <div class="alert alert-creador text-center p-2 rounded-pill mb-0">
-                                        <span>El evento ya finalizó</span>
+                                        <span>El evento ya finaliz&oacute;</span>
                                     </div>
                                 </c:when>
 
@@ -163,12 +163,12 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                         </div>
                         <div class="modal-body">
-                            <p>¿Estás seguro de que deseas desapuntarte del evento <strong>${evento[1]}</strong>?</p>
+                            <p>¿Est&aacute;s seguro de que deseas desapuntarte del evento <strong>${evento[1]}</strong>?</p>
                         </div>
                         <div class="modal-footer">
                             <form method="post" action="${contexto}/UsuarioEventoController" class="w-100">
                                 <input type="hidden" name="idEvento" value="${evento[0]}"/>
-                                <button type="submit" class="btn btn-outline-danger w-100" name="accion" value="Desapuntarse-evento">Sí, desapuntarme</button>
+                                <button type="submit" class="btn btn-outline-danger w-100" name="accion" value="Desapuntarse-evento">S&iacute;, desapuntarme</button>
                             </form>
                         </div>
                     </div>

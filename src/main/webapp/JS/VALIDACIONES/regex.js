@@ -21,7 +21,7 @@ export function validarFormulario(idBoton) {
     const campos = document.querySelectorAll('input, select, textarea');
     const boton = document.getElementById(idBoton);
 
-    console.log(campos);
+    //console.log(campos);
 
     for (let campo of campos) {
         if (!campo.classList.contains('is-valid')) {
@@ -100,24 +100,30 @@ export function checkUsername(element) {
 
 // Regex para email (formato válido + .com o .es, sin dominios duplicados)
 export function checkEmail(element) {
-    //let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|es)$/;
-    let regex = /^[a-zA-Z0-9ñÑ._%+-]+@[a-zA-Z0-9ñÑ.-]+\.(com|es)$/;
+    const regex = /^[a-zA-Z0-9ñÑ._%+-]+@[a-zA-Z0-9ñÑ.-]+\.(com|es)$/;
+    const valor = element.value;
 
-    let valor = element.value;
     if (regex.test(valor)) {
-        // Comprobamos que no haya más de un ".com" o ".es" en la dirección
-        if (valor.indexOf(".com.com") !== -1 || valor.indexOf(".es.es") !== -1) {
-            element.classList.remove("is-valid");
-            element.classList.add("is-invalid");
-            return false;
+        const dominio = valor.split('@')[1];
+        // Aseguramos que termine estrictamente en ".com" o ".es" y que no haya nada más después
+        if (dominio.endsWith('.com') || dominio.endsWith('.es')) {
+            const partes = dominio.split('.');
+            const ultimaParte = partes[partes.length - 1];
+            if (ultimaParte === 'com' || ultimaParte === 'es') {
+                return comprobarRegex(element, regex, 60);
+            }
         }
-        return comprobarRegex(element, regex, 60);
+
+        element.classList.remove("is-valid");
+        element.classList.add("is-invalid");
+        return false;
     } else {
         element.classList.remove("is-valid");
         element.classList.add("is-invalid");
         return false;
     }
 }
+
 
 // Regex para contraseña (cualquier carácter sin espacios, entre 6 y 100 caracteres)
 export function checkPassword(element) {

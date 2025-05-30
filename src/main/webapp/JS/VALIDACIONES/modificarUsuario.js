@@ -9,7 +9,7 @@ import {
     checkSelect,
     checkNuevaPassword,
     confirmPasswordNueva
-} from "../regex.js";
+} from "./regex.js";
 
 //-----------------------------------------
 // Validación formulario de modificar datos de usuario
@@ -47,7 +47,9 @@ document.getElementById("avatar").addEventListener("change", e => {
 // Validación formulario de modificar password de usuario
 //-----------------------------------------
 document.getElementById("nuevaPass").addEventListener("input", e => {
+    const confirmPass = document.getElementById("confirmPass");
     checkNuevaPassword(e.target);
+    confirmPasswordNueva(confirmPass);
     validarFormularioPassword('formPassword','boton-password');
 });
 document.getElementById("confirmPass").addEventListener("input", e => {

@@ -34,26 +34,26 @@
     </div>
 
     <c:if test="${sessionScope.usuario != null}">
-    <form action="${contexto}/FrontController" method="post">
-        <button type="submit"
-                name="accion"
-                value="Crear-Evento"
-                class="btn btn-main rounded-circle shadow-lg d-flex justify-content-center align-items-center"
-                id="botonCrearEvento" title="Crear evento">
-            <i class="bi bi-plus-lg fs-3"></i>
-        </button>
-    </form>
+        <form action="${contexto}/FrontController" method="post">
+            <button type="submit"
+                    name="accion"
+                    value="Crear-Evento"
+                    class="btn btn-main rounded-circle shadow-lg d-flex justify-content-center align-items-center"
+                    id="botonCrearEvento" title="Crear evento">
+                <i class="bi bi-plus-lg fs-3"></i>
+            </button>
+        </form>
     </c:if>
 
     <c:if test="${requestScope.aviso != null}">
-    <div id="aviso"
-         class="alert alert-success fade show position-fixed bottom-0 start-50 translate-middle-x mb-4 z-3 px-4 py-2"
-         role="alert"
-         style="width: auto; pointer-events: none;">
-        <i class="bi bi-check-circle-fill me-2"></i>
-            ${requestScope.aviso}
-    </div>
+        <div id="aviso"
+             class="alert alert-success fade show position-fixed bottom-0 start-50 translate-middle-x mb-4 z-3 px-4 py-2"
+             role="alert"
+             style="width: auto; pointer-events: none;">
+            <i class="bi bi-check-circle-fill me-2"></i>
+                ${requestScope.aviso}
+        </div>
     </c:if>
-
+</div>
 </body>
 </html>

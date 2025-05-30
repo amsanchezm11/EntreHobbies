@@ -1,4 +1,4 @@
-import {checkPassword, validarFormulario, validarFormularioPassword} from "../regex.js";
+import {checkPassword, validarFormulario, validarFormularioPassword} from "./regex.js";
 
 document.getElementById("password").addEventListener("input", async () => {
     const inputPassword = document.getElementById("password");

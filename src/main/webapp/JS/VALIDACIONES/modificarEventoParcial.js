@@ -4,7 +4,7 @@ import {
     checkFechaFin,
     checkFechaInicio,
     validarFormulario
-} from "../regex.js";
+} from "./regex.js";
 
 //-----------------------------------------
 // Añadimos los eventos de comprobación de regex a los inputs del formulario

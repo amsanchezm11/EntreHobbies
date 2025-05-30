@@ -6,9 +6,9 @@
         <jsp:param name="titulo" value="Modificar evento"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
-    <script type="module" src="${contexto}/JS/formularioEvento.js" defer></script>
+    <script type="module" src="${contexto}/JS/VISTAS/formularioEvento.js" defer></script>
     <%--    <script type="module" src="${contexto}/JS/obtenerSubcategorias.js" defer></script>--%>
-    <script type="module" src="${contexto}/JS/inicializarPopovers.js" defer></script>
+    <script type="module" src="${contexto}/JS/COMPONENTES/inicializarPopovers.js" defer></script>
     <script type="module" src="${contexto}/JS/VALIDACIONES/modificarEvento.js" defer></script>
 </head>
 <body class="body-custom bg-gradient-morado-blanco p-4" style="margin-top: 70px;">

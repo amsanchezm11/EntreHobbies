@@ -6,7 +6,7 @@
         <jsp:param name="titulo" value="Informacion"/>
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
-    <script type="module" src="${contexto}/JS/informacion.js" defer></script>
+    <script type="module" src="${contexto}/JS/VISTAS/informacion.js" defer></script>
 </head>
 <body class="bg-light h-100">
 
@@ -129,13 +129,13 @@
                             </div>
 
                             <div class="list-group-item px-0">
-                                <h6 class="mb-1"><strong>Ver tus eventos:</strong></h6>
-                                <p class="mb-0">En esta secci&oacute;n podr&aacute;s ver todos los eventos que has creado, con detalles como fechas, lugares y participantes inscritos. Esto te permitir&aacute; gestionarlos f&aacute;cilmente, modificar la informaci&oacute;n o cancelar eventos si es necesario, siempre con el fin de mantener a los participantes informados.</p>
+                                <h6 class="mb-1"><strong>Todos mis eventos:</strong></h6>
+                                <p class="mb-0">En esta secci&oacute;n podr&aacute;s ver todos los eventos que has creado, con detalles como fechas, lugares y  n&uacute;mero de participantes inscritos. Podr&aacute;s ordenar por campos incluso buscar para que te sea m&aacute;s f&aacute;cil encontrar un evento.</p>
                             </div>
 
                             <div class="list-group-item px-0">
-                                <h6 class="mb-1"><strong><i class="bi bi-person-check me-2"></i> Ver mis participaciones:</strong></h6>
-                                <p class="mb-0">En este apartado podr&aacute;s ver todos los eventos a los que te has inscrito como participante. Desde aqu&iacute; puedes consultar los detalles, ver qui&eacute;n m&aacute;s asistir&aacute; o darte de baja si ya no puedes acudir. Todo est&aacute; organizado por fecha para ayudarte a planificar tus actividades con facilidad.</p>
+                                <h6 class="mb-1"><strong><i class="bi bi-person-check me-2"></i> Todas mis participaciones:</strong></h6>
+                                <p class="mb-0">En este apartado podr&aacute;s ver todos los eventos a los que te has inscrito como participante. Desde aqu&iacute; puedes consultar los detalles, ver cuantos usuarios m&aacute;s asistir&aacute;n. Todo est&aacute; organizado por fecha para ayudarte a planificar tus actividades con facilidad.</p>
                             </div>
                         </div>
 

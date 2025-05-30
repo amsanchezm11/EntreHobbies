@@ -2,6 +2,7 @@ package es.entrehobbies.controllers;
 
 import com.google.gson.Gson;
 import es.entrehobbies.DAO.EventoDAO;
+import es.entrehobbies.DAO.IEventoDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
 
 import javax.servlet.ServletException;
@@ -32,10 +33,10 @@ public class CargarParticipantesAjax extends HttpServlet {
 
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
-        EventoDAO dao = new EventoDAO();
+        IEventoDAO daoE = daoF.getEventoDAO();
 
         // Obtenemos los participantes del evento de la base de datos a partir de su idEvento
-        List<Object[]> participantes = dao.getParticipantesDeUnEvento(idEvento);
+        List<Object[]> participantes = daoE.getParticipantesDeUnEvento(idEvento);
 
         // Creamos una lista JSON con username y avatar
         List<Map<String, String>> participantesJson = new ArrayList<>();

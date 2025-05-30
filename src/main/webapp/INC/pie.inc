@@ -17,11 +17,11 @@
                 Sobre nosotros
               </button>
             </div>
-            <div>
+           <!-- <div>
               <button type="submit" name="accion" value="Contacto" class="btn text-decoration-none text-body-emphasis p-0" disabled>
                 Contacto
               </button>
-            </div>
+            </div> -->
             <div>
               <button type="submit" name="accion" value="Privacidad" class="btn text-decoration-none text-body-emphasis p-0">
                 Privacidad

@@ -271,4 +271,32 @@ public class Utilities {
         }
     }
 
+    public static String validarLongitudesUsuario(Usuario usuario) {
+        if (usuario.getNombre() != null && usuario.getNombre().length() > 30) {
+            return "El nombre no puede superar los 30 caracteres.";
+        }
+        if (usuario.getApellidos() != null && usuario.getApellidos().length() > 40) {
+            return "Los apellidos no pueden superar los 40 caracteres.";
+        }
+        if (usuario.getUsername() != null && usuario.getUsername().length() > 20) {
+            return "El nombre de usuario no puede superar los 20 caracteres.";
+        }
+        if (usuario.getEmail() != null && usuario.getEmail().length() > 60) {
+            return "El email no puede superar los 60 caracteres.";
+        }
+        if (usuario.getPassword() != null && usuario.getPassword().length() > 100) {
+            return "La contraseña no puede superar los 100 caracteres.";
+        }
+        if (usuario.getTelefono() != null && usuario.getTelefono().length() > 9) {
+            return "El teléfono no puede superar los 9 caracteres.";
+        }
+        if (usuario.getLocalidad() != null && usuario.getLocalidad().length() > 50) {
+            return "La localidad no puede superar los 50 caracteres.";
+        }
+        if (usuario.getAvatar() != null && usuario.getAvatar().length() > 30) {
+            return "El nombre del avatar no puede superar los 30 caracteres.";
+        }
+
+        return null;
+    }
 }

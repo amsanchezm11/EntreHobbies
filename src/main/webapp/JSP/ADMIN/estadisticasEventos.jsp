@@ -15,7 +15,7 @@
     <c:import url="/INC/menuAdministrador.jsp"/>
     <div class="content">
         <h1 class="fw-bold">Estadísticas de Eventos</h1>
-        <p>Panel de control del administrador para consultar el estado de los eventos en la aplicación.</p>
+        <p>Panel permite al administrador revisar el rendimiento y la actividad de los eventos en la plataforma.</p>
 
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 mx-auto mt-5 p-5">
@@ -45,7 +45,10 @@
                                      class="avatar-estadistica mb-3"
                                      onerror="this.onerror=null; this.src='${contexto}/IMG/CATEGORIAS/default.png';">
 
-                                <h4 class="card-title fw-bold color-pm mb-2">${requestScope.eventoPopular[0]}</h4>
+                                <h4 class="card-title fw-bold color-pm mb-2">Evento m&aacute;s popular</h4>
+                                <p class="card-text text-muted">
+                                    Evento: <span class="fw-semibold">${requestScope.eventoPopular[0]}</span>
+                                </p>
                                 <p class="card-text text-muted">
                                     Participantes: <span class="fw-semibold">${requestScope.eventoPopular[2]}</span>
                                 </p>
@@ -60,7 +63,10 @@
                                      alt="Evento reciente"
                                      class="avatar-estadistica mb-3"
                                      onerror="this.onerror=null; this.src='${contexto}/IMG/CATEGORIAS/default.png';">
-                                <h4 class="card-title fw-bold color-pm mb-2">${requestScope.eventoReciente[0]}</h4>
+                                <h4 class="card-title fw-bold color-pm mb-2">Evento m&aacute;s reciente</h4>
+                                <p class="card-text text-muted">
+                                    Evento: <span class="fw-semibold">${requestScope.eventoReciente[0]}</span>
+                                </p>
                                 <p class="card-text text-muted">
                                     Creado el: <span class="fw-semibold">
                                 <fmt:formatDate value="${requestScope.eventoReciente[2]}" pattern="dd/MM/yyyy"/>
