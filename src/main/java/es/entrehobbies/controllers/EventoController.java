@@ -1,8 +1,6 @@
 package es.entrehobbies.controllers;
 
-import es.entrehobbies.DAO.IEventoDAO;
 import es.entrehobbies.DAO.IGenericoDAO;
-import es.entrehobbies.DAO.IProvinciaDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
 import es.entrehobbies.beans.*;
 import es.entrehobbies.models.EnumConverter;
@@ -53,8 +51,6 @@ public class EventoController extends HttpServlet {
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IGenericoDAO daoG = daoF.getGenericoDAO();
-        IEventoDAO daoE = daoF.getEventoDAO();
-        IProvinciaDAO daoP = daoF.getProvinciaDAO();
 
         switch (accion) {
             case "Crear-Evento":

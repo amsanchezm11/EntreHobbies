@@ -50,7 +50,6 @@
                         <p class="card-text flex-grow-1">Visualiza las categor&iacute;as existentes para una mejor comprensi&oacute;n de la organizaci&oacute;n del sistema.</p>
                         <form action="${contexto}/FrontController" method="post" class="d-flex justify-content-center gap-3 mt-3">
                             <button type="submit" name="accion" value="Ver-AllCategorias" class="btn btn-main">Ver todas las categor&iacute;as</button>
-<%--                            <button type="submit" name="accion" value="Estadisticas-Categorias" class="btn btn-main">Estad&iacute;sticas Categor&iacute;as</button>--%>
                         </form>
                     </div>
                 </div>

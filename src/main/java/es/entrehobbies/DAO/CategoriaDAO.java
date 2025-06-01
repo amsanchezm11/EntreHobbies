@@ -17,7 +17,7 @@ public class CategoriaDAO extends GenericoDAO<Categoria>  implements ICategoriaD
         try {
             startTransaction();
 
-            // Consulta para obtener solo los id y nombre de cada categoría
+            // Consulta para obtener solo los id y nombre de cada categoría ordenadas por nombre de categoría
             Query<Object[]> query = sesion.createQuery(
                     "SELECT c.idCategoria, c.nombre FROM Categoria c ORDER BY c.nombre", Object[].class);
 
@@ -36,7 +36,7 @@ public class CategoriaDAO extends GenericoDAO<Categoria>  implements ICategoriaD
         try {
             startTransaction();
 
-            // Consulta para obtener solo los id y nombre de cada categoría
+            // Consulta para obtener el id, nombre e imagen de cada categoría, ordenadas por nombre
             Query<Object[]> query = sesion.createQuery(
                     "SELECT c.idCategoria, c.nombre, c.imagen FROM Categoria c ORDER BY c.nombre", Object[].class);
 
@@ -55,6 +55,7 @@ public class CategoriaDAO extends GenericoDAO<Categoria>  implements ICategoriaD
         try {
             startTransaction();
 
+            // Consulta para obtener el nombre de una categoría a partir de su id
             Query<String> query = sesion.createQuery(
                     "SELECT c.nombre FROM Categoria c WHERE c.idCategoria = :idCategoria", String.class);
             query.setParameter("idCategoria", idCategoria);
@@ -75,6 +76,7 @@ public class CategoriaDAO extends GenericoDAO<Categoria>  implements ICategoriaD
         try {
             startTransaction();
 
+            // Consulta para obtener todas las categorías con sus subcategorías ordenadas por id
             Query<Categoria> query = sesion.createQuery(
                     "SELECT DISTINCT c FROM Categoria c LEFT JOIN FETCH c.subcategorias ORDER BY c.idCategoria",
                     Categoria.class);

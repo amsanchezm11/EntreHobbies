@@ -60,18 +60,14 @@ public class Evento implements Serializable {
     @Column(name = "Localidad", length = 50, nullable = false)
     private String localidad;
 
-    //    @Column(name = "Provincia", length = 50, nullable = false)
-//    private String provincia;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IdProvincia", nullable = false)
     private Provincia provincia;
 
-    //@Column(name = "ModoEvento", columnDefinition = "VARCHAR(11) NOT NULL DEFAULT 'Comunitario'") ***Revisar
     @Column(name = "ModoEvento", length = 11, nullable = false)
     @Enumerated(EnumType.STRING)
     private ModoEvento modo;
 
-    //@Column(name = "Estado", columnDefinition = "VARCHAR(11) NOT NULL DEFAULT 'Por Empezar'") ***Revisar
     @Column(name = "Estado", length = 11, nullable = false)
     @Enumerated(EnumType.STRING)
     private Estado estado;
@@ -168,14 +164,6 @@ public class Evento implements Serializable {
     public void setLocalidad(String localidad) {
         this.localidad = localidad;
     }
-
-//    public String getProvincia() {
-//        return provincia;
-//    }
-//
-//    public void setProvincia(String provincia) {
-//        this.provincia = provincia;
-//    }
 
     public Provincia getProvincia() {
         return provincia;

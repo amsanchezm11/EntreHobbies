@@ -47,16 +47,6 @@ export function validarBoton(idInput, idBoton) {
     boton.disabled = false;
 }
 
-// export function validarFormularioPassword(idBoton) {
-//
-//     const esNuevaValida = checkNuevaPassword(nuevaPassword);
-//     const esConfirmacionValida = confirmPasswordNueva(confirmarPassword);
-//     const boton = document.getElementById(idBoton);
-//
-//     // Habilitamos el botón si las 3 validaciones son correctas
-//     boton.disabled = !(esNuevaValida && esConfirmacionValida);
-// }
-
 export function validarFormularioPassword(idFormulario, idBoton) {
 
     const formulario = document.getElementById(idFormulario);

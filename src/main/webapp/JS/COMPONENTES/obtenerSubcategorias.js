@@ -23,12 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error("Error al obtener subcategorías:", error));
     }
 
-    // Si el select tiene el atributo data-cargar-inicial="true", cargamos al inicio (vista verEventos.jsp)
     if (categoriaSelect?.dataset.cargarInicial === "true" && categoriaSelect.value) {
         cargarSubcategorias(categoriaSelect.value);
     }
 
-    // En todos los casos, se activa por cambio manual de categoría
     categoriaSelect?.addEventListener("change", () => {
         const idCategoria = categoriaSelect.value;
         if (idCategoria) {

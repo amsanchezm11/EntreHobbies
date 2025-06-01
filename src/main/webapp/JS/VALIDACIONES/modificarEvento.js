@@ -33,10 +33,6 @@ document.getElementById("localidad").addEventListener("change", e => {
     checkLocalidad(e.target);
     validarFormulario('enviar');
 });
-// document.getElementById("provincia").addEventListener("change", e => {
-//     checkProvincia(e.target);
-//     validarFormulario('enviar');
-// });
 document.getElementById("provincia").addEventListener("change", e => {
     checkSelect(e.target);
     validarFormulario('enviar');

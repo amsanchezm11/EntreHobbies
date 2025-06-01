@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Activa la sección por defecto al cargar la página
     activarSeccion('homeSection');
     actualizarColoresBotones('homeSection');
 });

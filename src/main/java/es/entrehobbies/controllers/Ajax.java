@@ -9,7 +9,6 @@ import es.entrehobbies.beans.Usuario;
 import es.entrehobbies.models.Utilities;
 import org.json.JSONObject;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,6 +42,7 @@ public class Ajax extends HttpServlet {
         String idSubcategoriaStr;
         Integer idSubcategoria;
         Integer idProvincia;
+        int idCategoria;
         // Variables DAO
         DAOFactory daoF = DAOFactory.getDAOFactory();
         IUsuarioDAO daoU = daoF.getUsuarioDAO();
@@ -173,7 +173,10 @@ public class Ajax extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
-                int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+                // Obtenemos el idCategoria que se ha seleccionado
+                idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+
+                // Obtenemos todas las subcategorías de la categoría indicada (idCategoria)
                 List<Object[]> subcategorias = daoS.getAllSubcategoriasOrdenadas(idCategoria);
 
                 List<Map<String, Object>> jsonSubcategorias = new ArrayList<>();
@@ -184,7 +187,7 @@ public class Ajax extends HttpServlet {
                     jsonSubcategorias.add(map);
                 }
 
-                response.setContentType("application/json");
+                // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(new Gson().toJson(jsonSubcategorias));
                 break;
 
@@ -194,6 +197,7 @@ public class Ajax extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
+                // Obtenemos el total de eventos por categoría
                 List<Object[]> resultados = daoE.getNumeroEventosPorCategoria();
 
                 Map<String, Long> mapaCategorias = new LinkedHashMap<>();
@@ -203,6 +207,7 @@ public class Ajax extends HttpServlet {
                     mapaCategorias.put(categoria, total);
                 }
 
+                // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(new Gson().toJson(mapaCategorias));
                 break;
 
@@ -218,7 +223,7 @@ public class Ajax extends HttpServlet {
                 // Llamamos al DAO  de Eventos para obtener los datos junto al mapa con los 12 meses
                 Map<String, Long> mapaMeses = daoE.getNumeroEventosPorMes(anioActual);
 
-                // Devolvemos el JSON
+                // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(new Gson().toJson(mapaMeses));
                 break;
 
@@ -231,10 +236,10 @@ public class Ajax extends HttpServlet {
                 // Obtenemos el año actual del sistema
                 int anioUsuarios = Calendar.getInstance().get(Calendar.YEAR);
 
-                // Llamamos al DAO  de usuarios para obtener los datos junto al mapa con los 12 meses
+                // Obtenemos los datos de usuarios junto al mapa con los 12 meses
                 Map<String, Long> mapaUsuariosMes = daoU.getNumeroUsuariosPorMes(anioUsuarios);
 
-                // Devolvemos el JSON
+                // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(new Gson().toJson(mapaUsuariosMes));
                 break;
 
@@ -244,11 +249,15 @@ public class Ajax extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
+                // Obtenemos el total de usuarios por sexo
                 Map<String, Long> usuariosPorSexo = daoU.getNumeroUsuariosPorSexo();
 
+                // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(new Gson().toJson(usuariosPorSexo));
                 break;
             case "Provincias-activas":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
@@ -263,6 +272,7 @@ public class Ajax extends HttpServlet {
                     listaProvincias.add(datos);
                 }
 
+                // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(new Gson().toJson(listaProvincias));
                 break;
 
@@ -283,13 +293,17 @@ public class Ajax extends HttpServlet {
                     listaUsuarios.add(datos);
                 }
 
+                // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(new Gson().toJson(listaUsuarios));
                 break;
 
             case "Categorias-activas":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
+                // Obtenemos el top 5 de categorías con más eventos
                 List<Object[]> categoriasActivas = daoE.getTop5CategoriasConMasEventos();
 
                 List<Map<String, Object>> listaCategorias = new ArrayList<>();
@@ -300,13 +314,17 @@ public class Ajax extends HttpServlet {
                     listaCategorias.add(datos);
                 }
 
+                // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(new Gson().toJson(listaCategorias));
                 break;
 
             case "Subcategorias-activas":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
+                // Obtenemos el top 5 de subcategorías con más eventos
                 List<Object[]> subcategoriasActivas = daoE.getTop5SubcategoriasConMasEventos();
 
                 List<Map<String, Object>> listaSubcategorias = new ArrayList<>();
@@ -317,39 +335,46 @@ public class Ajax extends HttpServlet {
                     listaSubcategorias.add(datos);
                 }
 
+                // Escribimos la respuesta JSON al cliente
                 response.getWriter().write(new Gson().toJson(listaSubcategorias));
                 break;
 
-            case "buscarEventosPorTextoJSON":
+            case "Buscar-Eventos-Usuario":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
+                // Obtenemos los parámetros
                 String filtro = request.getParameter("filtro");
                 idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
                 usuario = (Usuario) request.getSession().getAttribute("usuario");
 
+                // Obtenemos los eventos filtrados
                 eventosFiltrados = daoE.buscarEventosPorTextoYCategoria(filtro, idCategoria, usuario.getIdUsuario());
 
-                Gson gson = new Gson();
-                String json = gson.toJson(eventosFiltrados);
-                response.getWriter().write(json);
+                // Escribimos la respuesta JSON al cliente
+                response.getWriter().write(new Gson().toJson(eventosFiltrados));
                 break;
 
-            case "buscarEventosPublicosPorTextoJSON":
+            case "Buscar-Eventos-No-User":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
-                String textoBusqueda = request.getParameter("filtro");
-                int idCategoriaPublica = Integer.parseInt(request.getParameter("idCategoria"));
+                String busqueda = request.getParameter("filtro");
+                idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
 
-                List<Object[]> eventosPublicosFiltrados = daoE.buscarEventosPublicosPorTextoYCategoria(textoBusqueda, idCategoriaPublica);
+                List<Object[]> eventosPublicosFiltrados = daoE.buscarEventosPublicosPorTextoYCategoria(busqueda, idCategoria);
 
-                Gson gsonPublico = new Gson();
-                String jsonPublico = gsonPublico.toJson(eventosPublicosFiltrados);
-                response.getWriter().write(jsonPublico);
+                // Escribimos la respuesta JSON al cliente
+                response.getWriter().write(new Gson().toJson(eventosPublicosFiltrados));
                 break;
 
-            case "filtrarEventosPublicos":
+            case "Filtro-Evento-No-User":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
@@ -364,11 +389,13 @@ public class Ajax extends HttpServlet {
 
                 eventosFiltrados = daoE.filtrarEventosPublicos(idCategoria, idSubcategoria, idProvincia);
 
-                String jsonFiltrado = new Gson().toJson(eventosFiltrados);
-                response.getWriter().write(jsonFiltrado);
+                // Escribimos la respuesta JSON al cliente
+                response.getWriter().write(new Gson().toJson(eventosFiltrados));
                 break;
 
-            case "filtrarEventosUsuario":
+            case "Filtro-Eventos-Usuario":
+                /* Configuramos el tipo de contenido y la codificación de la respuesta
+                para que admita caracteres especiales */
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
@@ -385,8 +412,9 @@ public class Ajax extends HttpServlet {
                         : null;
 
                 List<Object[]> eventosFiltradosUsuario = daoE.filtrarEventosPorSubcategoriaYProvinciaLogueado(idCategoria,idSubcategoria,idProvincia,usuario.getIdUsuario());
-                String jsonEventosUsuario = new Gson().toJson(eventosFiltradosUsuario);
-                response.getWriter().write(jsonEventosUsuario);
+
+                // Escribimos la respuesta JSON al cliente
+                response.getWriter().write(new Gson().toJson(eventosFiltradosUsuario));
                 break;
 
         }

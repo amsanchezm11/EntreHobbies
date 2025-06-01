@@ -1,6 +1,6 @@
 $(function () {
     $('#tablaEventosParticipados').bootstrapTable({
-        url: 'CargarEventosParticipadosAjax',  // URL del servlet nuevo
+        url: 'CargarEventosParticipadosAjax',
         height: 645,
         striped: true,
         search: true,

@@ -1,6 +1,5 @@
 import {checkTitulo, checkNumParticipantes, checkDescripcion, checkDireccion, checkLocalidad, checkProvincia, checkSelect, checkFechaInicio,checkFechaFin, validarFormulario} from "./regex.js";
 
-
 //-----------------------------------------
 // Añadimos los eventos de comprobación de regex a los inputs del formulario
 //-----------------------------------------
@@ -24,10 +23,6 @@ document.getElementById("localidad").addEventListener("input", e => {
     checkLocalidad(e.target);
     validarFormulario('enviar');
 });
-// document.getElementById("provincia").addEventListener("input", e => {
-//     checkProvincia(e.target);
-//     validarFormulario('enviar');
-// });
 document.getElementById("provincia").addEventListener("change", e => {
     checkSelect(e.target);
     validarFormulario('enviar');

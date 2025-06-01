@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function aplicarFiltro() {
         const data = new URLSearchParams();
-        data.append("accion", "filtrarEventosUsuario");
+        data.append("accion", "Filtro-Eventos-Usuario");
         data.append("idCategoria", categoria?.value || "");
         data.append("idSubcategoria", document.getElementById("subcategoria")?.value || "");
         data.append("provincia", document.getElementById("provincia")?.value || "");

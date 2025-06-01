@@ -60,16 +60,9 @@ public class Usuario implements Serializable {
     @Column(name = "Localidad", length = 50, nullable = false)
     private String localidad;
 
-    //    @Column(name = "Provincia", length = 50, nullable = false)
-//    private String provincia;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IdProvincia", nullable = false)
     private Provincia provincia;
-
-    // ***De momento este atributo queda pendiente de revisión con el tutor
-    // @Column(name = "UltimoAcceso", nullable = true)
-    //  @Temporal(TemporalType.DATE)
-    // private Date ultimoAcceso;
 
     @Column(name = "FechaCreacion", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -88,7 +81,6 @@ public class Usuario implements Serializable {
     private List<Evento> eventosParticipados = new ArrayList<>();
 
     // GETTERS AND SETTERS
-
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -178,13 +170,6 @@ public class Usuario implements Serializable {
         this.localidad = localidad;
     }
 
-//    public String getProvincia() {
-//        return provincia;
-//    }
-//
-//    public void setProvincia(String provincia) {
-//        this.provincia = provincia;
-//    }
     public Provincia getProvincia() {
         return provincia;
     }

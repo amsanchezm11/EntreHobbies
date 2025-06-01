@@ -38,10 +38,10 @@
                         <i class="bi bi-check2-square me-2"></i>C&oacute;mo apuntarme a un evento
                     </button>
                     <button type="button" class="nav-link text-dark border-bottom bg-transparent border-0 text-start w-100" data-target="eventosSection">
-                        <i class="bi bi-calendar-event me-2"></i>Ver mis eventos
+                        <i class="bi bi-calendar-event me-2"></i>Mis eventos
                     </button>
                     <button type="button" class="nav-link text-dark border-bottom bg-transparent border-0 text-start w-100" data-target="participacionesSection">
-                        <i class="bi bi-person-check me-2"></i>Ver mis participaciones
+                        <i class="bi bi-person-check me-2"></i>Mis participaciones
                     </button>
                     <button type="button" class="nav-link text-dark border-bottom bg-transparent border-0 text-start w-100" data-target="modificarEventoSection">
                         <i class="bi bi-pencil me-2"></i>Modificar mi evento
@@ -78,12 +78,12 @@
                                 <p class="mb-0">En esta parte aprender&aacute;s a buscar eventos disponibles y a inscribirte en ellos.</p>
                             </div>
                             <div class="list-group-item px-0">
-                                <h6 class="mb-1"><strong><i class="bi bi-calendar-event me-2"></i> Ver mis eventos:</strong></h6>
-                                <p class="mb-0">En este apartado podr&aacute;s consultar y gestionar la lista completa de eventos que has creado como organizador en <strong>EntreHobbies</strong>. Encontrar&aacute;s detalles de cada evento, opciones para modificarlos, cancelarlos o eliminarlos.</p>
+                                <h6 class="mb-1"><strong><i class="bi bi-calendar-event me-2"></i> Mis eventos:</strong></h6>
+                                <p class="mb-0">En este apartado podr&aacute;s consultar y gestionar la lista completa de eventos que has creado actualmente en <strong>EntreHobbies</strong>. Encontrar&aacute;s detalles de cada evento, opciones para modificarlos, cancelarlos o eliminarlos.</p>
                             </div>
                             <div class="list-group-item px-0">
-                                <h6 class="mb-1"><strong><i class="bi bi-person-check me-2"></i>Ver mis participaciones:</strong></h6>
-                                <p class="mb-0">Aqu&iacute; se explica como gestionar los eventos en los que te has apuntado como participante. Puedes consultar los detalles del evento y desapuntarte del evento.</p>
+                                <h6 class="mb-1"><strong><i class="bi bi-person-check me-2"></i>Mis participaciones:</strong></h6>
+                                <p class="mb-0">Aqu&iacute; se explica como gestionar los eventos en los que te has apuntado actualmente como participante. Puedes consultar los detalles del evento y desapuntarte del evento.</p>
                             </div>
                             <div class="list-group-item px-0">
                                 <h6 class="mb-1"><strong><i class="bi bi-pencil me-2"></i>Modificar mi evento:</strong></h6>
@@ -270,10 +270,10 @@
                          class="card-img-top mx-auto d-block p-4 img-fluid" style="max-width: 300px;">
 
                     <div class="card-body text-start">
-                        <h2 class="card-title text-center color-pm mb-4">Ver mis eventos</h2>
+                        <h2 class="card-title text-center color-pm mb-4">Mis eventos</h2>
 
                         <p class="card-text mb-4">
-                            En este apartado podr&aacute;s consultar la lista completa de eventos que has creado como organizador. Esta vista est&aacute; pensada para que tengas un control total sobre tus actividades dentro de <strong>EntreHobbies</strong>.
+                            En este apartado podr&aacute;s consultar la lista completa de eventos que has creado actualmente. Esta vista est&aacute; pensada para que tengas un control total sobre tus actividades dentro de <strong>EntreHobbies</strong>.
                         </p>
 
                         <div class="list-group list-group-flush">
@@ -311,10 +311,10 @@
                          class="card-img-top mx-auto d-block p-4 img-fluid" style="max-width: 300px;">
 
                     <div class="card-body text-start">
-                        <h2 class="card-title text-center color-pm mb-4">Ver mis participaciones</h2>
+                        <h2 class="card-title text-center color-pm mb-4">Mis participaciones</h2>
 
                         <p class="card-text mb-4">
-                            En este apartado podr&aacute;s consultar todos los eventos a los que te has apuntado dentro de <strong>EntreHobbies</strong>. La lista est&aacute; ordenada por la fecha de inicio de cada evento, mostrando primero aquellos que ocurren m&aacute;s pronto para ayudarte a planificar mejor tu agenda.
+                            En este apartado podr&aacute;s consultar todos los eventos a los que te has apuntado actualmente dentro de <strong>EntreHobbies</strong>. La lista est&aacute; ordenada por la fecha de inicio de cada evento, mostrando primero aquellos que ocurren m&aacute;s pronto para ayudarte a planificar mejor tu agenda.
                         </p>
 
                         <div class="list-group list-group-flush">

@@ -1,6 +1,5 @@
 package es.entrehobbies.DAO;
 
-import es.entrehobbies.beans.Evento;
 import es.entrehobbies.beans.Usuario;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
@@ -320,7 +319,6 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
                 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         };
 
-        // Inicializamos todos los meses con 0
         for (int i = 0; i < 12; i++) {
             String clave = nombresMeses[i] + " " + anio;
             mapaMeses.put(clave, 0L);

@@ -63,8 +63,8 @@
                               data-bs-trigger="hover focus"
                               data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
                                 <li>Indica cu&aacute;ntas personas pueden participar en el evento.</li>
-                                <li><strong>M&iacute;nimo:</strong>1 participante.</li>
-                                <li><strong>M&aacute;ximo:</strong>5000 participantes.</li>
+                                <li><strong>M&iacute;nimo: </strong>1 participante.</li>
+                                <li><strong>M&aacute;ximo: </strong>5000 participantes.</li>
                               </ul>">
                             <i class="bi bi-info-circle" style="font-size: 1.3rem;"></i>
                         </span>

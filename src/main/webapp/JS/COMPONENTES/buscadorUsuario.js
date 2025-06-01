@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (filtro.length >= 4 || filtro.length === 0) {
             timeout = setTimeout(async () => {
                 const data = new URLSearchParams();
-                data.append("accion", "buscarEventosPorTextoJSON");
+                data.append("accion", "Buscar-Eventos-Usuario");
                 data.append("filtro", filtro);
                 data.append("idCategoria", document.getElementById("categoriaId").value);
 

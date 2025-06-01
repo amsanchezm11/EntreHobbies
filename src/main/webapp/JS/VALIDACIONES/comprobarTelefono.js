@@ -34,23 +34,17 @@ document.getElementById("telefono").addEventListener("change", async () => {
 
         // Comprobamos la disponibilidad del correo
         if (responseData.disponible) {
-
-            console.log("No valido");
             inputTelefono.classList.remove("is-valid");
             inputTelefono.classList.add("is-invalid");
             validarFormulario('enviar');
         } else {
-
-            console.log("Valido");
             inputTelefono.classList.remove("is-invalid");
             inputTelefono.classList.add("is-valid");
             validarFormulario('enviar');
         }
 
-        //return responseData.disponible;
 
     } catch (error) {
-        console.log("Error catch");
         inputTelefono.classList.remove("is-valid");
         inputTelefono.classList.add("is-invalid");
         validarFormulario('enviar');

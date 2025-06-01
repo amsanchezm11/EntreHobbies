@@ -1,7 +1,6 @@
 package es.entrehobbies.controllers;
 
 import com.google.gson.Gson;
-import es.entrehobbies.DAO.EventoDAO;
 import es.entrehobbies.DAO.IEventoDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
 

@@ -43,6 +43,7 @@ public class UsuarioEventoController extends HttpServlet {
             case "Unirse-evento":
                 // Obtenemos el usuario de la sesión
                 sessionUser = (Usuario) request.getSession().getAttribute("usuario");
+                // Obtenemos el usuario de la base de datos
                 user = (Usuario) daoG.getById(sessionUser.getIdUsuario(), Usuario.class);
                 // Obtenemos el id del evento seleccionado
                 int idEvento = Integer.parseInt(request.getParameter("idEvento"));
@@ -56,7 +57,7 @@ public class UsuarioEventoController extends HttpServlet {
                     if (user.getIdUsuario() != evento.getCreador().getIdUsuario()) {
                         // Comprobamos que el evento no esté ya en la lista
                         if (!user.getEventosParticipados().contains(evento)) {
-                            // Añadimos el usuario al evento
+                            // Añadimos el evento a la lista de eventos participados del usuario
                             user.getEventosParticipados().add(evento);
                             // Realizamos el update del usuario en la base de datos
                             daoG.insertOrUpdate(user);
@@ -72,13 +73,18 @@ public class UsuarioEventoController extends HttpServlet {
                 break;
 
             case "Desapuntarse-evento":
+                // Obtenemos el usuario de la sesión
                 sessionUser = (Usuario) request.getSession().getAttribute("usuario");
+                // Obtenemos el usuario de la base de datos
                 user = (Usuario) daoG.getById(sessionUser.getIdUsuario(), Usuario.class);
+                // Obtenemos el id del evento seleccionado
                 int idEventoDesapuntar = Integer.parseInt(request.getParameter("idEvento"));
                 evento = (Evento) daoG.getById(idEventoDesapuntar, Evento.class);
-
+                // Comprobamos si el usuario es participante del evento
                 if (user.getEventosParticipados().contains(evento)) {
+                    // Eliminamos el evento de la lista de eventos participados del usuario
                     user.getEventosParticipados().remove(evento);
+                    // Realizamos el update del usuario en la base de datos
                     daoG.insertOrUpdate(user);
                     request.setAttribute("aviso", "Te has desapuntado del evento correctamente");
                 } else {

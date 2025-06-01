@@ -157,6 +157,7 @@
                                           title="Fecha de nacimiento"
                                           data-bs-toggle="popover"
                                           data-bs-placement="bottom"
+                                          data-bs-html="true"
                                           data-bs-trigger="hover focus"
                                           data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
                           <li>El usuario debe ser mayor de <strong>18</strong> a&ntilde;os.</li>
@@ -241,6 +242,7 @@
                                           title="Formato del tel&eacute;fono"
                                           data-bs-toggle="popover"
                                           data-bs-placement="bottom"
+                                          data-bs-html="true"
                                           data-bs-trigger="hover focus"
                                           data-bs-content="<ul style='padding-left: 1.2rem; margin: 0;'>
                           <li>El n&uacute;mero compuesto por <strong>9</strong> d&iacute;gitos, sin espacios ni guiones.</li>

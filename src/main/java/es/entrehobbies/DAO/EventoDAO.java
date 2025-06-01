@@ -186,7 +186,7 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                             "GROUP BY e.provincia.nombre\n" +
                             "ORDER BY COUNT(e) DESC\n",
                     Object[].class
-            ).setMaxResults(5); // LIMIT 5
+            ).setMaxResults(5);
 
             resultados = query.getResultList();
 
@@ -226,7 +226,6 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         try {
             startTransaction();
 
-            // Consulta para obtener las 5 categorías con más eventos
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.subcategoria.categoria.nombre, COUNT(e) " +
                             "FROM Evento e " +
@@ -250,7 +249,6 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
         try {
             startTransaction();
 
-            // Consulta para obtener las 5 subcategorías con más eventos
             Query<Object[]> query = sesion.createQuery(
                     "SELECT e.subcategoria.nombre, COUNT(e) " +
                             "FROM Evento e " +
@@ -349,7 +347,6 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
                     rol = (count != null && count > 0) ? "participante" : "libre";
                 }
 
-                // Añadimos el rol como evento[16]
                 Object[] rowConRol = Arrays.copyOf(row, row.length + 1);
                 rowConRol[row.length] = rol;
 
@@ -379,7 +376,6 @@ public class EventoDAO extends GenericoDAO<Evento> implements IEventoDAO {
             query.setParameter("idEvento", idEvento);
             evento = query.getSingleResult();
 
-            // Obtenemos las colecciones lazy (participantes y subcategorías)
             Hibernate.initialize(evento.getParticipantes());
             Hibernate.initialize(evento.getSubcategoria().getCategoria().getSubcategorias());
 

@@ -15,7 +15,6 @@ public class SubcategoriaDAO extends GenericoDAO<Subcategoria>  implements ISubc
         try {
             startTransaction();
 
-            // Consulta para obtener id y nombre de las subcategorías filtradas por idCategoria
             Query<Object[]> query = sesion.createQuery(
                     "SELECT s.idSubcategoria, s.nombre FROM Subcategoria s WHERE s.categoria.idCategoria = :idCategoria ORDER BY s.nombre",
                     Object[].class

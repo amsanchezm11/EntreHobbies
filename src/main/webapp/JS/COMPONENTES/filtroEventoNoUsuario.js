@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function enviarFormulario() {
         const data = new URLSearchParams();
-        data.append("accion", "filtrarEventosPublicos");
+        data.append("accion", "Filtro-Evento-No-User");
         data.append("idCategoria", document.getElementById("categoria").value);
         data.append("idSubcategoria", document.getElementById("subcategoria").value || "");
         data.append("provincia", document.getElementById("provincia").value || "");

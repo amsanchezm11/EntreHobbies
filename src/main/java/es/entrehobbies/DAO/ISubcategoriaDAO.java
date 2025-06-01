@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ISubcategoriaDAO {
 
-    public abstract List<Object[]> getAllSubcategoriasOrdenadas(int idCategoria);
+    public List<Object[]> getAllSubcategoriasOrdenadas(int idCategoria);
 }

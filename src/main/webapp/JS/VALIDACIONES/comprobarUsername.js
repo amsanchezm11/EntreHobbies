@@ -34,14 +34,10 @@ document.getElementById("username").addEventListener("change", async () => {
 
         // Comprobamos la disponibilidad del username
         if (responseData.disponible) {
-
-            // Indicamos al usuario que no es válido el username
             inputUsername.classList.remove("is-valid");
             inputUsername.classList.add("is-invalid");
             validarFormulario('enviar');
         } else {
-
-            // Indicamos al usuario que si es válido el username
             inputUsername.classList.remove("is-invalid");
             inputUsername.classList.add("is-valid");
             validarFormulario('enviar');
@@ -54,12 +50,3 @@ document.getElementById("username").addEventListener("change", async () => {
         return false;
     }
 });
-
-// Regex para username (letras/números, sin espacios, entre 3 y 20 caracteres)
-// function checkUsername(element) {
-//     let regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñüÜ0-9]{3,20}$/;
-//     return comprobarRegex(element, regex, 20);
-// }
-
-
-

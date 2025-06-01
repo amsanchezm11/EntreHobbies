@@ -1,7 +1,7 @@
 package es.entrehobbies.controllers;
 
 import com.google.gson.Gson;
-import es.entrehobbies.DAO.UsuarioDAO;
+import es.entrehobbies.DAO.IUsuarioDAO;
 import es.entrehobbies.DAOFactory.DAOFactory;
 
 import javax.servlet.ServletException;
@@ -26,7 +26,7 @@ public class CargarAllUsuariosAjax extends HttpServlet {
 
         // DAOs
         DAOFactory daoF = DAOFactory.getDAOFactory();
-        UsuarioDAO daoU = (UsuarioDAO) daoF.getUsuarioDAO();
+        IUsuarioDAO daoU =  daoF.getUsuarioDAO();
 
         List<Object[]> lista = daoU.getAllUsuariosResumen();
 

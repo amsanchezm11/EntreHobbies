@@ -1,6 +1,3 @@
-// Obtenemos el contexto de la aplicación (Borrar si no se usa)
-const contextPath = '${pageContext.request.contextPath}';
-
 // Formateador que va a mostrar el avatar junto al username del usuario
 function formatearParticipante(value, row, index) {
     const avatarUrl = row.avatar || 'IMG/AVATARES/avatar.svg';

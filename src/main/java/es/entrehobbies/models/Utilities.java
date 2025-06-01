@@ -271,6 +271,12 @@ public class Utilities {
         }
     }
 
+    /**
+     * Valida que los campos del objeto Usuario no superen las longitudes máximas permitidas.
+     *
+     * @param usuario el objeto Usuario a validar.
+     * @return un mensaje de error si algún campo supera su longitud permitida, o null si todos los campos son válidos.
+     */
     public static String validarLongitudesUsuario(Usuario usuario) {
         if (usuario.getNombre() != null && usuario.getNombre().length() > 30) {
             return "El nombre no puede superar los 30 caracteres.";
