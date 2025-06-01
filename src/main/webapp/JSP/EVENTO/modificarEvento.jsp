@@ -1,5 +1,6 @@
 <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <jsp:include page="/INC/cabecera.jsp">
@@ -7,9 +8,8 @@
         <jsp:param name="estilo" value="${estilo}"/>
     </jsp:include>
     <script type="module" src="${contexto}/JS/VISTAS/formularioEvento.js" defer></script>
-    <%--    <script type="module" src="${contexto}/JS/obtenerSubcategorias.js" defer></script>--%>
     <script type="module" src="${contexto}/JS/COMPONENTES/inicializarPopovers.js" defer></script>
-    <script type="module" src="${contexto}/JS/VALIDACIONES/modificarEvento.js" defer></script>
+    <script type="module" src="${contexto}/JS/VALIDACIONES/modificarEvento.js"></script>
 </head>
 <body class="body-custom bg-gradient-morado-blanco p-4" style="margin-top: 70px;">
 <c:import url="/INC/navbarCreate.jsp"/>
@@ -192,7 +192,7 @@
 
             <div class="input-group mb-3">
                 <div class="form-floating flex-grow-1">
-                    <select class="form-select"
+                    <select class="form-select is-valid"
                             id="provincia"
                             name="idProvincia"
                             required>

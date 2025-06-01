@@ -150,7 +150,6 @@ public class UsuarioDAO extends GenericoDAO<Usuario> implements IUsuarioDAO {
 
             endTransaction();
         } catch (HibernateException he) {
-            he.printStackTrace();
             handleExcepcion(he);
         }
 
